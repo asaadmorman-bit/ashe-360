@@ -8,7 +8,7 @@ import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 
 const NAV_ITEMS = [
-  { path: '/', label: 'Command', icon: Home },
+  { path: '/dashboard', label: 'Command', icon: Home },
   { path: '/conmon', label: 'ConMon', icon: Shield },
   { path: '/eye', label: 'Eye of EDS', icon: Eye },
   { path: '/growth', label: 'Growth', icon: TrendingUp },
