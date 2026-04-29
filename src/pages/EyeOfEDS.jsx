@@ -6,6 +6,7 @@ import PageHeader from '../components/shared/PageHeader';
 import KPICard from '../components/shared/KPICard';
 import DataTable, { SeverityBadge, StatusBadge } from '../components/shared/DataTable';
 import SectionPanel from '../components/shared/SectionPanel';
+import IncidentTrendsChart from '../components/eye/IncidentTrendsChart';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { format } from 'date-fns';
@@ -38,6 +39,12 @@ export default function EyeOfEDS() {
   const { data: assets = [] } = useQuery({
     queryKey: ['scanned-assets'],
     queryFn: () => base44.entities.ScannedAsset.list('-created_date', 100),
+    initialData: [],
+  });
+
+  const { data: agentActions = [] } = useQuery({
+    queryKey: ['agent-actions'],
+    queryFn: () => base44.entities.AgentAction.list('-created_date', 500),
     initialData: [],
   });
 
@@ -93,6 +100,8 @@ export default function EyeOfEDS() {
         <ComplianceGauge label="NIST 800-171 (Est.)" score={avgCompliance > 0 ? Math.min(avgCompliance + 5, 100) : 0} />
         <ComplianceGauge label="CMMC L2 (Est.)" score={avgCompliance > 0 ? Math.max(avgCompliance - 8, 0) : 0} />
       </div>
+
+      <IncidentTrendsChart agentActions={agentActions} />
 
       <Tabs defaultValue="stigs" className="space-y-6">
         <TabsList className="bg-secondary/50 border border-border/50">
