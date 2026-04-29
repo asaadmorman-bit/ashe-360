@@ -6,6 +6,7 @@ import KPICard from '../components/shared/KPICard';
 import PageHeader from '../components/shared/PageHeader';
 import SectionPanel from '../components/shared/SectionPanel';
 import LiveClock from '../components/shared/LiveClock';
+import OperationalCharts from '../components/home/OperationalCharts';
 import { Badge } from '@/components/ui/badge';
 import { StatusBadge, SeverityBadge } from '../components/shared/DataTable';
 import { format } from 'date-fns';
@@ -48,8 +49,8 @@ export default function Home() {
   });
 
   const { data: incidents = [] } = useQuery({
-    queryKey: ['incidents-open'],
-    queryFn: () => base44.entities.Incident.filter({ status: 'open' }),
+    queryKey: ['incidents-all'],
+    queryFn: () => base44.entities.Incident.list('-created_date', 50),
     initialData: [],
   });
 
@@ -110,6 +111,8 @@ export default function Home() {
         <KPICard label="NPS Score" value={npsScore} icon={Star} trend={surveys.length > 0 ? `${surveys.length} responses` : null} trendUp={npsScore > 0} />
         <KPICard label="New Leads" value={newLeads} icon={Users} />
       </div>
+
+      <OperationalCharts actions={actions} incidents={incidents} />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <SectionPanel title="Agent Action Feed" icon={Activity}>
