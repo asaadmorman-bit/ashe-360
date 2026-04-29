@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const HERO_BG = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1400&auto=format&fit=crop&q=80";
+const HERO_BG = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1600&q=80";
 
 const NAV_LINKS = [
   { label: "Services",         href: "#services"    },
@@ -14,7 +14,7 @@ const SERVICES = [
   { icon: "🛡️", color: "#ef4444", title: "SOCaaS — Security Operations", sub: "24/7 Managed Security", desc: "Fully managed Security Operations Center as a Service. Real-time threat detection, incident response, SIEM/SOAR automation, and zero-day exploit management — without the overhead of building an in-house SOC.", features: ["24/7 Threat Monitoring", "Incident Response & Containment", "SIEM / SOAR Automation", "Zero-Day & IOC Hunting", "VirusTotal + Suricata Integration", "Executive Reporting"] },
   { icon: "🔒", color: "#3b82f6", title: "Zero Trust Architecture", sub: "Identity-First Security", desc: "Design, implement, and maintain a Zero Trust security posture aligned to CISA's Zero Trust Maturity Model. Every user, device, and connection is continuously verified — never implicitly trusted.", features: ["CISA ZT Maturity Assessment", "Identity & Access Management", "Micro-Segmentation", "Continuous Verification", "Network Access Control", "Policy Enforcement"] },
   { icon: "📋", color: "#a78bfa", title: "Compliance & Certification", sub: "CMMC · NIST · FISMA · SOC2", desc: "End-to-end compliance management for federal and commercial requirements. From gap assessments to ATO packages, we guide your organization through every control framework with precision.", features: ["CMMC Level 1–3 Preparation", "NIST RMF / SP 800-53", "FISMA ATO Packages", "SOC2 Type I & II", "ISO 27001", "FedRAMP Readiness"] },
-  { icon: "🎖️", color: "#f59e0b", title: "Defense & Security Training", sub: "Professional Certification", desc: "Hands-on cybersecurity and defense training programs built for government contractors, military personnel, and enterprise teams. DISA-aligned, certification-ready, delivered in-person or virtually.", features: ["Security+ / CISSP Prep", "DISA STIG Compliance Training", "Insider Threat Awareness", "Active Shooter / Emergency Response", "Incident Command System (ICS)", "Cleared Personnel Programs"] },
+  { icon: "🎖️", color: "#f59e0b", title: "Defense & Security Training", sub: "Professional Certification", desc: "Hands-on cybersecurity and defense training programs built for government contractors, military personnel, and enterprise teams. DISA-aligned, certification-ready, and delivered in-person or virtually.", features: ["Security+ / CISSP Prep", "DISA STIG Compliance Training", "Insider Threat Awareness", "Active Shooter / Emergency Response", "Incident Command System (ICS)", "Cleared Personnel Programs"] },
   { icon: "⚖️", color: "#22c55e", title: "Legal & Compliance Services", sub: "Notary · Process Server · Business Law", desc: "Professional notary and process server services, business formation, compliance filings, and legal document support — serving individuals, businesses, and government contractors in Virginia and Maryland.", features: ["Notary Public Services", "Process Serving", "Business Formation", "Contract Review", "Registered Agent Services", "Compliance Filings"] },
   { icon: "🌿", color: "#10b981", title: "Smart Landscaping & IoT", sub: "Intelligent Site Management", desc: "IoT-connected landscape management with real-time sensor monitoring, automated irrigation control, and predictive maintenance — bringing enterprise-grade operational intelligence to physical site management.", features: ["IoT Sensor Networks", "Automated Irrigation Control", "Remote Monitoring", "Predictive Maintenance", "Energy Optimization", "Site Security Integration"] },
 ];
@@ -31,21 +31,21 @@ const COMPLIANCE = [
 ];
 
 const CICD_CHECKS = [
-  { icon: "🔑", label: "Secret Management",   desc: "No hardcoded credentials — all secrets in encrypted vault" },
-  { icon: "🌐", label: "HTTPS Enforcement",    desc: "All transport encrypted — no unencrypted API calls" },
-  { icon: "🚪", label: "Authentication",       desc: "OAuth tokens validated, sessions scoped, RBAC enforced" },
-  { icon: "🧱", label: "CORS Policy",          desc: "Origin allowlists enforced — no wildcard in production" },
-  { icon: "🧹", label: "Input Validation",     desc: "All user input sanitized before processing" },
-  { icon: "📝", label: "Audit Logging",        desc: "Every agent action logged with timestamp and actor" },
-  { icon: "📦", label: "Dependency Pinning",   desc: "All packages pinned to exact versions — supply chain safe" },
-  { icon: "🔄", label: "Key Rotation Policy",  desc: "API keys rotated on 90-day schedule" },
-  { icon: "📡", label: "Rafter Pattern Scan",  desc: "Daily automated code-level security scan across all services" },
-  { icon: "🚨", label: "Zero-Day Monitoring",  desc: "VirusTotal + NVD feed for CVE and IOC detection" },
+  { icon: "🔑", label: "Secret Management",  desc: "No hardcoded credentials — all secrets in encrypted vault" },
+  { icon: "🌐", label: "HTTPS Enforcement",   desc: "All transport encrypted — no unencrypted API calls" },
+  { icon: "🚪", label: "Authentication",      desc: "OAuth tokens validated, sessions scoped, RBAC enforced" },
+  { icon: "🧱", label: "CORS Policy",         desc: "Origin allowlists enforced — no wildcard in production" },
+  { icon: "🧹", label: "Input Validation",    desc: "All user input sanitized before processing" },
+  { icon: "📝", label: "Audit Logging",       desc: "Every agent action logged with timestamp and actor" },
+  { icon: "📦", label: "Dependency Pinning",  desc: "All packages pinned to exact versions — supply chain safe" },
+  { icon: "🔄", label: "Key Rotation Policy", desc: "API keys rotated on 90-day schedule" },
+  { icon: "📡", label: "Rafter Pattern Scan", desc: "Daily automated code-level security scan across all services" },
+  { icon: "🚨", label: "Zero-Day Monitoring", desc: "VirusTotal + NVD feed for CVE and IOC detection" },
 ];
 
 const CIA_PILLARS = [
   { key: "C", color: "#3b82f6", glow: "#3b82f620", icon: "🔒", title: "Confidentiality", sub: "Your data stays yours.", desc: "We implement role-based access control, end-to-end encryption, Zero Trust policies, and strict data classification to ensure that only authorized parties ever access sensitive information — whether at rest or in transit.", controls: ["AES-256 Encryption at Rest", "TLS 1.3 in Transit", "Zero Trust IAM", "Data Classification", "Need-to-Know Access"] },
-  { key: "I", color: "#f59e0b", glow: "#f59e0b20", icon: "✅", title: "Integrity",        sub: "Trust what you see.",   desc: "From cryptographic checksums to immutable audit trails, we ensure that your data, systems, and configurations haven't been tampered with. Every change is logged, versioned, and verifiable.", controls: ["Cryptographic Hashing", "Immutable Audit Logs", "Change Management (CAB)", "File Integrity Monitoring", "Digital Signatures"] },
+  { key: "I", color: "#f59e0b", glow: "#f59e0b20", icon: "✅", title: "Integrity",        sub: "Trust what you see.",    desc: "From cryptographic checksums to immutable audit trails, we ensure that your data, systems, and configurations haven't been tampered with. Every change is logged, versioned, and verifiable.", controls: ["Cryptographic Hashing", "Immutable Audit Logs", "Change Management (CAB)", "File Integrity Monitoring", "Digital Signatures"] },
   { key: "A", color: "#22c55e", glow: "#22c55e20", icon: "⚡", title: "Availability",     sub: "Always on. Always ready.", desc: "Our SOCaaS infrastructure is designed for 99.9%+ uptime with business continuity plans, redundant monitoring, automated failover, and SLA-backed response times — so your operations never stop.", controls: ["99.9% SLA Uptime", "Business Continuity Mode", "Redundant Monitoring", "Automated Failover", "24/7 Incident Response"] },
 ];
 
@@ -53,9 +53,9 @@ const STATS = [
   { value: "24/7",   label: "SOC Coverage",          icon: "🛰️", color: "#ef4444" },
   { value: "99.9%",  label: "Uptime SLA",            icon: "⚡",  color: "#22c55e" },
   { value: "<1hr",   label: "Critical Response",     icon: "🚨",  color: "#f59e0b" },
-  { value: "CMMC",   label: "Certified Ready",       icon: "🏛️", color: "#3b82f6" },
-  { value: "8+",     label: "Compliance Frameworks", icon: "📋",  color: "#a78bfa" },
-  { value: "SDVOSB", label: "Veteran-Owned",         icon: "🎖️", color: "#f59e0b" },
+  { value: "CMMC",   label: "Certified Ready",        icon: "🏛️", color: "#3b82f6" },
+  { value: "8+",     label: "Compliance Frameworks",  icon: "📋", color: "#a78bfa" },
+  { value: "SDVOSB", label: "Veteran-Owned",          icon: "🎖️", color: "#f59e0b" },
 ];
 
 function SectionHeader({ icon, title, sub, accent = "#f59e0b" }) {
@@ -79,17 +79,17 @@ export default function EDSHome() {
   }, []);
 
   const css = {
-    page: { background: "#04080f", minHeight: "100vh", fontFamily: "'Inter','SF Pro Display',system-ui,sans-serif", color: "#e2e8f0" },
+    page:  { background: "#04080f", minHeight: "100vh", fontFamily: "'Inter','SF Pro Display',system-ui,sans-serif", color: "#e2e8f0" },
     section: { padding: "80px 24px", maxWidth: 1200, margin: "0 auto" },
     badge: (color) => ({ background: `${color}15`, color, border: `1px solid ${color}30`, borderRadius: 20, padding: "3px 12px", fontSize: 12, fontWeight: 700, display: "inline-block" }),
-    btn: (color = "#f59e0b", outline = false) => ({ padding: "12px 28px", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer", border: outline ? `2px solid ${color}` : "none", background: outline ? "transparent" : color, color: outline ? color : "#04080f" }),
+    btn:   (color = "#f59e0b", outline = false) => ({ padding: "12px 28px", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer", border: outline ? `2px solid ${color}` : "none", background: outline ? "transparent" : color, color: outline ? color : "#04080f" }),
     input: { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, color: "#e2e8f0", fontSize: 15, padding: "11px 14px", outline: "none", width: "100%", boxSizing: "border-box" },
   };
 
   return (
     <div style={css.page}>
 
-      {/* ── NAVBAR ── */}
+      {/* NAVBAR */}
       <nav style={{ position: "sticky", top: 0, zIndex: 100, background: "rgba(4,8,15,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(255,255,255,0.06)", padding: "0 24px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", height: 64 }}>
           <a href="#" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
@@ -103,12 +103,12 @@ export default function EDSHome() {
             {NAV_LINKS.map(l => (
               <a key={l.label} href={l.href} style={{ padding: "8px 14px", fontSize: 13, fontWeight: 500, color: "#94a3b8", textDecoration: "none", borderRadius: 8 }}>{l.label}</a>
             ))}
-            <a href="#contact" style={{ ...css.btn(), marginLeft: 8, padding: "8px 20px", fontSize: 13, textDecoration: "none", borderRadius: 8, display: "inline-block" }}>Get Started →</a>
+            <a href="#contact" style={{ ...css.btn(), marginLeft: 8, padding: "8px 20px", fontSize: 13, textDecoration: "none", borderRadius: 8 }}>Get Started →</a>
           </div>
         </div>
       </nav>
 
-      {/* ── HERO ── */}
+      {/* HERO */}
       <section style={{ position: "relative", minHeight: 580, display: "flex", alignItems: "center", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${HERO_BG})`, backgroundSize: "cover", backgroundPosition: "center", opacity: 0.2 }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, #04080f 40%, rgba(4,8,15,0.7) 70%, #04080f 100%)" }} />
@@ -129,16 +129,16 @@ export default function EDSHome() {
               <strong style={{ color: "#22c55e" }}>Availability</strong>. Rigorous federal compliance. Continuous CI/CD security scanning. Zero-day protection.
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href="#services" style={{ ...css.btn(), textDecoration: "none", borderRadius: 10, display: "inline-block" }}>Explore Our Services →</a>
-              <a href="#contact" style={{ ...css.btn("#f59e0b", true), textDecoration: "none", borderRadius: 10, display: "inline-block" }}>Request a Consultation</a>
+              <a href="#services" style={{ ...css.btn(), textDecoration: "none", borderRadius: 10 }}>Explore Our Services →</a>
+              <a href="#contact" style={{ ...css.btn("#f59e0b", true), textDecoration: "none", borderRadius: 10 }}>Request a Consultation</a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── STATS BAR ── */}
+      {/* STATS BAR */}
       <div style={{ background: "rgba(255,255,255,0.02)", borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "24px", display: "flex", gap: 0, flexWrap: "wrap", justifyContent: "space-around" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "24px", display: "flex", flexWrap: "wrap", justifyContent: "space-around" }}>
           {STATS.map(s => (
             <div key={s.label} style={{ textAlign: "center", padding: "10px 20px" }}>
               <div style={{ fontSize: 22, marginBottom: 2 }}>{s.icon}</div>
@@ -149,7 +149,7 @@ export default function EDSHome() {
         </div>
       </div>
 
-      {/* ── CIA TRIAD ── */}
+      {/* CIA TRIAD */}
       <section id="cia" style={css.section}>
         <SectionHeader icon="🔐" title="Built on the CIA Triad" sub="Every control, policy, and service we deliver maps to Confidentiality, Integrity, and Availability." />
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20 }}>
@@ -177,7 +177,7 @@ export default function EDSHome() {
         </div>
       </section>
 
-      {/* ── SERVICES ── */}
+      {/* SERVICES */}
       <section id="services" style={{ background: "rgba(255,255,255,0.01)", padding: "80px 24px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <SectionHeader icon="⚙️" title="Our Service Lines" sub="Six specialized divisions. One unified mission: protecting and advancing your organization." />
@@ -206,7 +206,7 @@ export default function EDSHome() {
         </div>
       </section>
 
-      {/* ── COMPLIANCE ── */}
+      {/* COMPLIANCE */}
       <section id="compliance" style={css.section}>
         <SectionHeader icon="🏛️" title="Compliance Frameworks" sub="We don't just advise — we implement, document, and maintain your compliance posture end-to-end." accent="#3b82f6" />
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 14 }}>
@@ -222,11 +222,11 @@ export default function EDSHome() {
         </div>
         <div style={{ textAlign: "center", marginTop: 40 }}>
           <p style={{ color: "#475569", fontSize: 15, maxWidth: 600, margin: "0 auto 20px" }}>Not sure which frameworks apply to your organization? Our compliance team will assess your requirements and build a tailored roadmap — no cost for the initial consultation.</p>
-          <a href="#contact" style={{ ...css.btn("#3b82f6"), textDecoration: "none", borderRadius: 10, display: "inline-block" }}>Book a Compliance Assessment</a>
+          <a href="#contact" style={{ ...css.btn("#3b82f6"), textDecoration: "none", borderRadius: 10 }}>Book a Compliance Assessment</a>
         </div>
       </section>
 
-      {/* ── CI/CD & RAFTER ── */}
+      {/* CI/CD & RAFTER */}
       <section id="cicd" style={{ background: "rgba(0,0,0,0.3)", padding: "80px 24px", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <SectionHeader icon="🔄" title="CI/CD & Rafter Security Integration" sub="We practice what we preach. Every system we deploy is continuously scanned, tested, and hardened." accent="#22c55e" />
@@ -242,8 +242,8 @@ export default function EDSHome() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
             {[
               { icon: "🤖", color: "#22c55e", title: "Autonomous Daily Scanning", body: "ASME agents run a full Rafter-pattern security scan every day at 3am ET — automatically. All 10 security rules evaluated across every service layer. Critical findings trigger an immediate executive alert." },
-              { icon: "📊", color: "#3b82f6", title: "Weekly Executive Reports",  body: "Every Monday at 7am ET, a full security posture report is emailed to executive leadership. Includes trend analysis, new vulnerabilities introduced, remediation status, and a prioritized action list." },
-              { icon: "🚨", color: "#ef4444", title: "Zero-Day Response",         body: "VirusTotal + NVD CVE feed integration provides real-time zero-day and IOC detection. Suricata network alerts feed directly into the SOC dashboard. Response SLA: under 1 hour for critical findings." },
+              { icon: "📊", color: "#3b82f6", title: "Weekly Executive Reports",   body: "Every Monday at 7am ET, a full security posture report is emailed to executive leadership. Includes trend analysis, new vulnerabilities introduced, remediation status, and a prioritized action list." },
+              { icon: "🚨", color: "#ef4444", title: "Zero-Day Response",          body: "VirusTotal + NVD CVE feed integration provides real-time zero-day and IOC detection. Suricata network alerts feed directly into the SOC dashboard. Response SLA: under 1 hour for critical findings." },
             ].map(b => (
               <div key={b.title} style={{ background: `${b.color}08`, border: `1px solid ${b.color}20`, borderRadius: 14, padding: "24px" }}>
                 <div style={{ fontSize: 20, marginBottom: 10 }}>{b.icon}</div>
@@ -255,13 +255,17 @@ export default function EDSHome() {
         </div>
       </section>
 
-      {/* ── ABOUT ── */}
+      {/* ABOUT */}
       <section id="about" style={css.section}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 40, alignItems: "center" }}>
           <div>
             <SectionHeader icon="🎖️" title="About EDS" sub="" />
-            <p style={{ color: "#94a3b8", fontSize: 16, lineHeight: 1.8, marginBottom: 16 }}>Emerging Defense Solutions is a <strong style={{ color: "#f59e0b" }}>Service-Disabled Veteran-Owned Small Business (SDVOSB)</strong> headquartered in Fredericksburg, Virginia — at the intersection of DoD Country and the nation's capital.</p>
-            <p style={{ color: "#64748b", fontSize: 15, lineHeight: 1.8, marginBottom: 16 }}>Founded by veterans with decades of combined experience in defense, cybersecurity, and enterprise operations, EDS was built to deliver the same mission-critical reliability that the military demands — applied to securing the businesses, agencies, and communities of the modern world.</p>
+            <p style={{ color: "#94a3b8", fontSize: 16, lineHeight: 1.8, marginBottom: 16 }}>
+              Emerging Defense Solutions is a <strong style={{ color: "#f59e0b" }}>Service-Disabled Veteran-Owned Small Business (SDVOSB)</strong> headquartered in Fredericksburg, Virginia — at the intersection of DoD Country and the nation's capital.
+            </p>
+            <p style={{ color: "#64748b", fontSize: 15, lineHeight: 1.8, marginBottom: 16 }}>
+              Founded by veterans with decades of combined experience in defense, cybersecurity, and enterprise operations, EDS was built to deliver the same mission-critical reliability that the military demands — applied to securing the businesses, agencies, and communities of the modern world.
+            </p>
             <p style={{ color: "#64748b", fontSize: 15, lineHeight: 1.8, marginBottom: 24 }}>Two executives. AI-powered agents running 24/7. Zero compromise on quality.</p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <span style={css.badge("#f59e0b")}>🎖️ SDVOSB Certified</span>
@@ -288,7 +292,7 @@ export default function EDSHome() {
         </div>
       </section>
 
-      {/* ── CONTACT ── */}
+      {/* CONTACT */}
       <section id="contact" style={{ background: "rgba(245,158,11,0.03)", borderTop: "1px solid rgba(245,158,11,0.1)", padding: "80px 24px" }}>
         <div style={{ maxWidth: 700, margin: "0 auto" }}>
           <SectionHeader icon="📡" title="Start the Conversation" sub="Tell us about your organization. We'll respond within one business day." />
@@ -332,7 +336,7 @@ export default function EDSHome() {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
+      {/* FOOTER */}
       <footer style={{ background: "#020509", borderTop: "1px solid rgba(255,255,255,0.05)", padding: "28px 24px", textAlign: "center" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 10, marginBottom: 10 }}>
