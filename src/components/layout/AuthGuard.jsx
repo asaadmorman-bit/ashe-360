@@ -36,7 +36,7 @@ export default function AuthGuard({ children }) {
       <div className="fixed inset-0 bg-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-10 h-10 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
-          <p className="text-muted-foreground text-lg font-inter">Initializing ASME...</p>
+          <p className="text-muted-foreground text-lg font-inter">Initializing ASHE...</p>
         </div>
       </div>
     );
@@ -49,7 +49,7 @@ export default function AuthGuard({ children }) {
           <ShieldAlert className="w-16 h-16 text-destructive mx-auto" />
           <h1 className="text-2xl font-bold text-foreground">Access Denied</h1>
           <p className="text-muted-foreground text-lg">
-            ASME is restricted to authorized EDS-360 personnel only.
+            ASHE is restricted to authorized EDS-360 personnel only.
           </p>
           <Button variant="outline" onClick={() => base44.auth.logout()} className="gap-2">
             <LogIn className="w-4 h-4" /> Sign Out
