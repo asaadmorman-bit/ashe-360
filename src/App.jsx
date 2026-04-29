@@ -27,6 +27,7 @@ import ContactPage from './pages/eds/ContactPage';
 import ClientPortal from './pages/ClientPortal';
 import OnboardingTracker from './pages/OnboardingTracker';
 import TrainingPublic from './pages/TrainingPublic';
+import ASHE from './pages/ASHE';
 
 // Gate that enforces auth for all dashboard routes
 const RequireAuth = () => {
@@ -68,6 +69,7 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/portal" element={<ClientPortal />} />
             <Route path="/training-register" element={<TrainingPublic />} />
+            <Route path="/ashe" element={<ASHE />} />
 
             {/* All dashboard routes require authentication */}
             <Route element={<RequireAuth />}>

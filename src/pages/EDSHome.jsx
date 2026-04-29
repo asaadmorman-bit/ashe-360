@@ -10,6 +10,7 @@ const SECTIONS = [
   { icon: "🔄", color: "#38bdf8", title: "CI/CD Security","sub": "Rafter pattern scanning & automation",    path: "/cicd"         },
   { icon: "🎖️", color: "#2dd4bf", title: "About EDS",    sub: "SDVOSB veteran-owned, Spotsylvania VA",     path: "/about"        },
   { icon: "🎓", color: "#a78bfa", title: "Training",      sub: "Register for upcoming security classes",    path: "/training-register" },
+  { icon: "🧠", color: "#2e5bff", title: "ASHE",          sub: "Heuristic AI engine of EDS-360 SOCaaS",      path: "/ashe"         },
   { icon: "📡", color: "#f97316", title: "Contact",       sub: "Book a free security assessment",           path: "/contact"      },
 ];
 
