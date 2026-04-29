@@ -37,10 +37,10 @@ export default function EDSHome() {
           Enterprise-grade cybersecurity and SOCaaS built on <strong style={{ color: "#94a3b8" }}>Confidentiality, Integrity, and Availability</strong> — for federal contractors, agencies, and enterprises.
         </p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-          <Link to="/contact" style={{ padding: "13px 28px", borderRadius: 10, background: "#00e5c8", color: "#071520", fontWeight: 800, fontSize: 15, textDecoration: "none" }}>
+          <Link to="/contact" onClick={() => window.scrollTo(0, 0)} style={{ padding: "13px 28px", borderRadius: 10, background: "#00e5c8", color: "#071520", fontWeight: 800, fontSize: 15, textDecoration: "none" }}>
             Book Free Assessment →
           </Link>
-          <Link to="/services" style={{ padding: "13px 28px", borderRadius: 10, background: "transparent", border: "2px solid rgba(0,229,200,0.35)", color: "#00e5c8", fontWeight: 700, fontSize: 15, textDecoration: "none" }}>
+          <Link to="/services" onClick={() => window.scrollTo(0, 0)} style={{ padding: "13px 28px", borderRadius: 10, background: "transparent", border: "2px solid rgba(0,229,200,0.35)", color: "#00e5c8", fontWeight: 700, fontSize: 15, textDecoration: "none" }}>
             Our Services
           </Link>
         </div>
@@ -54,6 +54,7 @@ export default function EDSHome() {
             <Link
               key={s.path}
               to={s.path}
+              onClick={() => window.scrollTo(0, 0)}
               style={{ background: `${s.color}08`, border: `1px solid ${s.color}25`, borderTop: `3px solid ${s.color}`, borderRadius: 14, padding: "22px 20px", textDecoration: "none", display: "flex", flexDirection: "column", gap: 8, transition: "transform 0.15s, box-shadow 0.15s" }}
               onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 8px 24px ${s.color}18`; }}
               onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}
