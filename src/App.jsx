@@ -15,6 +15,7 @@ import Training from './pages/Training';
 import ExecHub from './pages/ExecHub';
 import Platform from './pages/Platform';
 import QA from './pages/QA';
+import EDSHome from './pages/EDSHome';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -53,6 +54,7 @@ const AuthenticatedApp = () => {
         <Route path="/platform" element={<Platform />} />
         <Route path="/qa" element={<QA />} />
       </Route>
+      <Route path="/eds" element={<EDSHome />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
