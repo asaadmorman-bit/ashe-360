@@ -5,6 +5,7 @@ import { Share2, Linkedin, Instagram, Mail, Send, Heart, MessageCircle, Repeat2 
 import PageHeader from '../components/shared/PageHeader';
 import SectionPanel from '../components/shared/SectionPanel';
 import { StatusBadge } from '../components/shared/DataTable';
+import EngagementChart from '../components/social/EngagementChart';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -108,6 +109,8 @@ export default function Social() {
   return (
     <div className="p-6 lg:p-8 max-w-[1600px] mx-auto space-y-8">
       <PageHeader title="Social" subtitle="Social Media & Communications Hub" icon={Share2} />
+
+      <EngagementChart posts={posts} />
 
       <Tabs defaultValue="compose" className="space-y-6">
         <TabsList className="bg-secondary/50 border border-border/50">
