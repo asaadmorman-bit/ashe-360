@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Briefcase, ListChecks, Calendar, Mail, DollarSign, Activity } from 'lucide-react';
+import { Briefcase, ListChecks, Calendar, Mail, DollarSign, Activity, TrendingUp } from 'lucide-react';
 import PageHeader from '../components/shared/PageHeader';
 import KPICard from '../components/shared/KPICard';
 import SectionPanel from '../components/shared/SectionPanel';
@@ -92,8 +92,41 @@ export default function ExecHub() {
     initialData: [],
   });
 
+  const { data: incidents = [] } = useQuery({
+    queryKey: ['exec-incidents'],
+    queryFn: () => base44.asServiceRole.entities.Incident.list('-created_date', 100),
+    initialData: [],
+  });
+
+  const { data: vulns = [] } = useQuery({
+    queryKey: ['exec-vulns'],
+    queryFn: () => base44.asServiceRole.entities.VulnerabilityFinding.filter({ status: 'open' }, '-created_date', 100),
+    initialData: [],
+  });
+
+  const { data: stigs = [] } = useQuery({
+    queryKey: ['exec-stigs'],
+    queryFn: () => base44.asServiceRole.entities.STIGFinding.filter({ status: 'open' }, '-created_date', 100),
+    initialData: [],
+  });
+
+  const { data: assets = [] } = useQuery({
+    queryKey: ['exec-assets'],
+    queryFn: () => base44.asServiceRole.entities.ScannedAsset.list('-created_date', 100),
+    initialData: [],
+  });
+
   const topDeals = contacts.filter(c => c.deal_value > 0).slice(0, 6);
   const unreadCount = emails.filter(e => !e.is_read).length;
+  
+  // Weekly report metrics
+  const week = new Date(); week.setDate(week.getDate() - 7);
+  const newIncidents = incidents.filter(i => i.created_date && new Date(i.created_date) > week);
+  const openIncidents = incidents.filter(i => !['resolved','closed'].includes(i.status));
+  const criticalVulns = vulns.filter(v => v.severity === 'critical');
+  const kevVulns = vulns.filter(v => v.is_kev);
+  const avgCompliance = assets.length ? Math.round(assets.reduce((s, a) => s + (a.compliance_score || 0), 0) / assets.length) : 0;
+  const catIFindings = stigs.filter(s => s.severity === 'CAT_I');
 
   return (
     <div className="p-6 lg:p-8 max-w-[1600px] mx-auto space-y-8">
@@ -136,7 +169,37 @@ export default function ExecHub() {
             </div>
           )}
         </SectionPanel>
-      </div>
-    </div>
-  );
-}
+        </div>
+
+        <SectionPanel title="📊 Weekly Security Report" icon={TrendingUp} className="border-l-4 border-primary">
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="rounded-lg bg-secondary/30 p-4">
+              <p className="text-xs text-muted-foreground font-semibold">Open Incidents</p>
+              <p className="text-2xl font-bold text-foreground mt-1">{openIncidents.length}</p>
+              <p className="text-xs text-muted-foreground mt-1">+{newIncidents.length} this week</p>
+            </div>
+            <div className="rounded-lg bg-secondary/30 p-4">
+              <p className="text-xs text-muted-foreground font-semibold">Vulnerabilities</p>
+              <p className="text-2xl font-bold text-foreground mt-1">{vulns.length}</p>
+              <p className="text-xs text-destructive mt-1">{criticalVulns.length} critical</p>
+            </div>
+            <div className="rounded-lg bg-secondary/30 p-4">
+              <p className="text-xs text-muted-foreground font-semibold">STIG Findings</p>
+              <p className="text-2xl font-bold text-foreground mt-1">{stigs.length}</p>
+              <p className="text-xs text-destructive mt-1">{catIFindings.length} CAT I</p>
+            </div>
+            <div className="rounded-lg bg-secondary/30 p-4">
+              <p className="text-xs text-muted-foreground font-semibold">Avg Compliance</p>
+              <p className="text-2xl font-bold text-foreground mt-1">{avgCompliance}%</p>
+              <p className="text-xs text-muted-foreground mt-1">{assets.length} assets</p>
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            🤖 <strong>Last Report:</strong> Every Monday at 9:00 AM to executives
+          </p>
+        </div>
+        </SectionPanel>
+        </div>
+        );
+        }
