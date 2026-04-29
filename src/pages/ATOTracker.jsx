@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { differenceInDays, format, parseISO } from 'date-fns';
 import ATODocProgress from '../components/ato/ATODocProgress';
 import ATOFormDrawer from '../components/ato/ATOFormDrawer';
+import ATOAlertBanner from '../components/ato/ATOAlertBanner';
 
 const ATO_STATUS_COLORS = {
   pre_assessment: { bg: '#64748b22', text: '#94a3b8', border: '#64748b44' },
@@ -67,6 +68,13 @@ export default function ATOTrackerPage() {
     initialData: [],
   });
 
+  const { data: alerts = [] } = useQuery({
+    queryKey: ['ato-alerts'],
+    queryFn: () => base44.entities.ATONotification.filter({ is_read: false }, '-created_date', 50),
+    initialData: [],
+    refetchInterval: 30000, // Refetch every 30 seconds
+  });
+
   const deleteMutation = useMutation({
     mutationFn: (id) => base44.entities.ATOTracker.delete(id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['ato-tracker'] }),
@@ -96,6 +104,14 @@ export default function ATOTrackerPage() {
           </Button>
         }
       />
+
+      {alerts.length > 0 && (
+        <div className="space-y-2">
+          {alerts.map(alert => (
+            <ATOAlertBanner key={alert.id} alert={alert} />
+          ))}
+        </div>
+      )}
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <KPICard label="Authorized" value={authorized} icon={CheckCircle2} />

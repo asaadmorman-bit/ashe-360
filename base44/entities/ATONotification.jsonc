@@ -1,0 +1,58 @@
+{
+  "name": "ATONotification",
+  "type": "object",
+  "properties": {
+    "system_id": {
+      "type": "string",
+      "description": "ID of the related ATOTracker record"
+    },
+    "system_name": {
+      "type": "string",
+      "description": "Name of the system"
+    },
+    "alert_type": {
+      "type": "string",
+      "enum": [
+        "expiration_approaching",
+        "status_changed",
+        "expired"
+      ],
+      "description": "Type of alert"
+    },
+    "message": {
+      "type": "string",
+      "description": "Alert message to display"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "warning",
+        "critical"
+      ],
+      "default": "info"
+    },
+    "days_until_expiration": {
+      "type": "number",
+      "description": "Days until expiration (if applicable)"
+    },
+    "old_status": {
+      "type": "string",
+      "description": "Previous status (if status changed)"
+    },
+    "new_status": {
+      "type": "string",
+      "description": "New status (if status changed)"
+    },
+    "is_read": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "system_id",
+    "system_name",
+    "alert_type",
+    "message"
+  ]
+}
