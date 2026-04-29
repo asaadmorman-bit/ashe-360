@@ -5,6 +5,7 @@ import { Briefcase, ListChecks, Calendar, Mail, DollarSign, Activity, TrendingUp
 import PageHeader from '../components/shared/PageHeader';
 import KPICard from '../components/shared/KPICard';
 import SectionPanel from '../components/shared/SectionPanel';
+import MeetingSummaryCard from '../components/exec/MeetingSummaryCard';
 import { StatusBadge, SeverityBadge } from '../components/shared/DataTable';
 import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
@@ -143,9 +144,7 @@ export default function ExecHub() {
         <SectionPanel title="ClickUp Tasks / Agent Actions" icon={ListChecks}>
           <TaskList actions={actions} />
         </SectionPanel>
-        <SectionPanel title="Calendar" icon={Calendar}>
-          <EventList events={events} />
-        </SectionPanel>
+        <MeetingSummaryCard />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
