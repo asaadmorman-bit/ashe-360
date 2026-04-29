@@ -6,6 +6,7 @@ import PageHeader from '../components/shared/PageHeader';
 import KPICard from '../components/shared/KPICard';
 import SectionPanel from '../components/shared/SectionPanel';
 import DataTable, { SeverityBadge, StatusBadge } from '../components/shared/DataTable';
+import InfraHealthChart from '../components/conmon/InfraHealthChart';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { format } from 'date-fns';
@@ -81,6 +82,8 @@ export default function ConMon() {
         <KPICard label="Client Sites" value={sites.length} icon={MapPin} />
         <KPICard label="BCM Queue" value={bcmQueue.filter(b => b.status !== 'completed').length} icon={Archive} />
       </div>
+
+      <InfraHealthChart incidents={incidents} tickets={tickets} />
 
       <Tabs defaultValue="incidents" className="space-y-6">
         <TabsList className="bg-secondary/50 border border-border/50">
