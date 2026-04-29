@@ -18,7 +18,7 @@ const SECTIONS = [
 export default function EDSHome() {
   const handleSignIn = async () => {
     try {
-      await base44.auth.redirectToLogin('/dashboard');
+      await base44.auth.redirectToLogin('/ashe');
     } catch (error) {
       console.error('Sign in error:', error);
     }
@@ -48,7 +48,7 @@ export default function EDSHome() {
         </p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
           <button onClick={handleSignIn} style={{ padding: "13px 28px", borderRadius: 10, background: "#00e5c8", color: "#071520", fontWeight: 800, fontSize: 15, textDecoration: "none", border: "none", cursor: "pointer" }}>
-            Sign In with Google →
+            Sign Into ASHE →
           </button>
           <Link to="/contact" onClick={() => window.scrollTo(0, 0)} style={{ padding: "13px 28px", borderRadius: 10, background: "transparent", border: "2px solid rgba(0,229,200,0.35)", color: "#00e5c8", fontWeight: 700, fontSize: 15, textDecoration: "none" }}>
             Book Free Assessment →
