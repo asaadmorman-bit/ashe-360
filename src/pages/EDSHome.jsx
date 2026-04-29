@@ -327,9 +327,13 @@ export default function EDSHome() {
             </form>
           )}
           <div style={{ display: "flex", gap: 24, marginTop: 32, justifyContent: "center", flexWrap: "wrap" }}>
-            <a href="mailto:info@eds-360.com" style={{ color: "#475569", fontSize: 14, textDecoration: "none" }}>✉️ info@eds-360.com</a>
+            <a href="tel:5404988350" style={{ color: "#475569", fontSize: 14, textDecoration: "none" }}>📞 (540) 498-8350</a>
             <span style={{ color: "#334155" }}>|</span>
-            <span style={{ color: "#475569", fontSize: 14 }}>📍 Fredericksburg, VA</span>
+            <a href="mailto:cyber@eds-360.com" style={{ color: "#475569", fontSize: 14, textDecoration: "none" }}>✉️ cyber@eds-360.com</a>
+            <span style={{ color: "#334155" }}>|</span>
+            <a href="mailto:training@eds-360.com" style={{ color: "#475569", fontSize: 14, textDecoration: "none" }}>✉️ training@eds-360.com</a>
+            <span style={{ color: "#334155" }}>|</span>
+            <span style={{ color: "#475569", fontSize: 14 }}>📍 Northern Virginia / Maryland / DC</span>
             <span style={{ color: "#334155" }}>|</span>
             <a href="https://eds-360.com" target="_blank" rel="noreferrer" style={{ color: "#475569", fontSize: 14, textDecoration: "none" }}>🌐 eds-360.com</a>
           </div>
