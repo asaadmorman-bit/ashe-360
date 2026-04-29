@@ -125,7 +125,7 @@ export default function EDSHome() {
             <span style={{ fontSize: 24 }}>🛡️</span>
             <div>
               <div style={{ fontWeight: 900, fontSize: 16, color: "#00e5c8", letterSpacing: 1 }}>EDS</div>
-              <div style={{ fontSize: 10, color: "#475569", letterSpacing: 2, marginTop: -2 }}>EMERGING DEFENSE SOLUTIONS</div>
+              <div style={{ fontSize: 10, color: "#475569", letterSpacing: 2, marginTop: -2 }}>CYBER.EDS-360.COM</div>
             </div>
           </a>
           <div style={{ display: "flex", gap: 2, alignItems: "center", flexWrap: "wrap" }}>
@@ -152,10 +152,10 @@ export default function EDSHome() {
               Defending What<br /><span style={{ color: "#00e5c8" }}>Matters Most.</span>
             </h1>
             <p style={{ color: "#94a3b8", fontSize: 18, lineHeight: 1.7, marginBottom: 28, maxWidth: 580 }}>
-              Emerging Defense Solutions delivers enterprise-grade cybersecurity and Security Operations as a Service — built on the CIA triad of{" "}
+              The cybersecurity division of <a href="https://emergingdefensesolutions.com" target="_blank" rel="noreferrer" style={{ color: "#38bdf8", textDecoration: "none" }}>emergingdefensesolutions.com</a> — delivering enterprise-grade SOCaaS and IT security services built on the CIA triad of{" "}
               <strong style={{ color: "#00e5c8" }}>Confidentiality</strong>,{" "}
               <strong style={{ color: "#38bdf8" }}>Integrity</strong>, and{" "}
-              <strong style={{ color: "#2dd4bf" }}>Availability</strong>. Rigorous federal compliance. Continuous CI/CD security scanning. Zero-day protection. Visit <a href="https://emergingdefensesolutions.com" target="_blank" rel="noreferrer" style={{ color: "#38bdf8", textDecoration: "none" }}>emergingdefensesolutions.com</a> to explore our full service ecosystem.
+              <strong style={{ color: "#2dd4bf" }}>Availability</strong>. Rigorous federal compliance. Continuous CI/CD security scanning. Zero-day protection.
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <a href="#assessment" style={{ ...css.btn(), textDecoration: "none", borderRadius: 10 }}>Get Free Security Assessment →</a>
@@ -425,8 +425,8 @@ export default function EDSHome() {
             <p style={{ color: "#94a3b8", fontSize: 16, lineHeight: 1.8, marginBottom: 16 }}>
               Emerging Defense Solutions is a <strong style={{ color: "#00e5c8" }}>Service-Disabled Veteran-Owned Small Business (SDVOSB)</strong> headquartered in Fredericksburg, Virginia — at the intersection of DoD Country and the nation's capital.
             </p>
-            <p style={{ color: "#64748b", fontSize: 15, lineHeight: 1.8, marginBottom: 16 }}>Founded by veterans with decades of combined experience in defense, cybersecurity, and enterprise operations, EDS was built to deliver the same mission-critical reliability that the military demands — applied to securing the businesses, agencies, and communities of the modern world.</p>
-            <p style={{ color: "#64748b", fontSize: 15, lineHeight: 1.8, marginBottom: 24 }}>Two executives. AI-powered agents running 24/7. Zero compromise on quality.</p>
+            <p style={{ color: "#64748b", fontSize: 15, lineHeight: 1.8, marginBottom: 16 }}>This platform — <strong style={{ color: "#94a3b8" }}>cyber.eds-360.com</strong> — is the dedicated cybersecurity services division of EDS. Founded by veterans with decades of combined experience in defense, cybersecurity, and enterprise operations, EDS was built to deliver the same mission-critical reliability that the military demands.</p>
+            <p style={{ color: "#64748b", fontSize: 15, lineHeight: 1.8, marginBottom: 24 }}>For the full EDS ecosystem including all service lines, visit <a href="https://emergingdefensesolutions.com" target="_blank" rel="noreferrer" style={{ color: "#38bdf8", textDecoration: "none" }}>emergingdefensesolutions.com</a>. Two executives. AI-powered agents running 24/7. Zero compromise on quality.</p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <span style={css.badge("#00e5c8")}>🎖️ SDVOSB Certified</span>
               <span style={css.badge("#38bdf8")}>🏢 Fredericksburg, VA</span>
@@ -510,6 +510,11 @@ export default function EDSHome() {
             {["Confidentiality", "Integrity", "Availability"].map((v, i) => (
               <span key={v} style={{ color: ["#00e5c8", "#38bdf8", "#2dd4bf"][i], fontSize: 13, fontWeight: 700 }}>● {v}</span>
             ))}
+          </div>
+          <div style={{ color: "#1e293b", fontSize: 12, marginBottom: 6 }}>
+            <a href="https://emergingdefensesolutions.com" target="_blank" rel="noreferrer" style={{ color: "#334155", textDecoration: "none" }}>emergingdefensesolutions.com</a>
+            {" · "}
+            <a href="https://cyber.eds-360.com" target="_blank" rel="noreferrer" style={{ color: "#334155", textDecoration: "none" }}>cyber.eds-360.com</a>
           </div>
           <div style={{ color: "#1e293b", fontSize: 12 }}>© 2026 Emerging Defense Solutions LLC · Fredericksburg, VA · SDVOSB Certified · All Rights Reserved</div>
         </div>
