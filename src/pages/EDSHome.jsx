@@ -18,7 +18,7 @@ const SECTIONS = [
 export default function EDSHome() {
   const handleSignIn = async () => {
     try {
-      await base44.auth.redirectToLogin('/ashe');
+      await base44.auth.redirectToLogin('/dashboard');
     } catch (error) {
       console.error('Sign in error:', error);
     }

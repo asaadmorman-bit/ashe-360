@@ -109,10 +109,9 @@ export const AuthProvider = ({ children }) => {
       setIsLoadingAuth(false);
       setAuthChecked(true);
       
-      // Redirect based on role
-      const redirectUrl = expectedRole === 'admin' ? '/exec' : '/dashboard';
-      if (window.location.pathname === '/' || window.location.pathname === '/portal') {
-        window.location.href = redirectUrl;
+      // Redirect to dashboard
+      if (window.location.pathname === '/' || window.location.pathname === '/portal' || window.location.pathname === '/ashe') {
+        window.location.href = '/dashboard';
       }
     } catch (error) {
       console.error('User auth check failed:', error);
