@@ -1,0 +1,139 @@
+{
+  "name": "ATOTracker",
+  "type": "object",
+  "properties": {
+    "system_name": {
+      "type": "string",
+      "description": "Name of the information system"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "ato_status": {
+      "type": "string",
+      "enum": [
+        "pre_assessment",
+        "in_progress",
+        "submitted",
+        "authorized",
+        "denied",
+        "expired",
+        "iatt"
+      ],
+      "default": "pre_assessment",
+      "description": "Current ATO status"
+    },
+    "framework": {
+      "type": "string",
+      "enum": [
+        "NIST_RMF",
+        "CMMC_L1",
+        "CMMC_L2",
+        "CMMC_L3",
+        "FedRAMP_Low",
+        "FedRAMP_Moderate",
+        "FedRAMP_High",
+        "FISMA",
+        "DIACAP"
+      ],
+      "default": "NIST_RMF"
+    },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "unclassified",
+        "cui",
+        "secret",
+        "top_secret"
+      ],
+      "default": "unclassified"
+    },
+    "authorization_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date ATO was granted"
+    },
+    "expiration_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date ATO expires"
+    },
+    "authorizing_official": {
+      "type": "string"
+    },
+    "system_owner": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "doc_ssp": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "complete"
+      ],
+      "default": "not_started",
+      "description": "System Security Plan"
+    },
+    "doc_sar": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "complete"
+      ],
+      "default": "not_started",
+      "description": "Security Assessment Report"
+    },
+    "doc_sap": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "complete"
+      ],
+      "default": "not_started",
+      "description": "Security Assessment Plan"
+    },
+    "doc_poam": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "complete"
+      ],
+      "default": "not_started",
+      "description": "Plan of Action & Milestones"
+    },
+    "doc_iscp": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "complete"
+      ],
+      "default": "not_started",
+      "description": "Information System Contingency Plan"
+    },
+    "open_poam_items": {
+      "type": "number",
+      "default": 0
+    },
+    "total_controls": {
+      "type": "number",
+      "default": 0
+    },
+    "implemented_controls": {
+      "type": "number",
+      "default": 0
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "system_name"
+  ]
+}

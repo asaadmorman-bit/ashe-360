@@ -15,6 +15,7 @@ import Training from './pages/Training';
 import ExecHub from './pages/ExecHub';
 import Platform from './pages/Platform';
 import QA from './pages/QA';
+import ATOTrackerPage from './pages/ATOTracker';
 import EDSHome from './pages/EDSHome';
 import ServicesPage from './pages/eds/ServicesPage';
 import CompliancePage from './pages/eds/CompliancePage';
@@ -75,6 +76,7 @@ function App() {
                 <Route path="/exec" element={<ExecHub />} />
                 <Route path="/platform" element={<Platform />} />
                 <Route path="/qa" element={<QA />} />
+                <Route path="/ato" element={<ATOTrackerPage />} />
               </Route>
             </Route>
 
