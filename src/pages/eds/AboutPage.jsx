@@ -20,7 +20,7 @@ const STATS = [
   { value: "<1hr",   label: "Critical Response",    icon: "🚨",  color: "#38bdf8" },
   { value: "8+",     label: "Compliance Frameworks", icon: "📋", color: "#00e5c8" },
   { value: "SDVOSB", label: "Veteran-Owned",         icon: "🎖️", color: "#38bdf8" },
-  { value: "2026",   label: "Founded",               icon: "🏢", color: "#2dd4bf" },
+  { value: "NOVA",   label: "Spotsylvania, VA",       icon: "🏢", color: "#2dd4bf" },
 ];
 
 const css = {
@@ -55,7 +55,7 @@ export default function AboutPage() {
             </p>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               <span style={css.badge("#00e5c8")}>🎖️ SDVOSB Certified</span>
-              <span style={css.badge("#38bdf8")}>🏢 Fredericksburg, VA</span>
+              <span style={css.badge("#38bdf8")}>🏢 Spotsylvania, VA</span>
               <span style={css.badge("#2dd4bf")}>🤖 AI-Augmented Ops</span>
               <span style={css.badge("#38bdf8")}>🛡️ CIA Triad Aligned</span>
             </div>

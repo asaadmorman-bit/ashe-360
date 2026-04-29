@@ -411,7 +411,7 @@ export default function EDSHome() {
             <p style={{ color: "#64748b", fontSize: 15, lineHeight: 1.8, marginBottom: 24 }}>For the full EDS ecosystem including all service lines, visit <a href="https://emergingdefensesolutions.com" target="_blank" rel="noreferrer" style={{ color: "#38bdf8", textDecoration: "none" }}>emergingdefensesolutions.com</a>. Two executives. AI-powered agents running 24/7. Zero compromise on quality.</p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <span style={css.badge("#00e5c8")}>🎖️ SDVOSB Certified</span>
-              <span style={css.badge("#38bdf8")}>🏢 Fredericksburg, VA</span>
+              <span style={css.badge("#38bdf8")}>🏢 Spotsylvania, VA</span>
               <span style={css.badge("#2dd4bf")}>🤖 AI-Augmented Ops</span>
               <span style={css.badge("#38bdf8")}>🛡️ CIA Triad Aligned</span>
             </div>
@@ -473,7 +473,7 @@ export default function EDSHome() {
             <span style={{ color: "#334155" }}>|</span>
             <a href="mailto:cyber@eds-360.com" style={{ color: "#475569", fontSize: 14, textDecoration: "none" }}>✉️ cyber@eds-360.com</a>
             <span style={{ color: "#334155" }}>|</span>
-            <span style={{ color: "#475569", fontSize: 14 }}>📍 Northern Virginia / Maryland / DC</span>
+            <span style={{ color: "#475569", fontSize: 14 }}>📍 Spotsylvania, VA · Serving NoVA / MD / DC</span>
             <span style={{ color: "#334155" }}>|</span>
             <a href="https://emergingdefensesolutions.com" target="_blank" rel="noreferrer" style={{ color: "#475569", fontSize: 14, textDecoration: "none" }}>🌐 emergingdefensesolutions.com</a>
           </div>

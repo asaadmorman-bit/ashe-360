@@ -104,7 +104,7 @@ export default function ContactPage() {
                 { icon: "📞", label: "(540) 498-8350", href: "tel:5404988350" },
                 { icon: "✉️", label: "cyber@eds-360.com", href: "mailto:cyber@eds-360.com" },
                 { icon: "🌐", label: "emergingdefensesolutions.com", href: "https://emergingdefensesolutions.com", ext: true },
-                { icon: "📍", label: "Northern Virginia / Maryland / DC", href: null },
+                { icon: "📍", label: "Spotsylvania, VA · Serving NoVA / MD / DC", href: null },
               ].map(c => (
                 <div key={c.label} style={{ display: "flex", gap: 10, alignItems: "center" }}>
                   <span style={{ fontSize: 16 }}>{c.icon}</span>

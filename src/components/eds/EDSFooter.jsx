@@ -28,7 +28,7 @@ export default function EDSFooter() {
           {" · "}
           <a href="https://cyber.eds-360.com" target="_blank" rel="noreferrer" style={{ color: "#334155", textDecoration: "none" }}>cyber.eds-360.com</a>
         </div>
-        <div style={{ color: "#1e293b", fontSize: 12 }}>© 2026 Emerging Defense Solutions LLC · Fredericksburg, VA · SDVOSB Certified · All Rights Reserved</div>
+        <div style={{ color: "#1e293b", fontSize: 12 }}>© 2026 Emerging Defense Solutions LLC · Spotsylvania, VA · SDVOSB Certified · All Rights Reserved</div>
       </div>
     </footer>
   );
