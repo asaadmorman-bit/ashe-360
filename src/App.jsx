@@ -16,7 +16,6 @@ import ExecHub from './pages/ExecHub';
 import Platform from './pages/Platform';
 import QA from './pages/QA';
 import EDSHome from './pages/EDSHome';
-import EDSHome from './pages/EDSHome';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
