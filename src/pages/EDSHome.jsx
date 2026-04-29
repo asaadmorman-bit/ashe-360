@@ -1,16 +1,9 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import EDSNav from "../components/eds/EDSNav";
+import EDSFooter from "../components/eds/EDSFooter";
 
 const HERO_BG = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1600&q=80";
-
-const NAV_LINKS = [
-  { label: "Services",     href: "#services"    },
-  { label: "Compliance",   href: "#compliance"  },
-  { label: "Case Studies", href: "#cases"       },
-  { label: "Pricing",      href: "#pricing"     },
-  { label: "CI/CD",        href: "#cicd"        },
-  { label: "About",        href: "#about"       },
-  { label: "Contact",      href: "#contact"     },
-];
 
 const TRUST_BADGES = [
   { icon: "🏛️", label: "CMMC",        sub: "L1–L3 Ready"       },
@@ -118,24 +111,7 @@ export default function EDSHome() {
   return (
     <div style={css.page}>
 
-      {/* NAVBAR */}
-      <nav style={{ position: "sticky", top: 0, zIndex: 100, background: "rgba(7,21,32,0.96)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(0,229,200,0.12)", padding: "0 24px" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", height: 64 }}>
-          <a href="#" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-            <img src="https://media.base44.com/images/public/69f1f1da68cbf198a19d2008/74f34baa5_2133.png" alt="EDS Logo" style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover" }} />
-            <div>
-              <div style={{ fontWeight: 900, fontSize: 16, color: "#00e5c8", letterSpacing: 1 }}>Emerging Defense Solutions</div>
-              <div style={{ fontSize: 10, color: "#475569", letterSpacing: 2, marginTop: -2 }}>PREMIER SOCaaS · cyber.eds-360.com</div>
-            </div>
-          </a>
-          <div style={{ display: "flex", gap: 2, alignItems: "center", flexWrap: "wrap" }}>
-            {NAV_LINKS.map(l => (
-              <a key={l.label} href={l.href} style={{ padding: "8px 11px", fontSize: 12, fontWeight: 500, color: "#94a3b8", textDecoration: "none", borderRadius: 8 }}>{l.label}</a>
-            ))}
-            <a href="#assessment" style={{ ...css.btn(), marginLeft: 8, padding: "8px 16px", fontSize: 12, textDecoration: "none", borderRadius: 8 }}>Free Assessment →</a>
-          </div>
-        </div>
-      </nav>
+      <EDSNav />
 
       {/* HERO */}
       <section style={{ position: "relative", minHeight: 580, display: "flex", alignItems: "center", overflow: "hidden" }}>
@@ -504,29 +480,7 @@ export default function EDSHome() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer style={{ background: "#040d14", borderTop: "1px solid rgba(0,229,200,0.1)", padding: "28px 24px", textAlign: "center" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 12, marginBottom: 12 }}>
-            <img src="https://media.base44.com/images/public/69f1f1da68cbf198a19d2008/74f34baa5_2133.png" alt="EDS Logo" style={{ width: 40, height: 40, borderRadius: "50%", objectFit: "cover", border: "1px solid rgba(0,229,200,0.25)" }} />
-            <div>
-              <div style={{ fontWeight: 900, fontSize: 15, color: "#00e5c8" }}>Emerging Defense Solutions</div>
-              <div style={{ fontSize: 11, color: "#334155" }}>Premier SOCaaS · cyber.eds-360.com</div>
-            </div>
-          </div>
-          <div style={{ display: "flex", justifyContent: "center", gap: 20, marginBottom: 14, flexWrap: "wrap" }}>
-            {["Confidentiality", "Integrity", "Availability"].map((v, i) => (
-              <span key={v} style={{ color: ["#00e5c8", "#38bdf8", "#2dd4bf"][i], fontSize: 13, fontWeight: 700 }}>● {v}</span>
-            ))}
-          </div>
-          <div style={{ color: "#1e293b", fontSize: 12, marginBottom: 6 }}>
-            <a href="https://emergingdefensesolutions.com" target="_blank" rel="noreferrer" style={{ color: "#334155", textDecoration: "none" }}>emergingdefensesolutions.com</a>
-            {" · "}
-            <a href="https://cyber.eds-360.com" target="_blank" rel="noreferrer" style={{ color: "#334155", textDecoration: "none" }}>cyber.eds-360.com</a>
-          </div>
-          <div style={{ color: "#1e293b", fontSize: 12 }}>© 2026 Emerging Defense Solutions LLC · Fredericksburg, VA · SDVOSB Certified · All Rights Reserved</div>
-        </div>
-      </footer>
+      <EDSFooter />
 
     </div>
   );

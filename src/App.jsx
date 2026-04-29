@@ -16,6 +16,13 @@ import ExecHub from './pages/ExecHub';
 import Platform from './pages/Platform';
 import QA from './pages/QA';
 import EDSHome from './pages/EDSHome';
+import ServicesPage from './pages/eds/ServicesPage';
+import CompliancePage from './pages/eds/CompliancePage';
+import CaseStudiesPage from './pages/eds/CaseStudiesPage';
+import PricingPage from './pages/eds/PricingPage';
+import CICDPage from './pages/eds/CICDPage';
+import AboutPage from './pages/eds/AboutPage';
+import ContactPage from './pages/eds/ContactPage';
 
 // Gate that enforces auth for all dashboard routes
 const RequireAuth = () => {
@@ -46,8 +53,15 @@ function App() {
       <QueryClientProvider client={queryClientInstance}>
         <Router>
           <Routes>
-            {/* Public marketing page — no auth required */}
+            {/* Public marketing pages — no auth required */}
             <Route path="/" element={<EDSHome />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/compliance" element={<CompliancePage />} />
+            <Route path="/case-studies" element={<CaseStudiesPage />} />
+            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/cicd" element={<CICDPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
 
             {/* All dashboard routes require authentication */}
             <Route element={<RequireAuth />}>
