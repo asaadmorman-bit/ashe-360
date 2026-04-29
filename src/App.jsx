@@ -24,6 +24,9 @@ import PricingPage from './pages/eds/PricingPage';
 import CICDPage from './pages/eds/CICDPage';
 import AboutPage from './pages/eds/AboutPage';
 import ContactPage from './pages/eds/ContactPage';
+import ClientPortal from './pages/ClientPortal';
+import OnboardingTracker from './pages/OnboardingTracker';
+import TrainingPublic from './pages/TrainingPublic';
 
 // Gate that enforces auth for all dashboard routes
 const RequireAuth = () => {
@@ -63,6 +66,8 @@ function App() {
             <Route path="/cicd" element={<CICDPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/portal" element={<ClientPortal />} />
+            <Route path="/training-register" element={<TrainingPublic />} />
 
             {/* All dashboard routes require authentication */}
             <Route element={<RequireAuth />}>
@@ -77,6 +82,7 @@ function App() {
                 <Route path="/platform" element={<Platform />} />
                 <Route path="/qa" element={<QA />} />
                 <Route path="/ato" element={<ATOTrackerPage />} />
+                <Route path="/onboarding" element={<OnboardingTracker />} />
               </Route>
             </Route>
 

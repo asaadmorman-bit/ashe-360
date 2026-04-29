@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Home, Shield, Eye, TrendingUp, Share2, GraduationCap, 
-  Briefcase, Server, ClipboardCheck, ShieldCheck, Menu, X, LogOut, ChevronRight
+  Briefcase, Server, ClipboardCheck, ShieldCheck, Users, Menu, X, LogOut, ChevronRight
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
@@ -18,6 +18,7 @@ const NAV_ITEMS = [
   { path: '/platform', label: 'Platform', icon: Server },
   { path: '/qa', label: 'QA', icon: ClipboardCheck },
   { path: '/ato', label: 'ATO Tracker', icon: ShieldCheck },
+  { path: '/onboarding', label: 'Onboarding', icon: Users },
 ];
 
 export default function GlobalNav() {
