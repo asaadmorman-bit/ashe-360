@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Eye, ShieldCheck, Bug, MonitorSmartphone, AlertOctagon, Award } from 'lucide-react';
+import { Eye, ShieldCheck, Bug, MonitorSmartphone, AlertOctagon, Award, Sparkles } from 'lucide-react';
 import PageHeader from '../components/shared/PageHeader';
 import KPICard from '../components/shared/KPICard';
 import DataTable, { SeverityBadge, StatusBadge } from '../components/shared/DataTable';
 import SectionPanel from '../components/shared/SectionPanel';
 import IncidentTrendsChart from '../components/eye/IncidentTrendsChart';
+import IncidentSummaryModal from '../components/eye/IncidentSummaryModal';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
+import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 
 function ComplianceGauge({ label, score, maxScore = 100 }) {
@@ -24,6 +26,8 @@ function ComplianceGauge({ label, score, maxScore = 100 }) {
 }
 
 export default function EyeOfEDS() {
+  const [summaryIncident, setSummaryIncident] = useState(null);
+
   const { data: stigs = [] } = useQuery({
     queryKey: ['stigs'],
     queryFn: () => base44.entities.STIGFinding.list('-created_date', 100),
@@ -83,6 +87,36 @@ export default function EyeOfEDS() {
     { key: 'compliance_score', label: 'Compliance', render: v => <span className="font-mono">{v || 0}%</span> },
   ];
 
+  const stigColsWithSummary = [
+    ...stigCols,
+    { key: 'actions', label: '', render: (_, row) => (
+      <Button
+        size="sm"
+        variant="ghost"
+        onClick={() => setSummaryIncident(row)}
+        className="gap-1"
+      >
+        <Sparkles className="w-3 h-3" />
+        <span className="text-xs">Summary</span>
+      </Button>
+    )},
+  ];
+
+  const vulnColsWithSummary = [
+    ...vulnCols,
+    { key: 'actions', label: '', render: (_, row) => (
+      <Button
+        size="sm"
+        variant="ghost"
+        onClick={() => setSummaryIncident(row)}
+        className="gap-1"
+      >
+        <Sparkles className="w-3 h-3" />
+        <span className="text-xs">Summary</span>
+      </Button>
+    )},
+  ];
+
   return (
     <div className="p-6 lg:p-8 max-w-[1600px] mx-auto space-y-8">
       <PageHeader title="Eye of EDS" subtitle="Threat Intelligence & Compliance Operations" icon={Eye} />
@@ -111,15 +145,21 @@ export default function EyeOfEDS() {
         </TabsList>
 
         <TabsContent value="stigs">
-          <DataTable columns={stigCols} data={stigs} emptyMessage="No STIG findings" />
+          <DataTable columns={stigColsWithSummary} data={stigs} emptyMessage="No STIG findings" />
         </TabsContent>
         <TabsContent value="vulns">
-          <DataTable columns={vulnCols} data={vulns} emptyMessage="No vulnerability findings" />
+          <DataTable columns={vulnColsWithSummary} data={vulns} emptyMessage="No vulnerability findings" />
         </TabsContent>
         <TabsContent value="assets">
           <DataTable columns={assetCols} data={assets} emptyMessage="No scanned assets" />
         </TabsContent>
       </Tabs>
+
+      <IncidentSummaryModal
+        open={!!summaryIncident}
+        onOpenChange={(open) => !open && setSummaryIncident(null)}
+        incident={summaryIncident}
+      />
     </div>
   );
 }
