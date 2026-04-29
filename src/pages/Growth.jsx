@@ -128,8 +128,12 @@ export default function Growth() {
         <KPICard label="NPS Score" value={npsScore} icon={Star} />
       </div>
 
-      <Tabs defaultValue="hot" className="space-y-6">
+      <Tabs defaultValue="elite" className="space-y-6">
         <TabsList className="bg-secondary/50 border border-border/50">
+          <TabsTrigger value="elite" className="gap-1.5">
+            <Star className="w-3.5 h-3.5 text-yellow-400" />
+            Elite Leads ({contacts.filter(c => (c.lead_score || 0) >= 80).length})
+          </TabsTrigger>
           <TabsTrigger value="hot" className="gap-1.5">
             <Flame className="w-3.5 h-3.5 text-orange-400" />
             Hot Leads ({hotLeads.length})
@@ -138,6 +142,47 @@ export default function Growth() {
           <TabsTrigger value="nps">NPS Surveys ({surveys.length})</TabsTrigger>
           <TabsTrigger value="pipeline">Pipeline View</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="elite">
+          <div className="mb-4 p-4 rounded-lg bg-yellow-500/5 border border-yellow-500/20 flex items-start gap-3">
+            <Star className="w-4 h-4 text-yellow-400 mt-0.5 shrink-0" />
+            <p className="text-sm text-muted-foreground">
+              <span className="text-yellow-400 font-semibold">Top-tier opportunities.</span> Contacts with lead score ≥ 80, sorted by score. Focus on recent interactions to maintain momentum.
+            </p>
+          </div>
+          <DataTable 
+            columns={[
+              { key: 'first_name', label: 'Name', render: (v, row) => (
+                <div>
+                  <p className="font-semibold text-foreground">{`${v || ''} ${row.last_name || ''}`.trim()}</p>
+                  <p className="text-xs text-muted-foreground">{row.email}</p>
+                </div>
+              )},
+              { key: 'company', label: 'Company', render: v => v || '—' },
+              { key: 'lifecycle_stage', label: 'Stage', render: v => (
+                <Badge variant="outline" className={`text-xs capitalize ${STAGE_COLORS[v] || ''}`}>
+                  {v?.replace(/_/g, ' ') || '—'}
+                </Badge>
+              )},
+              { key: 'lead_score', label: 'Score', render: v => (
+                <span className="font-mono font-bold text-yellow-400">{v || 0}</span>
+              )},
+              { key: 'deal_value', label: 'Deal Value', render: v => v ? <span className="text-primary font-mono">${v.toLocaleString()}</span> : '—' },
+              { key: 'last_contacted', label: 'Last Interaction', render: v => {
+                if (!v) return <span className="text-muted-foreground text-xs">Never contacted</span>;
+                const days = Math.floor((now - new Date(v)) / (1000 * 60 * 60 * 24));
+                return (
+                  <span className={`text-xs font-semibold ${days === 0 ? 'text-green-400' : days <= 7 ? 'text-yellow-400' : 'text-muted-foreground'}`}>
+                    {days === 0 ? 'Today' : days === 1 ? 'Yesterday' : `${days}d ago`}
+                  </span>
+                );
+              }},
+            ]}
+            data={contacts.filter(c => (c.lead_score || 0) >= 80).sort((a, b) => (b.lead_score || 0) - (a.lead_score || 0))}
+            emptyMessage="No elite leads yet"
+            onRowClick={setSelectedContact}
+          />
+        </TabsContent>
 
         <TabsContent value="hot">
           <div className="mb-4 p-4 rounded-lg bg-orange-500/5 border border-orange-500/20 flex items-start gap-3">
