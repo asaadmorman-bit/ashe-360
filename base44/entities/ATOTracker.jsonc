@@ -129,6 +129,28 @@
       "type": "number",
       "default": 0
     },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "File name"
+          },
+          "url": {
+            "type": "string",
+            "description": "File URL"
+          },
+          "uploaded_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "default": [],
+      "description": "Supporting documentation (PDFs, etc.)"
+    },
     "notes": {
       "type": "string"
     }

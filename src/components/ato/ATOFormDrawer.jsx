@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { Upload, Trash2, FileText } from 'lucide-react';
 
 const BLANK = {
   system_name: '', client_name: '', ato_status: 'pre_assessment', framework: 'NIST_RMF',
@@ -14,7 +15,7 @@ const BLANK = {
   authorizing_official: '', system_owner: '', assigned_to: '',
   doc_ssp: 'not_started', doc_sar: 'not_started', doc_sap: 'not_started',
   doc_poam: 'not_started', doc_iscp: 'not_started',
-  open_poam_items: 0, total_controls: 0, implemented_controls: 0, notes: '',
+  open_poam_items: 0, total_controls: 0, implemented_controls: 0, attachments: [], notes: '',
 };
 
 const DOC_FIELDS = [
@@ -29,6 +30,7 @@ const DOC_STATUS_OPTIONS = ['not_started', 'in_progress', 'complete'];
 
 export default function ATOFormDrawer({ open, onClose, record, onSaved }) {
   const [form, setForm] = useState(BLANK);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     setForm(record ? { ...BLANK, ...record } : BLANK);
@@ -44,6 +46,27 @@ export default function ATOFormDrawer({ open, onClose, record, onSaved }) {
   });
 
   const handleSubmit = (e) => { e.preventDefault(); mutation.mutate(form); };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      const newAttachment = {
+        name: file.name,
+        url: file_url,
+        uploaded_at: new Date().toISOString(),
+      };
+      set('attachments', [...(form.attachments || []), newAttachment]);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const removeAttachment = (index) => {
+    set('attachments', form.attachments.filter((_, i) => i !== index));
+  };
 
   return (
     <Sheet open={open} onOpenChange={onClose}>
@@ -165,6 +188,59 @@ export default function ATOFormDrawer({ open, onClose, record, onSaved }) {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Attachments */}
+          <div className="space-y-3">
+            <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Supporting Documents</h4>
+            <div className="border-2 border-dashed border-border rounded-lg p-4 text-center">
+              <Input
+                type="file"
+                accept=".pdf"
+                onChange={handleFileUpload}
+                disabled={uploading}
+                className="hidden"
+                id="pdf-upload"
+              />
+              <label htmlFor="pdf-upload" className="cursor-pointer">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="gap-2"
+                  disabled={uploading}
+                  asChild
+                >
+                  <span>
+                    <Upload className="w-4 h-4" />
+                    {uploading ? 'Uploading...' : 'Upload PDF'}
+                  </span>
+                </Button>
+              </label>
+            </div>
+            {form.attachments?.length > 0 && (
+              <div className="space-y-2">
+                {form.attachments.map((att, idx) => (
+                  <div key={idx} className="flex items-center justify-between gap-2 p-2 rounded-lg bg-secondary/30">
+                    <div className="flex items-center gap-2 flex-1 min-w-0">
+                      <FileText className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                      <a href={att.url} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline truncate">
+                        {att.name}
+                      </a>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => removeAttachment(idx)}
+                      className="h-6 w-6 p-0"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Notes */}
