@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { TrendingUp, Users, DollarSign, Star, Target, Flame, Clock, AlertTriangle, Download } from 'lucide-react';
 import ContactDrawer from '../components/growth/ContactDrawer';
 import PageHeader from '../components/shared/PageHeader';
 import KPICard from '../components/shared/KPICard';
 import DataTable, { StatusBadge } from '../components/shared/DataTable';
+import SelectableDataTable from '../components/growth/SelectableDataTable';
 import SectionPanel from '../components/shared/SectionPanel';
+import BulkActionBar from '../components/growth/BulkActionBar';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -25,6 +27,8 @@ const STAGE_COLORS = {
 export default function Growth() {
   const [selectedContact, setSelectedContact] = useState(null);
   const [activeTab, setActiveTab] = useState('elite');
+  const [selectedIds, setSelectedIds] = useState(new Set());
+  const queryClient = useQueryClient();
 
   const { data: contacts = [] } = useQuery({
     queryKey: ['crm-contacts'],
@@ -36,6 +40,21 @@ export default function Growth() {
     queryKey: ['nps-all'],
     queryFn: () => base44.entities.NPSSurvey.list('-created_date', 50),
     initialData: [],
+  });
+
+  const reassignMutation = useMutation({
+    mutationFn: async (teamMember) => {
+      const updates = await Promise.all(
+        Array.from(selectedIds).map(id =>
+          base44.entities.CRMContact.update(id, { assigned_to: teamMember })
+        )
+      );
+      return updates;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['crm-contacts'] });
+      setSelectedIds(new Set());
+    },
   });
 
   const totalDealValue = contacts.reduce((sum, c) => sum + (c.deal_value || 0), 0);
@@ -119,6 +138,26 @@ export default function Growth() {
     { key: 'follow_up_status', label: 'Follow Up', render: v => <StatusBadge status={v} /> },
   ];
 
+  const toggleSelect = (contactId) => {
+    if (typeof contactId === 'object' && contactId instanceof Set) {
+      // Called from SelectableDataTable with a Set
+      setSelectedIds(contactId);
+    } else {
+      // Called with a single ID
+      const newSelected = new Set(selectedIds);
+      if (newSelected.has(contactId)) {
+        newSelected.delete(contactId);
+      } else {
+        newSelected.add(contactId);
+      }
+      setSelectedIds(newSelected);
+    }
+  };
+
+  const handleReassign = (teamMember) => {
+    reassignMutation.mutate(teamMember);
+  };
+
   const handleExport = () => {
     let data = [];
     let headers = [];
@@ -195,6 +234,13 @@ export default function Growth() {
         <KPICard label="NPS Score" value={npsScore} icon={Star} />
       </div>
 
+      <BulkActionBar
+        selectedCount={selectedIds.size}
+        onClearSelection={() => setSelectedIds(new Set())}
+        onReassign={handleReassign}
+        isLoading={reassignMutation.isPending}
+      />
+
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <div className="flex items-center justify-between">
           <TabsList className="bg-secondary/50 border border-border/50">
@@ -222,7 +268,7 @@ export default function Growth() {
               <span className="text-yellow-400 font-semibold">Top-tier opportunities.</span> Contacts with lead score ≥ 80, sorted by score. Focus on recent interactions to maintain momentum.
             </p>
           </div>
-          <DataTable 
+          <SelectableDataTable 
             columns={[
               { key: 'first_name', label: 'Name', render: (v, row) => (
                 <div>
@@ -252,6 +298,8 @@ export default function Growth() {
             ]}
             data={contacts.filter(c => (c.lead_score || 0) >= 80).sort((a, b) => (b.lead_score || 0) - (a.lead_score || 0))}
             emptyMessage="No elite leads yet"
+            selectedIds={selectedIds}
+            onToggleSelect={toggleSelect}
             onRowClick={setSelectedContact}
           />
         </TabsContent>
@@ -263,7 +311,14 @@ export default function Growth() {
               <span className="text-orange-400 font-semibold">Immediate follow-up required.</span> Showing SQL/Opportunity stage contacts or leads with score ≥ 60 that have not been contacted in over 7 days.
             </p>
           </div>
-          <DataTable columns={hotLeadCols} data={hotLeads} emptyMessage="No hot leads requiring follow-up right now 🎉" onRowClick={setSelectedContact} />
+          <SelectableDataTable
+            columns={hotLeadCols}
+            data={hotLeads}
+            emptyMessage="No hot leads requiring follow-up right now 🎉"
+            selectedIds={selectedIds}
+            onToggleSelect={toggleSelect}
+            onRowClick={setSelectedContact}
+          />
         </TabsContent>
 
         <TabsContent value="contacts">
