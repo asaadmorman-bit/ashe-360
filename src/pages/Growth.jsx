@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { TrendingUp, Users, DollarSign, Star, Target, Flame, Clock, AlertTriangle } from 'lucide-react';
+import { TrendingUp, Users, DollarSign, Star, Target, Flame, Clock, AlertTriangle, Download } from 'lucide-react';
 import ContactDrawer from '../components/growth/ContactDrawer';
 import PageHeader from '../components/shared/PageHeader';
 import KPICard from '../components/shared/KPICard';
@@ -9,6 +9,7 @@ import DataTable, { StatusBadge } from '../components/shared/DataTable';
 import SectionPanel from '../components/shared/SectionPanel';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 
 const STAGE_COLORS = {
@@ -23,6 +24,7 @@ const STAGE_COLORS = {
 
 export default function Growth() {
   const [selectedContact, setSelectedContact] = useState(null);
+  const [activeTab, setActiveTab] = useState('elite');
 
   const { data: contacts = [] } = useQuery({
     queryKey: ['crm-contacts'],
@@ -117,6 +119,71 @@ export default function Growth() {
     { key: 'follow_up_status', label: 'Follow Up', render: v => <StatusBadge status={v} /> },
   ];
 
+  const handleExport = () => {
+    let data = [];
+    let headers = [];
+
+    if (activeTab === 'elite') {
+      headers = ['Name', 'Email', 'Company', 'Stage', 'Lead Score', 'Deal Value', 'Last Contacted'];
+      data = contacts
+        .filter(c => (c.lead_score || 0) >= 80)
+        .sort((a, b) => (b.lead_score || 0) - (a.lead_score || 0))
+        .map(c => [
+          `"${c.first_name} ${c.last_name}".trim()`,
+          c.email,
+          c.company || '',
+          c.lifecycle_stage || '',
+          c.lead_score || 0,
+          c.deal_value || 0,
+          c.last_contacted ? format(new Date(c.last_contacted), 'MMM d, yyyy') : 'Never',
+        ]);
+    } else if (activeTab === 'hot') {
+      headers = ['Name', 'Email', 'Company', 'Stage', 'Lead Score', 'Deal Value', 'Last Contacted'];
+      data = hotLeads.map(c => [
+        `"${c.first_name} ${c.last_name}".trim()`,
+        c.email,
+        c.company || '',
+        c.lifecycle_stage || '',
+        c.lead_score || 0,
+        c.deal_value || 0,
+        c.last_contacted ? format(new Date(c.last_contacted), 'MMM d, yyyy') : 'Never',
+      ]);
+    } else if (activeTab === 'contacts') {
+      headers = ['Name', 'Email', 'Company', 'Stage', 'Lead Score', 'Deal Value'];
+      data = contacts.map(c => [
+        `"${c.first_name} ${c.last_name}".trim()`,
+        c.email,
+        c.company || '',
+        c.lifecycle_stage || '',
+        c.lead_score || 0,
+        c.deal_value || 0,
+      ]);
+    } else if (activeTab === 'nps') {
+      headers = ['Respondent', 'Company', 'Score', 'Category', 'Feedback', 'Follow-up Status'];
+      data = surveys.map(s => [
+        s.respondent_name,
+        s.company || '',
+        s.score,
+        s.category || '',
+        `"${s.feedback || ''}"`  ,
+        s.follow_up_status || '',
+      ]);
+    }
+
+    const csv = [
+      headers.join(','),
+      ...data.map(row => row.join(','))
+    ].join('\n');
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `CRM-Report-${activeTab}-${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="p-6 lg:p-8 max-w-[1600px] mx-auto space-y-8">
       <PageHeader title="Growth" subtitle="CRM Pipeline & Revenue Intelligence" icon={TrendingUp} />
@@ -128,8 +195,9 @@ export default function Growth() {
         <KPICard label="NPS Score" value={npsScore} icon={Star} />
       </div>
 
-      <Tabs defaultValue="elite" className="space-y-6">
-        <TabsList className="bg-secondary/50 border border-border/50">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <div className="flex items-center justify-between">
+          <TabsList className="bg-secondary/50 border border-border/50">
           <TabsTrigger value="elite" className="gap-1.5">
             <Star className="w-3.5 h-3.5 text-yellow-400" />
             Elite Leads ({contacts.filter(c => (c.lead_score || 0) >= 80).length})
@@ -141,7 +209,11 @@ export default function Growth() {
           <TabsTrigger value="contacts">All Contacts ({contacts.length})</TabsTrigger>
           <TabsTrigger value="nps">NPS Surveys ({surveys.length})</TabsTrigger>
           <TabsTrigger value="pipeline">Pipeline View</TabsTrigger>
-        </TabsList>
+          </TabsList>
+          <Button onClick={handleExport} size="sm" variant="outline" className="gap-2">
+            <Download className="w-4 h-4" /> Export CSV
+          </Button>
+        </div>
 
         <TabsContent value="elite">
           <div className="mb-4 p-4 rounded-lg bg-yellow-500/5 border border-yellow-500/20 flex items-start gap-3">

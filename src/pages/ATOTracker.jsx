@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { ShieldCheck, Plus, CalendarClock, FileCheck, AlertTriangle, CheckCircle2, X } from 'lucide-react';
+import { ShieldCheck, Plus, CalendarClock, FileCheck, AlertTriangle, CheckCircle2, X, Download } from 'lucide-react';
 import PageHeader from '../components/shared/PageHeader';
 import KPICard from '../components/shared/KPICard';
 import SectionPanel from '../components/shared/SectionPanel';
@@ -92,6 +92,32 @@ export default function ATOTrackerPage() {
   const handleEdit = (record) => { setEditing(record); setDrawerOpen(true); };
   const handleAdd = () => { setEditing(null); setDrawerOpen(true); };
 
+  const handleExport = () => {
+    const csv = [
+      ['System Name', 'Client', 'Status', 'Framework', 'Classification', 'Auth Date', 'Expiration Date', 'Owner', 'Controls', 'POA&M Items'].join(','),
+      ...records.map(r => [
+        `"${r.system_name}"`,
+        `"${r.client_name || ''}"`,
+        r.ato_status,
+        r.framework,
+        r.classification,
+        r.authorization_date || '',
+        r.expiration_date || '',
+        `"${r.system_owner || ''}"`,
+        `${r.implemented_controls}/${r.total_controls}`,
+        r.open_poam_items || 0,
+      ].join(','))
+    ].join('\n');
+    
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ATO-Report-${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="p-6 lg:p-8 max-w-[1600px] mx-auto space-y-8">
       <PageHeader
@@ -99,9 +125,16 @@ export default function ATOTrackerPage() {
         subtitle="Authority to Operate — Compliance Dates & Documentation Progress"
         icon={ShieldCheck}
         actions={
-          <Button onClick={handleAdd} size="sm" className="gap-2">
-            <Plus className="w-4 h-4" /> Add System
-          </Button>
+          <div className="flex gap-2">
+            {records.length > 0 && (
+              <Button onClick={handleExport} size="sm" variant="outline" className="gap-2">
+                <Download className="w-4 h-4" /> Export CSV
+              </Button>
+            )}
+            <Button onClick={handleAdd} size="sm" className="gap-2">
+              <Plus className="w-4 h-4" /> Add System
+            </Button>
+          </div>
         }
       />
 
