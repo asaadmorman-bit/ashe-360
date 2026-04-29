@@ -16,7 +16,7 @@ import ExecHub from './pages/ExecHub';
 import Platform from './pages/Platform';
 import QA from './pages/QA';
 import ATOTrackerPage from './pages/ATOTracker';
-import EDSHome from './pages/EDSHome';
+import EDSHome from './pages/EDSHome.jsx';
 import ServicesPage from './pages/eds/ServicesPage';
 import CompliancePage from './pages/eds/CompliancePage';
 import CaseStudiesPage from './pages/eds/CaseStudiesPage';
