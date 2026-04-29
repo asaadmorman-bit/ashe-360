@@ -29,8 +29,8 @@ const SERVICES = [
   { icon: "🔒", color: "#38bdf8", title: "Zero Trust Architecture", sub: "Identity-First Security", desc: "Design, implement, and maintain a Zero Trust security posture aligned to CISA's Zero Trust Maturity Model. Every user, device, and connection is continuously verified — never implicitly trusted.", features: ["CISA ZT Maturity Assessment", "Identity & Access Management", "Micro-Segmentation", "Continuous Verification", "Network Access Control", "Policy Enforcement"] },
   { icon: "📋", color: "#a78bfa", title: "Compliance & Certification", sub: "CMMC · NIST · FISMA · SOC2", desc: "End-to-end compliance management for federal and commercial requirements. From gap assessments to ATO packages, we guide your organization through every control framework with precision.", features: ["CMMC Level 1–3 Preparation", "NIST RMF / SP 800-53", "FISMA ATO Packages", "SOC2 Type I & II", "ISO 27001", "FedRAMP Readiness"] },
   { icon: "🎖️", color: "#00e5c8", title: "Defense & Security Training", sub: "Professional Certification", desc: "Hands-on cybersecurity and defense training programs built for government contractors, military personnel, and enterprise teams. DISA-aligned, certification-ready, and delivered in-person or virtually.", features: ["Security+ / CISSP Prep", "DISA STIG Compliance Training", "Insider Threat Awareness", "Active Shooter / Emergency Response", "Incident Command System (ICS)", "Cleared Personnel Programs"] },
-  { icon: "⚖️", color: "#38bdf8", title: "Legal & Compliance Services", sub: "Notary · Process Server · Business Law", desc: "Professional notary and process server services, business formation, compliance filings, and legal document support — serving individuals, businesses, and government contractors in Virginia and Maryland.", features: ["Notary Public Services", "Process Serving", "Business Formation", "Contract Review", "Registered Agent Services", "Compliance Filings"] },
-  { icon: "🌿", color: "#2dd4bf", title: "Smart Landscaping & IoT", sub: "Intelligent Site Management", desc: "IoT-connected landscape management with real-time sensor monitoring, automated irrigation control, and predictive maintenance — bringing enterprise-grade operational intelligence to physical site management.", features: ["IoT Sensor Networks", "Automated Irrigation Control", "Remote Monitoring", "Predictive Maintenance", "Energy Optimization", "Site Security Integration"] },
+  { icon: "🔍", color: "#38bdf8", title: "Penetration Testing & Red Team", sub: "Adversarial Security Assessment", desc: "Simulated cyberattacks designed to uncover exploitable vulnerabilities before real adversaries do. From external network pen tests to full red team engagements, we test what matters most.", features: ["External & Internal Network Pen Test", "Web Application Testing", "Phishing Simulation", "Red Team Engagements", "OWASP Top 10 Coverage", "Executive-Ready Findings Report"] },
+  { icon: "📊", color: "#2dd4bf", title: "Security Awareness Training", sub: "Human-Layer Defense", desc: "Your people are your perimeter. EDS delivers role-based cybersecurity awareness training that reduces phishing click rates, builds a security-first culture, and satisfies compliance training requirements.", features: ["Phishing Simulation Campaigns", "Role-Based Training Modules", "DISA / NIST Aligned Content", "Compliance Tracking & Reporting", "Insider Threat Awareness", "Annual Certification Programs"] },
 ];
 
 const COMPLIANCE = [
@@ -152,10 +152,10 @@ export default function EDSHome() {
               Defending What<br /><span style={{ color: "#00e5c8" }}>Matters Most.</span>
             </h1>
             <p style={{ color: "#94a3b8", fontSize: 18, lineHeight: 1.7, marginBottom: 28, maxWidth: 580 }}>
-              Emerging Defense Solutions delivers enterprise-grade Security Operations as a Service — built on the CIA triad of{" "}
+              Emerging Defense Solutions delivers enterprise-grade cybersecurity and Security Operations as a Service — built on the CIA triad of{" "}
               <strong style={{ color: "#00e5c8" }}>Confidentiality</strong>,{" "}
               <strong style={{ color: "#38bdf8" }}>Integrity</strong>, and{" "}
-              <strong style={{ color: "#2dd4bf" }}>Availability</strong>. Rigorous federal compliance. Continuous CI/CD security scanning. Zero-day protection.
+              <strong style={{ color: "#2dd4bf" }}>Availability</strong>. Rigorous federal compliance. Continuous CI/CD security scanning. Zero-day protection. Visit <a href="https://emergingdefensesolutions.com" target="_blank" rel="noreferrer" style={{ color: "#38bdf8", textDecoration: "none" }}>emergingdefensesolutions.com</a> to explore our full service ecosystem.
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <a href="#assessment" style={{ ...css.btn(), textDecoration: "none", borderRadius: 10 }}>Get Free Security Assessment →</a>
@@ -270,7 +270,7 @@ export default function EDSHome() {
       {/* SERVICES */}
       <section id="services" style={{ background: "rgba(0,229,200,0.01)", padding: "80px 24px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <SectionHeader icon="⚙️" title="Our Service Lines" sub="Six specialized divisions. One unified mission: protecting and advancing your organization." />
+          <SectionHeader icon="⚙️" title="Our IT & Cyber Service Lines" sub="Four specialized practices. One unified mission: protecting your organization's people, data, and infrastructure." />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 20 }}>
             {SERVICES.map(s => (
               <div key={s.title} style={{ background: "rgba(255,255,255,0.025)", border: `1px solid ${s.color}20`, borderTop: `3px solid ${s.color}`, borderRadius: 16, padding: "24px" }}>
@@ -475,8 +475,8 @@ export default function EDSHome() {
                 <option>Zero Trust Architecture</option>
                 <option>Compliance &amp; Certification (CMMC, NIST, FISMA)</option>
                 <option>Defense &amp; Security Training</option>
-                <option>Legal &amp; Compliance Services</option>
-                <option>Smart Landscaping &amp; IoT</option>
+                <option>Penetration Testing &amp; Red Team</option>
+                <option>Security Awareness Training</option>
                 <option>Multiple Services / Not Sure Yet</option>
               </select>
               <textarea style={{ ...css.input, minHeight: 120, resize: "vertical" }} placeholder="Tell us about your security needs, compliance goals, or what challenges you're facing..." value={contactForm.message} onChange={e => setContactForm(f => ({ ...f, message: e.target.value }))} />
@@ -493,7 +493,7 @@ export default function EDSHome() {
             <span style={{ color: "#334155" }}>|</span>
             <span style={{ color: "#475569", fontSize: 14 }}>📍 Northern Virginia / Maryland / DC</span>
             <span style={{ color: "#334155" }}>|</span>
-            <a href="https://eds-360.com" target="_blank" rel="noreferrer" style={{ color: "#475569", fontSize: 14, textDecoration: "none" }}>🌐 eds-360.com</a>
+            <a href="https://emergingdefensesolutions.com" target="_blank" rel="noreferrer" style={{ color: "#475569", fontSize: 14, textDecoration: "none" }}>🌐 emergingdefensesolutions.com</a>
           </div>
         </div>
       </section>
