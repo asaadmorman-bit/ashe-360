@@ -70,9 +70,9 @@ const CICD_CHECKS = [
 ];
 
 const CIA_PILLARS = [
-  { key: "C", color: "#00e5c8", glow: "#00e5c820", icon: "🔒", title: "Confidentiality", sub: "Your data stays yours.",    desc: "We implement role-based access control, end-to-end encryption, Zero Trust policies, and strict data classification to ensure that only authorized parties ever access sensitive information — whether at rest or in transit.", controls: ["AES-256 Encryption at Rest", "TLS 1.3 in Transit", "Zero Trust IAM", "Data Classification", "Need-to-Know Access"] },
-  { key: "I", color: "#38bdf8", glow: "#38bdf820", icon: "✅", title: "Integrity",        sub: "Trust what you see.",        desc: "From cryptographic checksums to immutable audit trails, we ensure that your data, systems, and configurations haven't been tampered with. Every change is logged, versioned, and verifiable.", controls: ["Cryptographic Hashing", "Immutable Audit Logs", "Change Management (CAB)", "File Integrity Monitoring", "Digital Signatures"] },
-  { key: "A", color: "#2dd4bf", glow: "#2dd4bf20", icon: "⚡", title: "Availability",     sub: "Always on. Always ready.",   desc: "Our SOCaaS infrastructure is designed for 99.9%+ uptime with business continuity plans, redundant monitoring, automated failover, and SLA-backed response times — so your operations never stop.", controls: ["99.9% SLA Uptime", "Business Continuity Mode", "Redundant Monitoring", "Automated Failover", "24/7 Incident Response"] },
+  { key: "C", color: "#00e5c8", glow: "#00e5c820", icon: "🔒", title: "Confidentiality", sub: "Your data stays yours.", desc: "We implement role-based access control, end-to-end encryption, Zero Trust policies, and strict data classification to ensure that only authorized parties ever access sensitive information — whether at rest or in transit.", controls: ["AES-256 Encryption at Rest", "TLS 1.3 in Transit", "Zero Trust IAM", "Data Classification", "Need-to-Know Access"] },
+  { key: "I", color: "#38bdf8", glow: "#38bdf820", icon: "✅", title: "Integrity",        sub: "Trust what you see.",    desc: "From cryptographic checksums to immutable audit trails, we ensure that your data, systems, and configurations haven't been tampered with. Every change is logged, versioned, and verifiable.", controls: ["Cryptographic Hashing", "Immutable Audit Logs", "Change Management (CAB)", "File Integrity Monitoring", "Digital Signatures"] },
+  { key: "A", color: "#2dd4bf", glow: "#2dd4bf20", icon: "⚡", title: "Availability",     sub: "Always on. Always ready.", desc: "Our SOCaaS infrastructure is designed for 99.9%+ uptime with business continuity plans, redundant monitoring, automated failover, and SLA-backed response times — so your operations never stop.", controls: ["99.9% SLA Uptime", "Business Continuity Mode", "Redundant Monitoring", "Automated Failover", "24/7 Incident Response"] },
 ];
 
 const STATS = [
@@ -166,7 +166,7 @@ export default function EDSHome() {
       </section>
 
       {/* TRUST BAR */}
-      <div style={{ background: "rgba(0,229,200,0.02)", borderTop: "1px solid rgba(0,229,200,0.08)", borderBottom: "1px solid rgba(0,229,200,0.08)" }}>
+      <div style={{ background: "rgba(0,229,200,0.03)", borderTop: "1px solid rgba(0,229,200,0.1)", borderBottom: "1px solid rgba(0,229,200,0.1)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "20px 24px" }}>
           <div style={{ textAlign: "center", color: "#334155", fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", marginBottom: 16 }}>Aligned to the standards that matter</div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
@@ -391,7 +391,7 @@ export default function EDSHome() {
       {/* CI/CD & RAFTER */}
       <section id="cicd" style={{ background: "rgba(0,229,200,0.02)", padding: "80px 24px", borderTop: "1px solid rgba(0,229,200,0.08)", borderBottom: "1px solid rgba(0,229,200,0.08)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <SectionHeader icon="🔄" title="CI/CD & Rafter Security Integration" sub="We practice what we preach. Every system we deploy is continuously scanned, tested, and hardened." accent="#2dd4bf" />
+          <SectionHeader icon="🔄" title="CI/CD & Rafter Security Integration" sub="We practice what we preach. Every system we deploy is continuously scanned, tested, and hardened." accent="#22c55e" />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 14, marginBottom: 40 }}>
             {CICD_CHECKS.map(c => (
               <div key={c.label} style={{ background: "rgba(0,229,200,0.04)", border: "1px solid rgba(0,229,200,0.12)", borderRadius: 10, padding: "16px" }}>
@@ -405,7 +405,7 @@ export default function EDSHome() {
             {[
               { icon: "🤖", color: "#00e5c8", title: "Autonomous Daily Scanning", body: "ASME agents run a full Rafter-pattern security scan every day at 3am ET — automatically. All 10 security rules evaluated across every service layer. Critical findings trigger an immediate executive alert." },
               { icon: "📊", color: "#38bdf8", title: "Weekly Executive Reports",   body: "Every Monday at 7am ET, a full security posture report is emailed to executive leadership. Includes trend analysis, new vulnerabilities introduced, remediation status, and a prioritized action list." },
-              { icon: "🚨", color: "#2dd4bf", title: "Zero-Day Response",          body: "VirusTotal + NVD CVE feed integration provides real-time zero-day and IOC detection. Suricata network alerts feed directly into the SOC dashboard. Response SLA: under 1 hour for critical findings." },
+              { icon: "🚨", color: "#ef4444", title: "Zero-Day Response",          body: "VirusTotal + NVD CVE feed integration provides real-time zero-day and IOC detection. Suricata network alerts feed directly into the SOC dashboard. Response SLA: under 1 hour for critical findings." },
             ].map(b => (
               <div key={b.title} style={{ background: `${b.color}08`, border: `1px solid ${b.color}20`, borderRadius: 14, padding: "24px" }}>
                 <div style={{ fontSize: 20, marginBottom: 10 }}>{b.icon}</div>
@@ -425,9 +425,7 @@ export default function EDSHome() {
             <p style={{ color: "#94a3b8", fontSize: 16, lineHeight: 1.8, marginBottom: 16 }}>
               Emerging Defense Solutions is a <strong style={{ color: "#00e5c8" }}>Service-Disabled Veteran-Owned Small Business (SDVOSB)</strong> headquartered in Fredericksburg, Virginia — at the intersection of DoD Country and the nation's capital.
             </p>
-            <p style={{ color: "#64748b", fontSize: 15, lineHeight: 1.8, marginBottom: 16 }}>
-              Founded by veterans with decades of combined experience in defense, cybersecurity, and enterprise operations, EDS was built to deliver the same mission-critical reliability that the military demands — applied to securing the businesses, agencies, and communities of the modern world.
-            </p>
+            <p style={{ color: "#64748b", fontSize: 15, lineHeight: 1.8, marginBottom: 16 }}>Founded by veterans with decades of combined experience in defense, cybersecurity, and enterprise operations, EDS was built to deliver the same mission-critical reliability that the military demands — applied to securing the businesses, agencies, and communities of the modern world.</p>
             <p style={{ color: "#64748b", fontSize: 15, lineHeight: 1.8, marginBottom: 24 }}>Two executives. AI-powered agents running 24/7. Zero compromise on quality.</p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <span style={css.badge("#00e5c8")}>🎖️ SDVOSB Certified</span>
