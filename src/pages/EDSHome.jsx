@@ -122,10 +122,10 @@ export default function EDSHome() {
       <nav style={{ position: "sticky", top: 0, zIndex: 100, background: "rgba(7,21,32,0.96)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(0,229,200,0.12)", padding: "0 24px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", height: 64 }}>
           <a href="#" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-            <span style={{ fontSize: 24 }}>🛡️</span>
+            <img src="https://media.base44.com/images/public/69f1f1da68cbf198a19d2008/74f34baa5_2133.png" alt="EDS Logo" style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover" }} />
             <div>
-              <div style={{ fontWeight: 900, fontSize: 16, color: "#00e5c8", letterSpacing: 1 }}>EDS</div>
-              <div style={{ fontSize: 10, color: "#475569", letterSpacing: 2, marginTop: -2 }}>CYBER.EDS-360.COM</div>
+              <div style={{ fontWeight: 900, fontSize: 16, color: "#00e5c8", letterSpacing: 1 }}>Emerging Defense Solutions</div>
+              <div style={{ fontSize: 10, color: "#475569", letterSpacing: 2, marginTop: -2 }}>PREMIER SOCaaS · cyber.eds-360.com</div>
             </div>
           </a>
           <div style={{ display: "flex", gap: 2, alignItems: "center", flexWrap: "wrap" }}>
@@ -143,10 +143,13 @@ export default function EDSHome() {
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, #071520 40%, rgba(7,21,32,0.7) 70%, #071520 100%)" }} />
         <div style={{ position: "relative", maxWidth: 1200, margin: "0 auto", padding: "80px 24px" }}>
           <div style={{ maxWidth: 700 }}>
-            <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
-              <span style={css.badge("#00e5c8")}>🎖️ SDVOSB Veteran-Owned</span>
-              <span style={css.badge("#2dd4bf")}>🛡️ SOCaaS Provider</span>
-              <span style={css.badge("#38bdf8")}>🏛️ CMMC Ready</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}>
+              <img src="https://media.base44.com/images/public/69f1f1da68cbf198a19d2008/74f34baa5_2133.png" alt="EDS Logo" style={{ width: 80, height: 80, borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(0,229,200,0.3)", boxShadow: "0 0 24px rgba(0,229,200,0.15)" }} />
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                <span style={css.badge("#00e5c8")}>🎖️ SDVOSB Veteran-Owned</span>
+                <span style={css.badge("#2dd4bf")}>🛡️ SOCaaS Provider</span>
+                <span style={css.badge("#38bdf8")}>🏛️ CMMC Ready</span>
+              </div>
             </div>
             <h1 style={{ margin: "0 0 16px", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 900, lineHeight: 1.1, letterSpacing: "-0.03em" }}>
               Defending What<br /><span style={{ color: "#00e5c8" }}>Matters Most.</span>
@@ -421,7 +424,10 @@ export default function EDSHome() {
       <section id="about" style={css.section}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 40, alignItems: "center" }}>
           <div>
-            <SectionHeader icon="🎖️" title="About EDS" sub="" />
+            <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}>
+              <img src="https://media.base44.com/images/public/69f1f1da68cbf198a19d2008/74f34baa5_2133.png" alt="EDS Logo" style={{ width: 72, height: 72, borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(0,229,200,0.3)" }} />
+              <h2 style={{ margin: 0, fontSize: 26, fontWeight: 900, color: "#e2e8f0" }}>About Emerging Defense Solutions</h2>
+            </div>
             <p style={{ color: "#94a3b8", fontSize: 16, lineHeight: 1.8, marginBottom: 16 }}>
               Emerging Defense Solutions is a <strong style={{ color: "#00e5c8" }}>Service-Disabled Veteran-Owned Small Business (SDVOSB)</strong> headquartered in Fredericksburg, Virginia — at the intersection of DoD Country and the nation's capital.
             </p>
@@ -501,10 +507,12 @@ export default function EDSHome() {
       {/* FOOTER */}
       <footer style={{ background: "#040d14", borderTop: "1px solid rgba(0,229,200,0.1)", padding: "28px 24px", textAlign: "center" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 10, marginBottom: 10 }}>
-            <span style={{ fontSize: 20 }}>🛡️</span>
-            <span style={{ fontWeight: 900, fontSize: 15, color: "#00e5c8" }}>EDS</span>
-            <span style={{ color: "#334155", fontSize: 15 }}>Emerging Defense Solutions</span>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 12, marginBottom: 12 }}>
+            <img src="https://media.base44.com/images/public/69f1f1da68cbf198a19d2008/74f34baa5_2133.png" alt="EDS Logo" style={{ width: 40, height: 40, borderRadius: "50%", objectFit: "cover", border: "1px solid rgba(0,229,200,0.25)" }} />
+            <div>
+              <div style={{ fontWeight: 900, fontSize: 15, color: "#00e5c8" }}>Emerging Defense Solutions</div>
+              <div style={{ fontSize: 11, color: "#334155" }}>Premier SOCaaS · cyber.eds-360.com</div>
+            </div>
           </div>
           <div style={{ display: "flex", justifyContent: "center", gap: 20, marginBottom: 14, flexWrap: "wrap" }}>
             {["Confidentiality", "Integrity", "Availability"].map((v, i) => (
