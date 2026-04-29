@@ -331,8 +331,6 @@ export default function EDSHome() {
             <span style={{ color: "#334155" }}>|</span>
             <a href="mailto:cyber@eds-360.com" style={{ color: "#475569", fontSize: 14, textDecoration: "none" }}>✉️ cyber@eds-360.com</a>
             <span style={{ color: "#334155" }}>|</span>
-            <a href="mailto:training@eds-360.com" style={{ color: "#475569", fontSize: 14, textDecoration: "none" }}>✉️ training@eds-360.com</a>
-            <span style={{ color: "#334155" }}>|</span>
             <span style={{ color: "#475569", fontSize: 14 }}>📍 Northern Virginia / Maryland / DC</span>
             <span style={{ color: "#334155" }}>|</span>
             <a href="https://eds-360.com" target="_blank" rel="noreferrer" style={{ color: "#475569", fontSize: 14, textDecoration: "none" }}>🌐 eds-360.com</a>
