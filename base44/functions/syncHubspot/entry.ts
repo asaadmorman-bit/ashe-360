@@ -1,6 +1,6 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
-const HUBSPOT_API_KEY = Deno.env.get('HUBSPOT_API_KEY');
+const HUBSPOT_API_KEY = Deno.env.get('HUBSpot_Private_App');
 const HUBSPOT_BASE = 'https://api.hubapi.com';
 
 Deno.serve(async (req) => {
@@ -15,7 +15,7 @@ Deno.serve(async (req) => {
     }
 
     if (!HUBSPOT_API_KEY) {
-      return Response.json({ error: 'HUBSPOT_API_KEY secret not set' }, { status: 500 });
+      return Response.json({ error: 'HUBSpot_Private_App secret not set' }, { status: 500 });
     }
 
     // Fetch contacts from HubSpot
