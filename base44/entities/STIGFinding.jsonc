@@ -50,5 +50,32 @@
     "stig_id",
     "title",
     "severity"
-  ]
+  ],
+  "rls": {
+    "rules": [
+      {
+        "name": "admins_full_access",
+        "description": "Admins can read/write/delete all STIG findings",
+        "allow": [
+          "read",
+          "write",
+          "delete"
+        ],
+        "when": {
+          "user.role": "admin"
+        }
+      },
+      {
+        "name": "users_own_client_findings",
+        "description": "Users can only read STIG findings for their own client",
+        "allow": [
+          "read"
+        ],
+        "when": {
+          "user.role": "user",
+          "client_name": "user.managed_client"
+        }
+      }
+    ]
+  }
 }

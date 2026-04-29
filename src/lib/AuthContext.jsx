@@ -94,10 +94,26 @@ export const AuthProvider = ({ children }) => {
       // Now check if the user is authenticated
       setIsLoadingAuth(true);
       const currentUser = await base44.auth.me();
+      
+      // Assign role based on email domain
+      const isEDSEmail = currentUser.email?.endsWith('@eds-360.com') || currentUser.email?.endsWith('@emergingdefensesolutions.com');
+      const expectedRole = isEDSEmail ? 'admin' : 'user';
+      
+      if (currentUser.role !== expectedRole) {
+        await base44.auth.updateMe({ role: expectedRole });
+        currentUser.role = expectedRole;
+      }
+      
       setUser(currentUser);
       setIsAuthenticated(true);
       setIsLoadingAuth(false);
       setAuthChecked(true);
+      
+      // Redirect based on role
+      const redirectUrl = expectedRole === 'admin' ? '/exec' : '/dashboard';
+      if (window.location.pathname === '/' || window.location.pathname === '/portal') {
+        window.location.href = redirectUrl;
+      }
     } catch (error) {
       console.error('User auth check failed:', error);
       setIsLoadingAuth(false);

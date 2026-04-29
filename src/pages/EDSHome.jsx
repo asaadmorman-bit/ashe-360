@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { base44 } from "@/api/base44Client";
 import EDSNav from "../components/eds/EDSNav";
 import EDSFooter from "../components/eds/EDSFooter";
 
@@ -15,6 +16,14 @@ const SECTIONS = [
 ];
 
 export default function EDSHome() {
+  const handleSignIn = async () => {
+    try {
+      await base44.auth.redirectToLogin('/dashboard');
+    } catch (error) {
+      console.error('Sign in error:', error);
+    }
+  };
+
   return (
     <div style={{ background: "linear-gradient(160deg, #071520 0%, #0a2030 50%, #082828 100%)", minHeight: "100vh", fontFamily: "'Inter',system-ui,sans-serif", color: "#e2e8f0" }}>
       <EDSNav />
@@ -38,7 +47,10 @@ export default function EDSHome() {
           Enterprise-grade cybersecurity and SOCaaS built on <strong style={{ color: "#94a3b8" }}>Confidentiality, Integrity, and Availability</strong> — for federal contractors, agencies, and enterprises.
         </p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-          <Link to="/contact" onClick={() => window.scrollTo(0, 0)} style={{ padding: "13px 28px", borderRadius: 10, background: "#00e5c8", color: "#071520", fontWeight: 800, fontSize: 15, textDecoration: "none" }}>
+          <button onClick={handleSignIn} style={{ padding: "13px 28px", borderRadius: 10, background: "#00e5c8", color: "#071520", fontWeight: 800, fontSize: 15, textDecoration: "none", border: "none", cursor: "pointer" }}>
+            Sign In with Google →
+          </button>
+          <Link to="/contact" onClick={() => window.scrollTo(0, 0)} style={{ padding: "13px 28px", borderRadius: 10, background: "transparent", border: "2px solid rgba(0,229,200,0.35)", color: "#00e5c8", fontWeight: 700, fontSize: 15, textDecoration: "none" }}>
             Book Free Assessment →
           </Link>
           <Link to="/services" onClick={() => window.scrollTo(0, 0)} style={{ padding: "13px 28px", borderRadius: 10, background: "transparent", border: "2px solid rgba(0,229,200,0.35)", color: "#00e5c8", fontWeight: 700, fontSize: 15, textDecoration: "none" }}>

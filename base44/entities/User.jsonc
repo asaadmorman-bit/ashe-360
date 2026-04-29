@@ -1,0 +1,19 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "user"
+      ],
+      "default": "user",
+      "description": "User role - admin (EDS staff) or user (client/customer)"
+    },
+    "managed_client": {
+      "type": "string",
+      "description": "Company name of the client this user manages/belongs to (for RLS filtering)"
+    }
+  }
+}

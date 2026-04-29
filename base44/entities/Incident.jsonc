@@ -76,5 +76,32 @@
   "required": [
     "title",
     "severity"
-  ]
+  ],
+  "rls": {
+    "rules": [
+      {
+        "name": "admins_full_access",
+        "description": "Admins can read/write/delete all incidents",
+        "allow": [
+          "read",
+          "write",
+          "delete"
+        ],
+        "when": {
+          "user.role": "admin"
+        }
+      },
+      {
+        "name": "users_own_client_data",
+        "description": "Users can only read incidents for their own managed client",
+        "allow": [
+          "read"
+        ],
+        "when": {
+          "user.role": "user",
+          "affected_client": "user.managed_client"
+        }
+      }
+    ]
+  }
 }

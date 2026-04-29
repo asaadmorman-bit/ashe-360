@@ -25,6 +25,7 @@ import CICDPage from './pages/eds/CICDPage';
 import AboutPage from './pages/eds/AboutPage';
 import ContactPage from './pages/eds/ContactPage';
 import ClientPortal from './pages/ClientPortal';
+import ClientDashboard from './pages/ClientDashboard';
 import OnboardingTracker from './pages/OnboardingTracker';
 import TrainingPublic from './pages/TrainingPublic';
 import ASHE from './pages/ASHE';
@@ -74,7 +75,7 @@ function App() {
             {/* All dashboard routes require authentication */}
             <Route element={<RequireAuth />}>
               <Route element={<AppLayout />}>
-                <Route path="/dashboard" element={<Home />} />
+                <Route path="/dashboard" element={<ClientDashboard />} />
                 <Route path="/conmon" element={<ConMon />} />
                 <Route path="/eye" element={<EyeOfEDS />} />
                 <Route path="/growth" element={<Growth />} />

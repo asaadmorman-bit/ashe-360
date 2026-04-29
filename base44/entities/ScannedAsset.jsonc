@@ -53,5 +53,32 @@
   },
   "required": [
     "hostname"
-  ]
+  ],
+  "rls": {
+    "rules": [
+      {
+        "name": "admins_full_access",
+        "description": "Admins can read/write/delete all assets",
+        "allow": [
+          "read",
+          "write",
+          "delete"
+        ],
+        "when": {
+          "user.role": "admin"
+        }
+      },
+      {
+        "name": "users_own_client_assets",
+        "description": "Users can only read assets for their own client",
+        "allow": [
+          "read"
+        ],
+        "when": {
+          "user.role": "user",
+          "client_name": "user.managed_client"
+        }
+      }
+    ]
+  }
 }
