@@ -1,0 +1,51 @@
+{
+  "name": "TrainingRegistration",
+  "type": "object",
+  "properties": {
+    "class_id": {
+      "type": "string"
+    },
+    "student_name": {
+      "type": "string"
+    },
+    "student_email": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "registration_status": {
+      "type": "string",
+      "enum": [
+        "registered",
+        "confirmed",
+        "waitlisted",
+        "cancelled",
+        "completed"
+      ],
+      "default": "registered"
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "paid",
+        "refunded",
+        "waived"
+      ],
+      "default": "pending"
+    },
+    "completion_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "certificate_url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "class_id",
+    "student_name",
+    "student_email"
+  ]
+}

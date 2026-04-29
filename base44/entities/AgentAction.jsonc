@@ -1,0 +1,67 @@
+{
+  "name": "AgentAction",
+  "type": "object",
+  "properties": {
+    "agent_name": {
+      "type": "string",
+      "description": "Name of the agent that performed the action"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "email_sent",
+        "ticket_created",
+        "alert_triggered",
+        "task_updated",
+        "lead_scored",
+        "scan_completed",
+        "post_published",
+        "report_generated",
+        "escalation",
+        "sync_completed"
+      ],
+      "description": "Type of action performed"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Brief summary of the action"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "completed",
+        "pending",
+        "failed",
+        "in_progress"
+      ],
+      "default": "completed"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "low"
+    },
+    "metadata": {
+      "type": "string",
+      "description": "JSON string of additional action data"
+    },
+    "related_entity": {
+      "type": "string",
+      "description": "Related entity type"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "Related entity ID"
+    }
+  },
+  "required": [
+    "agent_name",
+    "action_type",
+    "summary"
+  ]
+}

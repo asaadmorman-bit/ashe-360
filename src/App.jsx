@@ -5,7 +5,16 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
-// Add page imports here
+import AppLayout from './components/layout/AppLayout';
+import Home from './pages/Home';
+import ConMon from './pages/ConMon';
+import EyeOfEDS from './pages/EyeOfEDS';
+import Growth from './pages/Growth';
+import Social from './pages/Social';
+import Training from './pages/Training';
+import ExecHub from './pages/ExecHub';
+import Platform from './pages/Platform';
+import QA from './pages/QA';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -33,7 +42,17 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <Routes>
-      {/* Add your page Route elements here */}
+      <Route element={<AppLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/conmon" element={<ConMon />} />
+        <Route path="/eye" element={<EyeOfEDS />} />
+        <Route path="/growth" element={<Growth />} />
+        <Route path="/social" element={<Social />} />
+        <Route path="/training" element={<Training />} />
+        <Route path="/exec" element={<ExecHub />} />
+        <Route path="/platform" element={<Platform />} />
+        <Route path="/qa" element={<QA />} />
+      </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

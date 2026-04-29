@@ -1,0 +1,72 @@
+{
+  "name": "ManagedClient",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "primary_contact": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "contact_phone": {
+      "type": "string"
+    },
+    "contract_type": {
+      "type": "string",
+      "enum": [
+        "managed",
+        "co_managed",
+        "project",
+        "consulting"
+      ],
+      "default": "managed"
+    },
+    "contract_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "contract_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "mrr": {
+      "type": "number",
+      "default": 0,
+      "description": "Monthly recurring revenue"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "onboarding",
+        "churned",
+        "paused"
+      ],
+      "default": "active"
+    },
+    "total_endpoints": {
+      "type": "number",
+      "default": 0
+    },
+    "total_users": {
+      "type": "number",
+      "default": 0
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "bronze",
+        "silver",
+        "gold",
+        "platinum"
+      ],
+      "default": "silver"
+    }
+  },
+  "required": [
+    "company_name"
+  ]
+}

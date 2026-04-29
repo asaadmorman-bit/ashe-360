@@ -1,0 +1,68 @@
+{
+  "name": "BCMSession",
+  "type": "object",
+  "properties": {
+    "session_name": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "session_type": {
+      "type": "string",
+      "enum": [
+        "backup_test",
+        "failover_drill",
+        "tabletop_exercise",
+        "full_dr_test",
+        "compliance_review"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "in_progress",
+        "completed",
+        "failed"
+      ],
+      "default": "scheduled"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "rto_target": {
+      "type": "string"
+    },
+    "rto_actual": {
+      "type": "string"
+    },
+    "rpo_target": {
+      "type": "string"
+    },
+    "rpo_actual": {
+      "type": "string"
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "participants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "session_name",
+    "client_name"
+  ]
+}

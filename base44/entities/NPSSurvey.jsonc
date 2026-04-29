@@ -1,0 +1,51 @@
+{
+  "name": "NPSSurvey",
+  "type": "object",
+  "properties": {
+    "respondent_name": {
+      "type": "string"
+    },
+    "respondent_email": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "score": {
+      "type": "number",
+      "description": "NPS score 0-10"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "detractor",
+        "passive",
+        "promoter"
+      ]
+    },
+    "feedback": {
+      "type": "string"
+    },
+    "survey_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "follow_up_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "contacted",
+        "resolved",
+        "no_action"
+      ],
+      "default": "pending"
+    },
+    "service_area": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "respondent_name",
+    "score"
+  ]
+}

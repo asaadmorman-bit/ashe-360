@@ -1,0 +1,58 @@
+{
+  "name": "BCMQueue",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "in_progress",
+        "completed",
+        "escalated"
+      ],
+      "default": "queued"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "backup",
+        "disaster_recovery",
+        "business_continuity",
+        "compliance",
+        "audit"
+      ]
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "name": "Onboarding",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "phase": {
+      "type": "string",
+      "enum": [
+        "discovery",
+        "planning",
+        "migration",
+        "testing",
+        "go_live",
+        "completed"
+      ],
+      "default": "discovery"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "target_completion": {
+      "type": "string",
+      "format": "date"
+    },
+    "assigned_pm": {
+      "type": "string"
+    },
+    "progress_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "checklist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "type": "string"
+          },
+          "done": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "completed",
+        "cancelled"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "client_name"
+  ]
+}

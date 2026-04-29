@@ -1,0 +1,67 @@
+{
+  "name": "ServiceTicket",
+  "type": "object",
+  "properties": {
+    "ticket_number": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "open",
+        "in_progress",
+        "waiting",
+        "resolved",
+        "closed"
+      ],
+      "default": "new"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "hardware",
+        "software",
+        "network",
+        "security",
+        "access",
+        "other"
+      ]
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "requester_email": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "resolution": {
+      "type": "string"
+    },
+    "sla_deadline": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "subject"
+  ]
+}

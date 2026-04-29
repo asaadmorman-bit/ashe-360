@@ -1,0 +1,60 @@
+{
+  "name": "SocialPost",
+  "type": "object",
+  "properties": {
+    "platform": {
+      "type": "string",
+      "enum": [
+        "linkedin",
+        "instagram",
+        "twitter"
+      ]
+    },
+    "content": {
+      "type": "string"
+    },
+    "media_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "published",
+        "failed"
+      ],
+      "default": "draft"
+    },
+    "scheduled_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "engagement_likes": {
+      "type": "number",
+      "default": 0
+    },
+    "engagement_comments": {
+      "type": "number",
+      "default": 0
+    },
+    "engagement_shares": {
+      "type": "number",
+      "default": 0
+    },
+    "external_post_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "platform",
+    "content"
+  ]
+}

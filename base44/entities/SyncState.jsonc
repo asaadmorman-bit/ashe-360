@@ -1,0 +1,38 @@
+{
+  "name": "SyncState",
+  "type": "object",
+  "properties": {
+    "integration_name": {
+      "type": "string",
+      "description": "e.g. gmail, hubspot, clickup"
+    },
+    "last_sync_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sync_status": {
+      "type": "string",
+      "enum": [
+        "idle",
+        "syncing",
+        "success",
+        "error"
+      ],
+      "default": "idle"
+    },
+    "records_synced": {
+      "type": "number",
+      "default": 0
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "sync_cursor": {
+      "type": "string",
+      "description": "Pagination cursor or token for incremental sync"
+    }
+  },
+  "required": [
+    "integration_name"
+  ]
+}

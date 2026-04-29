@@ -1,0 +1,53 @@
+{
+  "name": "ClientSite",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "site_name": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "site_type": {
+      "type": "string",
+      "enum": [
+        "headquarters",
+        "branch",
+        "remote",
+        "datacenter",
+        "warehouse"
+      ]
+    },
+    "endpoint_count": {
+      "type": "number",
+      "default": 0
+    },
+    "network_status": {
+      "type": "string",
+      "enum": [
+        "online",
+        "degraded",
+        "offline",
+        "maintenance"
+      ],
+      "default": "online"
+    },
+    "last_health_check": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "primary_contact": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_id",
+    "site_name"
+  ]
+}

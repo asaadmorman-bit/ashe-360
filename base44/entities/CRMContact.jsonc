@@ -1,0 +1,59 @@
+{
+  "name": "CRMContact",
+  "type": "object",
+  "properties": {
+    "hubspot_id": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "enum": [
+        "subscriber",
+        "lead",
+        "mql",
+        "sql",
+        "opportunity",
+        "customer",
+        "evangelist"
+      ],
+      "default": "lead"
+    },
+    "lead_score": {
+      "type": "number",
+      "default": 0
+    },
+    "deal_value": {
+      "type": "number",
+      "default": 0
+    },
+    "last_contacted": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "first_name",
+    "email"
+  ]
+}

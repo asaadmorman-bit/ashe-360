@@ -1,0 +1,57 @@
+{
+  "name": "ScannedAsset",
+  "type": "object",
+  "properties": {
+    "hostname": {
+      "type": "string"
+    },
+    "ip_address": {
+      "type": "string"
+    },
+    "os": {
+      "type": "string"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "workstation",
+        "server",
+        "network_device",
+        "iot",
+        "mobile",
+        "virtual_machine"
+      ]
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "last_scan_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "vulnerability_count": {
+      "type": "number",
+      "default": 0
+    },
+    "critical_count": {
+      "type": "number",
+      "default": 0
+    },
+    "compliance_score": {
+      "type": "number",
+      "default": 0
+    },
+    "agent_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "unmanaged"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "hostname"
+  ]
+}

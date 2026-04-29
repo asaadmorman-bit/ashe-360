@@ -1,0 +1,80 @@
+{
+  "name": "Incident",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "investigating",
+        "mitigating",
+        "resolved",
+        "closed"
+      ],
+      "default": "open"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "malware",
+        "phishing",
+        "data_breach",
+        "dos",
+        "unauthorized_access",
+        "policy_violation",
+        "hardware_failure",
+        "network",
+        "other"
+      ]
+    },
+    "affected_client": {
+      "type": "string"
+    },
+    "affected_systems": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "resolution": {
+      "type": "string"
+    },
+    "detected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "resolved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ioc_indicators": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "severity"
+  ]
+}

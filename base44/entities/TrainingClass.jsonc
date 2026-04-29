@@ -1,0 +1,73 @@
+{
+  "name": "TrainingClass",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "instructor": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "cybersecurity",
+        "compliance",
+        "technical",
+        "leadership",
+        "sales",
+        "operations"
+      ]
+    },
+    "format": {
+      "type": "string",
+      "enum": [
+        "live_virtual",
+        "in_person",
+        "on_demand",
+        "hybrid"
+      ],
+      "default": "live_virtual"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "max_capacity": {
+      "type": "number",
+      "default": 30
+    },
+    "current_enrollment": {
+      "type": "number",
+      "default": 0
+    },
+    "price": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "upcoming",
+        "active",
+        "completed",
+        "cancelled"
+      ],
+      "default": "upcoming"
+    },
+    "materials_url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "category"
+  ]
+}

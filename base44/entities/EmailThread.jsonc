@@ -1,0 +1,51 @@
+{
+  "name": "EmailThread",
+  "type": "object",
+  "properties": {
+    "gmail_id": {
+      "type": "string",
+      "description": "Gmail message ID"
+    },
+    "thread_id": {
+      "type": "string",
+      "description": "Gmail thread ID"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "from_email": {
+      "type": "string"
+    },
+    "from_name": {
+      "type": "string"
+    },
+    "to_email": {
+      "type": "string"
+    },
+    "snippet": {
+      "type": "string",
+      "description": "Preview text"
+    },
+    "is_read": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_starred": {
+      "type": "boolean",
+      "default": false
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "received_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "subject"
+  ]
+}
