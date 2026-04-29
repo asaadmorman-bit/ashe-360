@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { TrendingUp, Users, DollarSign, Star, Target } from 'lucide-react';
+import ContactDrawer from '../components/growth/ContactDrawer';
 import PageHeader from '../components/shared/PageHeader';
 import KPICard from '../components/shared/KPICard';
 import DataTable, { StatusBadge } from '../components/shared/DataTable';
@@ -21,6 +22,8 @@ const STAGE_COLORS = {
 };
 
 export default function Growth() {
+  const [selectedContact, setSelectedContact] = useState(null);
+
   const { data: contacts = [] } = useQuery({
     queryKey: ['crm-contacts'],
     queryFn: () => base44.entities.CRMContact.list('-created_date', 100),
@@ -91,7 +94,7 @@ export default function Growth() {
         </TabsList>
 
         <TabsContent value="contacts">
-          <DataTable columns={contactCols} data={contacts} emptyMessage="No CRM contacts" />
+          <DataTable columns={contactCols} data={contacts} emptyMessage="No CRM contacts" onRowClick={setSelectedContact} />
         </TabsContent>
 
         <TabsContent value="nps">
@@ -124,6 +127,12 @@ export default function Growth() {
           </div>
         </TabsContent>
       </Tabs>
+
+      <ContactDrawer
+        contact={selectedContact}
+        open={!!selectedContact}
+        onClose={() => setSelectedContact(null)}
+      />
     </div>
   );
 }
