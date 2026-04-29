@@ -3,11 +3,25 @@ import { useState, useEffect } from "react";
 const HERO_BG = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1600&q=80";
 
 const NAV_LINKS = [
-  { label: "Services",         href: "#services"    },
-  { label: "Compliance",       href: "#compliance"  },
-  { label: "CI/CD & Security", href: "#cicd"        },
-  { label: "About EDS",        href: "#about"       },
-  { label: "Contact",          href: "#contact"     },
+  { label: "Services",     href: "#services"    },
+  { label: "Compliance",   href: "#compliance"  },
+  { label: "Case Studies", href: "#cases"       },
+  { label: "Pricing",      href: "#pricing"     },
+  { label: "CI/CD",        href: "#cicd"        },
+  { label: "About",        href: "#about"       },
+  { label: "Contact",      href: "#contact"     },
+];
+
+const TRUST_BADGES = [
+  { icon: "🏛️", label: "CMMC",        sub: "L1–L3 Ready"       },
+  { icon: "📐", label: "NIST 800-53",  sub: "Compliant"         },
+  { icon: "🔐", label: "DISA STIGs",   sub: "Implemented"       },
+  { icon: "🛡️", label: "CISA ZT",     sub: "Maturity Model"    },
+  { icon: "🇺🇸", label: "DoD Aligned", sub: "Federal Ready"     },
+  { icon: "☁️", label: "FedRAMP",      sub: "Readiness Support" },
+  { icon: "✅", label: "SOC 2",        sub: "Type I & II"       },
+  { icon: "🌐", label: "ISO 27001",    sub: "Certified Ready"   },
+  { icon: "🎖️", label: "SDVOSB",      sub: "Veteran-Owned"     },
 ];
 
 const SERVICES = [
@@ -30,6 +44,18 @@ const COMPLIANCE = [
   { id: "ZT",      icon: "🔮", color: "#38bdf8", label: "CISA Zero Trust",    desc: "Zero Trust Maturity Model for federal and commercial environments" },
 ];
 
+const CASE_STUDIES = [
+  { icon: "🏗️", color: "#00e5c8", tag: "Defense Contractor", title: "CMMC L2 Achieved in 90 Days", client: "Mid-size DoD subcontractor, 80 employees", challenge: "Failed pre-assessment with 47 open findings. Contract at risk. CUI handling gaps across 3 sites.", solution: "EDS deployed agentless SCAP scanning, remediated all CAT I STIGs, implemented CUI data flow mapping, and built the SSP from scratch.", result: "CMMC Level 2 certification achieved in 87 days. $4.2M contract retained. Zero CAT I findings at final assessment.", metrics: [{ v: "87", u: "days" }, { v: "47→0", u: "findings" }, { v: "$4.2M", u: "contract saved" }] },
+  { icon: "🏫", color: "#38bdf8", tag: "K-12 Education", title: "Ransomware Contained in 38 Minutes", client: "County school district, 14,000 students", challenge: "LockBit variant deployed via phishing. 3 servers encrypted. No IR plan. IT team of 2.", solution: "EDS SOCaaS detected lateral movement via Suricata at T+4 min. Network isolation triggered. Forensic imaging, IOC extraction, and recovery playbook executed.", result: "38-minute containment. No student data exfiltrated. Schools online next morning. Full IOC report delivered to FBI CISA.", metrics: [{ v: "38", u: "min containment" }, { v: "0", u: "records stolen" }, { v: "100%", u: "recovery" }] },
+  { icon: "🏛️", color: "#2dd4bf", tag: "Municipal Government", title: "FISMA ATO Package — 6 Weeks", client: "Regional metro authority, 400 endpoints", challenge: "FY audit approaching. No existing ATO documentation. Legacy systems with unknown asset inventory. $180K in potential funding at risk.", solution: "EDS conducted full asset discovery via agentless scanning, built the system security plan, conducted risk assessment, and authored the complete ATO package.", result: "ATO granted on first submission. Audit passed. $180K federal funding secured. Ongoing ISSO retainer established.", metrics: [{ v: "6", u: "weeks to ATO" }, { v: "1st", u: "submission pass" }, { v: "$180K", u: "funding secured" }] },
+];
+
+const PRICING = [
+  { tier: "Starter", icon: "🔰", color: "#2dd4bf", price: "$1,500", period: "/mo", tagline: "For small businesses & startups", highlight: false, cta: "Get Started", features: ["24/7 SOC monitoring (up to 25 endpoints)", "Monthly security posture report", "Email threat triage", "NIST CSF gap assessment (annual)", "Incident response (business hours)", "1 compliance framework advisory", "Slack/email alerting"] },
+  { tier: "Professional", icon: "⚡", color: "#00e5c8", price: "$4,500", period: "/mo", tagline: "For SMBs & government contractors", highlight: true, cta: "Most Popular", features: ["24/7 SOC monitoring (up to 150 endpoints)", "Weekly executive security brief", "SIEM + SOAR automation", "CMMC / NIST RMF compliance support", "Incident response <4hr SLA", "STIG scanning & remediation", "VirusTotal + CVE feed integration", "Dedicated account manager", "2 compliance frameworks"] },
+  { tier: "Enterprise", icon: "🏛️", color: "#38bdf8", price: "Custom", period: "", tagline: "For federal agencies & large orgs", highlight: false, cta: "Contact Us", features: ["Unlimited endpoints", "Full-time vCISO / ISSO support", "ATO package authoring", "FedRAMP readiness assessment", "Zero Trust architecture design", "Incident response <1hr SLA", "All compliance frameworks", "ServiceNow ITSM integration", "On-site assessments available", "Custom SLA & white-glove support"] },
+];
+
 const CICD_CHECKS = [
   { icon: "🔑", label: "Secret Management",  desc: "No hardcoded credentials — all secrets in encrypted vault" },
   { icon: "🌐", label: "HTTPS Enforcement",   desc: "All transport encrypted — no unencrypted API calls" },
@@ -44,9 +70,9 @@ const CICD_CHECKS = [
 ];
 
 const CIA_PILLARS = [
-  { key: "C", color: "#00e5c8", glow: "#00e5c820", icon: "🔒", title: "Confidentiality", sub: "Your data stays yours.", desc: "We implement role-based access control, end-to-end encryption, Zero Trust policies, and strict data classification to ensure that only authorized parties ever access sensitive information — whether at rest or in transit.", controls: ["AES-256 Encryption at Rest", "TLS 1.3 in Transit", "Zero Trust IAM", "Data Classification", "Need-to-Know Access"] },
-  { key: "I", color: "#38bdf8", glow: "#38bdf820", icon: "✅", title: "Integrity",        sub: "Trust what you see.",    desc: "From cryptographic checksums to immutable audit trails, we ensure that your data, systems, and configurations haven't been tampered with. Every change is logged, versioned, and verifiable.", controls: ["Cryptographic Hashing", "Immutable Audit Logs", "Change Management (CAB)", "File Integrity Monitoring", "Digital Signatures"] },
-  { key: "A", color: "#2dd4bf", glow: "#2dd4bf20", icon: "⚡", title: "Availability",     sub: "Always on. Always ready.", desc: "Our SOCaaS infrastructure is designed for 99.9%+ uptime with business continuity plans, redundant monitoring, automated failover, and SLA-backed response times — so your operations never stop.", controls: ["99.9% SLA Uptime", "Business Continuity Mode", "Redundant Monitoring", "Automated Failover", "24/7 Incident Response"] },
+  { key: "C", color: "#00e5c8", glow: "#00e5c820", icon: "🔒", title: "Confidentiality", sub: "Your data stays yours.",    desc: "We implement role-based access control, end-to-end encryption, Zero Trust policies, and strict data classification to ensure that only authorized parties ever access sensitive information — whether at rest or in transit.", controls: ["AES-256 Encryption at Rest", "TLS 1.3 in Transit", "Zero Trust IAM", "Data Classification", "Need-to-Know Access"] },
+  { key: "I", color: "#38bdf8", glow: "#38bdf820", icon: "✅", title: "Integrity",        sub: "Trust what you see.",        desc: "From cryptographic checksums to immutable audit trails, we ensure that your data, systems, and configurations haven't been tampered with. Every change is logged, versioned, and verifiable.", controls: ["Cryptographic Hashing", "Immutable Audit Logs", "Change Management (CAB)", "File Integrity Monitoring", "Digital Signatures"] },
+  { key: "A", color: "#2dd4bf", glow: "#2dd4bf20", icon: "⚡", title: "Availability",     sub: "Always on. Always ready.",   desc: "Our SOCaaS infrastructure is designed for 99.9%+ uptime with business continuity plans, redundant monitoring, automated failover, and SLA-backed response times — so your operations never stop.", controls: ["99.9% SLA Uptime", "Business Continuity Mode", "Redundant Monitoring", "Automated Failover", "24/7 Incident Response"] },
 ];
 
 const STATS = [
@@ -72,6 +98,9 @@ function SectionHeader({ icon, title, sub, accent = "#00e5c8" }) {
 export default function EDSHome() {
   const [contactForm, setContactForm] = useState({ name: "", email: "", company: "", service: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [assessForm, setAssessForm] = useState({ name: "", email: "", company: "", size: "" });
+  const [assessSubmitted, setAssessSubmitted] = useState(false);
+  const [openCase, setOpenCase] = useState(null);
 
   useEffect(() => {
     document.title = "Emerging Defense Solutions — SOCaaS & Cybersecurity";
@@ -99,11 +128,11 @@ export default function EDSHome() {
               <div style={{ fontSize: 10, color: "#475569", letterSpacing: 2, marginTop: -2 }}>EMERGING DEFENSE SOLUTIONS</div>
             </div>
           </a>
-          <div style={{ display: "flex", gap: 4, alignItems: "center", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 2, alignItems: "center", flexWrap: "wrap" }}>
             {NAV_LINKS.map(l => (
-              <a key={l.label} href={l.href} style={{ padding: "8px 14px", fontSize: 13, fontWeight: 500, color: "#94a3b8", textDecoration: "none", borderRadius: 8 }}>{l.label}</a>
+              <a key={l.label} href={l.href} style={{ padding: "8px 11px", fontSize: 12, fontWeight: 500, color: "#94a3b8", textDecoration: "none", borderRadius: 8 }}>{l.label}</a>
             ))}
-            <a href="#contact" style={{ ...css.btn(), marginLeft: 8, padding: "8px 20px", fontSize: 13, textDecoration: "none", borderRadius: 8 }}>Get Started →</a>
+            <a href="#assessment" style={{ ...css.btn(), marginLeft: 8, padding: "8px 16px", fontSize: 12, textDecoration: "none", borderRadius: 8 }}>Free Assessment →</a>
           </div>
         </div>
       </nav>
@@ -129,15 +158,33 @@ export default function EDSHome() {
               <strong style={{ color: "#2dd4bf" }}>Availability</strong>. Rigorous federal compliance. Continuous CI/CD security scanning. Zero-day protection.
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href="#services" style={{ ...css.btn(), textDecoration: "none", borderRadius: 10 }}>Explore Our Services →</a>
-              <a href="#contact" style={{ ...css.btn("#00e5c8", true), textDecoration: "none", borderRadius: 10 }}>Request a Consultation</a>
+              <a href="#assessment" style={{ ...css.btn(), textDecoration: "none", borderRadius: 10 }}>Get Free Security Assessment →</a>
+              <a href="#services" style={{ ...css.btn("#00e5c8", true), textDecoration: "none", borderRadius: 10 }}>Explore Services</a>
             </div>
           </div>
         </div>
       </section>
 
+      {/* TRUST BAR */}
+      <div style={{ background: "rgba(0,229,200,0.02)", borderTop: "1px solid rgba(0,229,200,0.08)", borderBottom: "1px solid rgba(0,229,200,0.08)" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "20px 24px" }}>
+          <div style={{ textAlign: "center", color: "#334155", fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", marginBottom: 16 }}>Aligned to the standards that matter</div>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+            {TRUST_BADGES.map(b => (
+              <div key={b.label} style={{ display: "flex", alignItems: "center", gap: 7, background: "rgba(0,229,200,0.04)", border: "1px solid rgba(0,229,200,0.12)", borderRadius: 8, padding: "8px 14px" }}>
+                <span style={{ fontSize: 16 }}>{b.icon}</span>
+                <div>
+                  <div style={{ color: "#e2e8f0", fontSize: 12, fontWeight: 700, whiteSpace: "nowrap" }}>{b.label}</div>
+                  <div style={{ color: "#334155", fontSize: 10 }}>{b.sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* STATS BAR */}
-      <div style={{ background: "rgba(255,255,255,0.02)", borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+      <div style={{ background: "rgba(255,255,255,0.01)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "24px", display: "flex", flexWrap: "wrap", justifyContent: "space-around" }}>
           {STATS.map(s => (
             <div key={s.label} style={{ textAlign: "center", padding: "10px 20px" }}>
@@ -148,6 +195,49 @@ export default function EDSHome() {
           ))}
         </div>
       </div>
+
+      {/* FREE ASSESSMENT */}
+      <section id="assessment" style={{ background: "linear-gradient(135deg, rgba(0,229,200,0.06) 0%, rgba(7,21,32,0) 60%)", borderBottom: "1px solid rgba(0,229,200,0.1)", padding: "60px 24px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 40, alignItems: "center" }}>
+          <div>
+            <div style={{ display: "inline-block", background: "rgba(0,229,200,0.1)", border: "1px solid rgba(0,229,200,0.3)", borderRadius: 20, padding: "4px 14px", fontSize: 12, fontWeight: 700, color: "#00e5c8", marginBottom: 14 }}>🆓 NO COST · NO OBLIGATION</div>
+            <h2 style={{ margin: "0 0 12px", fontSize: 28, fontWeight: 900, color: "#e2e8f0", lineHeight: 1.2 }}>Book a Free 30-Min<br /><span style={{ color: "#00e5c8" }}>Security Posture Review</span></h2>
+            <p style={{ color: "#64748b", fontSize: 15, lineHeight: 1.7, margin: "0 0 20px" }}>In 30 minutes, EDS will assess your current security posture, identify your top 3 compliance gaps, and give you a prioritized action plan — completely free. No sales pitch. Just answers.</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {["Identify your CMMC / NIST gap score", "Pinpoint your highest-risk exposure areas", "Get a plain-language remediation roadmap", "No commitment required — just clarity"].map(i => (
+                <div key={i} style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                  <span style={{ color: "#00e5c8", fontSize: 14, flexShrink: 0 }}>✓</span>
+                  <span style={{ color: "#64748b", fontSize: 14 }}>{i}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          {assessSubmitted ? (
+            <div style={{ background: "rgba(0,229,200,0.05)", border: "1px solid rgba(0,229,200,0.2)", borderRadius: 16, padding: "36px 28px", textAlign: "center" }}>
+              <div style={{ fontSize: 44, marginBottom: 12 }}>✅</div>
+              <div style={{ color: "#00e5c8", fontWeight: 800, fontSize: 18, marginBottom: 8 }}>Request Received!</div>
+              <div style={{ color: "#475569", fontSize: 14, lineHeight: 1.6 }}>We'll reach out within one business day to schedule your free assessment. Mission accepted.</div>
+            </div>
+          ) : (
+            <form onSubmit={e => { e.preventDefault(); setAssessSubmitted(true); }} style={{ background: "rgba(0,229,200,0.03)", border: "1px solid rgba(0,229,200,0.15)", borderRadius: 16, padding: "28px 24px", display: "flex", flexDirection: "column", gap: 12 }}>
+              <div style={{ color: "#e2e8f0", fontWeight: 800, fontSize: 16, marginBottom: 4 }}>Request Your Free Assessment</div>
+              <input style={css.input} placeholder="Full Name *" required value={assessForm.name} onChange={e => setAssessForm(f => ({ ...f, name: e.target.value }))} />
+              <input style={css.input} placeholder="Work Email *" type="email" required value={assessForm.email} onChange={e => setAssessForm(f => ({ ...f, email: e.target.value }))} />
+              <input style={css.input} placeholder="Organization" value={assessForm.company} onChange={e => setAssessForm(f => ({ ...f, company: e.target.value }))} />
+              <select style={{ ...css.input, color: assessForm.size ? "#e2e8f0" : "#475569" }} value={assessForm.size} onChange={e => setAssessForm(f => ({ ...f, size: e.target.value }))}>
+                <option value="">Organization Size</option>
+                <option>1–10 employees</option>
+                <option>11–50 employees</option>
+                <option>51–200 employees</option>
+                <option>201–1000 employees</option>
+                <option>1000+ / Government Agency</option>
+              </select>
+              <button type="submit" style={{ ...css.btn(), borderRadius: 8, width: "100%", marginTop: 4 }}>Book My Free Assessment →</button>
+              <div style={{ color: "#334155", fontSize: 11, textAlign: "center" }}>🔒 Your information is encrypted and never shared.</div>
+            </form>
+          )}
+        </div>
+      </section>
 
       {/* CIA TRIAD */}
       <section id="cia" style={css.section}>
@@ -178,7 +268,7 @@ export default function EDSHome() {
       </section>
 
       {/* SERVICES */}
-      <section id="services" style={{ background: "rgba(255,255,255,0.01)", padding: "80px 24px" }}>
+      <section id="services" style={{ background: "rgba(0,229,200,0.01)", padding: "80px 24px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <SectionHeader icon="⚙️" title="Our Service Lines" sub="Six specialized divisions. One unified mission: protecting and advancing your organization." />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 20 }}>
@@ -208,7 +298,7 @@ export default function EDSHome() {
 
       {/* COMPLIANCE */}
       <section id="compliance" style={css.section}>
-        <SectionHeader icon="🏛️" title="Compliance Frameworks" sub="We don't just advise — we implement, document, and maintain your compliance posture end-to-end." accent="#3b82f6" />
+        <SectionHeader icon="🏛️" title="Compliance Frameworks" sub="We don't just advise — we implement, document, and maintain your compliance posture end-to-end." accent="#38bdf8" />
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 14 }}>
           {COMPLIANCE.map(c => (
             <div key={c.id} style={{ background: `${c.color}08`, border: `1px solid ${c.color}25`, borderRadius: 12, padding: "18px 20px", display: "flex", gap: 14, alignItems: "flex-start" }}>
@@ -222,14 +312,86 @@ export default function EDSHome() {
         </div>
         <div style={{ textAlign: "center", marginTop: 40 }}>
           <p style={{ color: "#475569", fontSize: 15, maxWidth: 600, margin: "0 auto 20px" }}>Not sure which frameworks apply to your organization? Our compliance team will assess your requirements and build a tailored roadmap — no cost for the initial consultation.</p>
-          <a href="#contact" style={{ ...css.btn("#38bdf8"), textDecoration: "none", borderRadius: 10 }}>Book a Compliance Assessment</a>
+          <a href="#assessment" style={{ ...css.btn("#38bdf8"), textDecoration: "none", borderRadius: 10 }}>Book a Compliance Assessment</a>
         </div>
+      </section>
+
+      {/* CASE STUDIES */}
+      <section id="cases" style={{ background: "rgba(0,229,200,0.02)", borderTop: "1px solid rgba(0,229,200,0.08)", padding: "80px 24px" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <SectionHeader icon="📁" title="Case Studies" sub="Real results. Real organizations. Anonymized to protect our clients." accent="#2dd4bf" />
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 20 }}>
+            {CASE_STUDIES.map((c, i) => (
+              <div key={i} style={{ background: "rgba(255,255,255,0.025)", border: `1px solid ${c.color}25`, borderTop: `3px solid ${c.color}`, borderRadius: 16, padding: "24px", display: "flex", flexDirection: "column" }}>
+                <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 14 }}>
+                  <span style={{ fontSize: 24 }}>{c.icon}</span>
+                  <div>
+                    <span style={css.badge(c.color)}>{c.tag}</span>
+                    <div style={{ color: "#e2e8f0", fontWeight: 800, fontSize: 16, marginTop: 4 }}>{c.title}</div>
+                  </div>
+                </div>
+                <div style={{ color: "#475569", fontSize: 12, marginBottom: 14, fontStyle: "italic" }}>{c.client}</div>
+                <div style={{ display: "flex", gap: 12, marginBottom: 16, flexWrap: "wrap" }}>
+                  {c.metrics.map((m, j) => (
+                    <div key={j} style={{ background: `${c.color}10`, border: `1px solid ${c.color}25`, borderRadius: 8, padding: "8px 14px", textAlign: "center" }}>
+                      <div style={{ color: c.color, fontWeight: 900, fontSize: 18, fontFamily: "monospace" }}>{m.v}</div>
+                      <div style={{ color: "#475569", fontSize: 10 }}>{m.u}</div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ flex: 1 }}>
+                  {openCase === i ? (
+                    <>
+                      <div style={{ marginBottom: 10 }}><div style={{ color: "#00e5c8", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>Challenge</div><div style={{ color: "#64748b", fontSize: 13, lineHeight: 1.6 }}>{c.challenge}</div></div>
+                      <div style={{ marginBottom: 10 }}><div style={{ color: "#38bdf8", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>Solution</div><div style={{ color: "#64748b", fontSize: 13, lineHeight: 1.6 }}>{c.solution}</div></div>
+                      <div><div style={{ color: "#2dd4bf", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>Result</div><div style={{ color: "#64748b", fontSize: 13, lineHeight: 1.6 }}>{c.result}</div></div>
+                    </>
+                  ) : (
+                    <div style={{ color: "#475569", fontSize: 13, lineHeight: 1.6 }}>{c.challenge}</div>
+                  )}
+                </div>
+                <button onClick={() => setOpenCase(openCase === i ? null : i)} style={{ marginTop: 16, background: "transparent", border: `1px solid ${c.color}30`, color: c.color, borderRadius: 8, padding: "8px 16px", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+                  {openCase === i ? "▲ Show Less" : "▼ Read Full Case Study"}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING */}
+      <section id="pricing" style={css.section}>
+        <SectionHeader icon="💰" title="Transparent Pricing" sub="No surprises. No hidden fees. Pick the tier that fits your mission." />
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20, alignItems: "start" }}>
+          {PRICING.map(p => (
+            <div key={p.tier} style={{ background: p.highlight ? "rgba(0,229,200,0.06)" : "rgba(255,255,255,0.025)", border: p.highlight ? `2px solid ${p.color}50` : "1px solid rgba(255,255,255,0.08)", borderTop: `3px solid ${p.color}`, borderRadius: 16, padding: "28px 24px", position: "relative" }}>
+              {p.highlight && <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: p.color, color: "#071520", fontSize: 11, fontWeight: 800, padding: "3px 14px", borderRadius: 20, whiteSpace: "nowrap" }}>⭐ MOST POPULAR</div>}
+              <div style={{ fontSize: 28, marginBottom: 8 }}>{p.icon}</div>
+              <div style={{ color: p.color, fontWeight: 900, fontSize: 18, marginBottom: 4 }}>{p.tier}</div>
+              <div style={{ color: "#475569", fontSize: 13, marginBottom: 16 }}>{p.tagline}</div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 20 }}>
+                <span style={{ color: "#e2e8f0", fontSize: 32, fontWeight: 900, fontFamily: "monospace" }}>{p.price}</span>
+                <span style={{ color: "#475569", fontSize: 14 }}>{p.period}</span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 24 }}>
+                {p.features.map(f => (
+                  <div key={f} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+                    <span style={{ color: p.color, fontSize: 13, flexShrink: 0, marginTop: 1 }}>✓</span>
+                    <span style={{ color: "#64748b", fontSize: 13, lineHeight: 1.4 }}>{f}</span>
+                  </div>
+                ))}
+              </div>
+              <a href="#assessment" style={{ ...css.btn(p.color, !p.highlight), display: "block", textAlign: "center", textDecoration: "none", borderRadius: 8, padding: "11px" }}>{p.cta}</a>
+            </div>
+          ))}
+        </div>
+        <p style={{ textAlign: "center", color: "#334155", fontSize: 13, marginTop: 24 }}>All plans include onboarding support. Custom government contracting rates available. <a href="#contact" style={{ color: "#00e5c8", textDecoration: "none" }}>Contact us</a> for multi-site or agency pricing.</p>
       </section>
 
       {/* CI/CD & RAFTER */}
       <section id="cicd" style={{ background: "rgba(0,229,200,0.02)", padding: "80px 24px", borderTop: "1px solid rgba(0,229,200,0.08)", borderBottom: "1px solid rgba(0,229,200,0.08)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <SectionHeader icon="🔄" title="CI/CD & Rafter Security Integration" sub="We practice what we preach. Every system we deploy is continuously scanned, tested, and hardened." accent="#22c55e" />
+          <SectionHeader icon="🔄" title="CI/CD & Rafter Security Integration" sub="We practice what we preach. Every system we deploy is continuously scanned, tested, and hardened." accent="#2dd4bf" />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 14, marginBottom: 40 }}>
             {CICD_CHECKS.map(c => (
               <div key={c.label} style={{ background: "rgba(0,229,200,0.04)", border: "1px solid rgba(0,229,200,0.12)", borderRadius: 10, padding: "16px" }}>
@@ -242,8 +404,8 @@ export default function EDSHome() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
             {[
               { icon: "🤖", color: "#00e5c8", title: "Autonomous Daily Scanning", body: "ASME agents run a full Rafter-pattern security scan every day at 3am ET — automatically. All 10 security rules evaluated across every service layer. Critical findings trigger an immediate executive alert." },
-              { icon: "📊", color: "#3b82f6", title: "Weekly Executive Reports",   body: "Every Monday at 7am ET, a full security posture report is emailed to executive leadership. Includes trend analysis, new vulnerabilities introduced, remediation status, and a prioritized action list." },
-              { icon: "🚨", color: "#ef4444", title: "Zero-Day Response",          body: "VirusTotal + NVD CVE feed integration provides real-time zero-day and IOC detection. Suricata network alerts feed directly into the SOC dashboard. Response SLA: under 1 hour for critical findings." },
+              { icon: "📊", color: "#38bdf8", title: "Weekly Executive Reports",   body: "Every Monday at 7am ET, a full security posture report is emailed to executive leadership. Includes trend analysis, new vulnerabilities introduced, remediation status, and a prioritized action list." },
+              { icon: "🚨", color: "#2dd4bf", title: "Zero-Day Response",          body: "VirusTotal + NVD CVE feed integration provides real-time zero-day and IOC detection. Suricata network alerts feed directly into the SOC dashboard. Response SLA: under 1 hour for critical findings." },
             ].map(b => (
               <div key={b.title} style={{ background: `${b.color}08`, border: `1px solid ${b.color}20`, borderRadius: 14, padding: "24px" }}>
                 <div style={{ fontSize: 20, marginBottom: 10 }}>{b.icon}</div>
@@ -348,7 +510,7 @@ export default function EDSHome() {
           </div>
           <div style={{ display: "flex", justifyContent: "center", gap: 20, marginBottom: 14, flexWrap: "wrap" }}>
             {["Confidentiality", "Integrity", "Availability"].map((v, i) => (
-            <span key={v} style={{ color: ["#00e5c8", "#38bdf8", "#2dd4bf"][i], fontSize: 13, fontWeight: 700 }}>● {v}</span>
+              <span key={v} style={{ color: ["#00e5c8", "#38bdf8", "#2dd4bf"][i], fontSize: 13, fontWeight: 700 }}>● {v}</span>
             ))}
           </div>
           <div style={{ color: "#1e293b", fontSize: 12 }}>© 2026 Emerging Defense Solutions LLC · Fredericksburg, VA · SDVOSB Certified · All Rights Reserved</div>
