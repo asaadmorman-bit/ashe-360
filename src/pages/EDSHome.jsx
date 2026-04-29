@@ -11,23 +11,23 @@ const NAV_LINKS = [
 ];
 
 const SERVICES = [
-  { icon: "🛡️", color: "#ef4444", title: "SOCaaS — Security Operations", sub: "24/7 Managed Security", desc: "Fully managed Security Operations Center as a Service. Real-time threat detection, incident response, SIEM/SOAR automation, and zero-day exploit management — without the overhead of building an in-house SOC.", features: ["24/7 Threat Monitoring", "Incident Response & Containment", "SIEM / SOAR Automation", "Zero-Day & IOC Hunting", "VirusTotal + Suricata Integration", "Executive Reporting"] },
-  { icon: "🔒", color: "#3b82f6", title: "Zero Trust Architecture", sub: "Identity-First Security", desc: "Design, implement, and maintain a Zero Trust security posture aligned to CISA's Zero Trust Maturity Model. Every user, device, and connection is continuously verified — never implicitly trusted.", features: ["CISA ZT Maturity Assessment", "Identity & Access Management", "Micro-Segmentation", "Continuous Verification", "Network Access Control", "Policy Enforcement"] },
+  { icon: "🛡️", color: "#00e5c8", title: "SOCaaS — Security Operations", sub: "24/7 Managed Security", desc: "Fully managed Security Operations Center as a Service. Real-time threat detection, incident response, SIEM/SOAR automation, and zero-day exploit management — without the overhead of building an in-house SOC.", features: ["24/7 Threat Monitoring", "Incident Response & Containment", "SIEM / SOAR Automation", "Zero-Day & IOC Hunting", "VirusTotal + Suricata Integration", "Executive Reporting"] },
+  { icon: "🔒", color: "#38bdf8", title: "Zero Trust Architecture", sub: "Identity-First Security", desc: "Design, implement, and maintain a Zero Trust security posture aligned to CISA's Zero Trust Maturity Model. Every user, device, and connection is continuously verified — never implicitly trusted.", features: ["CISA ZT Maturity Assessment", "Identity & Access Management", "Micro-Segmentation", "Continuous Verification", "Network Access Control", "Policy Enforcement"] },
   { icon: "📋", color: "#a78bfa", title: "Compliance & Certification", sub: "CMMC · NIST · FISMA · SOC2", desc: "End-to-end compliance management for federal and commercial requirements. From gap assessments to ATO packages, we guide your organization through every control framework with precision.", features: ["CMMC Level 1–3 Preparation", "NIST RMF / SP 800-53", "FISMA ATO Packages", "SOC2 Type I & II", "ISO 27001", "FedRAMP Readiness"] },
-  { icon: "🎖️", color: "#f59e0b", title: "Defense & Security Training", sub: "Professional Certification", desc: "Hands-on cybersecurity and defense training programs built for government contractors, military personnel, and enterprise teams. DISA-aligned, certification-ready, and delivered in-person or virtually.", features: ["Security+ / CISSP Prep", "DISA STIG Compliance Training", "Insider Threat Awareness", "Active Shooter / Emergency Response", "Incident Command System (ICS)", "Cleared Personnel Programs"] },
-  { icon: "⚖️", color: "#22c55e", title: "Legal & Compliance Services", sub: "Notary · Process Server · Business Law", desc: "Professional notary and process server services, business formation, compliance filings, and legal document support — serving individuals, businesses, and government contractors in Virginia and Maryland.", features: ["Notary Public Services", "Process Serving", "Business Formation", "Contract Review", "Registered Agent Services", "Compliance Filings"] },
-  { icon: "🌿", color: "#10b981", title: "Smart Landscaping & IoT", sub: "Intelligent Site Management", desc: "IoT-connected landscape management with real-time sensor monitoring, automated irrigation control, and predictive maintenance — bringing enterprise-grade operational intelligence to physical site management.", features: ["IoT Sensor Networks", "Automated Irrigation Control", "Remote Monitoring", "Predictive Maintenance", "Energy Optimization", "Site Security Integration"] },
+  { icon: "🎖️", color: "#00e5c8", title: "Defense & Security Training", sub: "Professional Certification", desc: "Hands-on cybersecurity and defense training programs built for government contractors, military personnel, and enterprise teams. DISA-aligned, certification-ready, and delivered in-person or virtually.", features: ["Security+ / CISSP Prep", "DISA STIG Compliance Training", "Insider Threat Awareness", "Active Shooter / Emergency Response", "Incident Command System (ICS)", "Cleared Personnel Programs"] },
+  { icon: "⚖️", color: "#38bdf8", title: "Legal & Compliance Services", sub: "Notary · Process Server · Business Law", desc: "Professional notary and process server services, business formation, compliance filings, and legal document support — serving individuals, businesses, and government contractors in Virginia and Maryland.", features: ["Notary Public Services", "Process Serving", "Business Formation", "Contract Review", "Registered Agent Services", "Compliance Filings"] },
+  { icon: "🌿", color: "#2dd4bf", title: "Smart Landscaping & IoT", sub: "Intelligent Site Management", desc: "IoT-connected landscape management with real-time sensor monitoring, automated irrigation control, and predictive maintenance — bringing enterprise-grade operational intelligence to physical site management.", features: ["IoT Sensor Networks", "Automated Irrigation Control", "Remote Monitoring", "Predictive Maintenance", "Energy Optimization", "Site Security Integration"] },
 ];
 
 const COMPLIANCE = [
-  { id: "CMMC",    icon: "🏛️", color: "#3b82f6", label: "CMMC L1–L3",       desc: "Cybersecurity Maturity Model Certification for DoD contractors" },
-  { id: "NIST",    icon: "📐", color: "#a78bfa", label: "NIST SP 800-53",    desc: "Security and privacy controls for federal information systems" },
-  { id: "FISMA",   icon: "🇺🇸", color: "#ef4444", label: "FISMA / ATO",      desc: "Federal Information Security Management Act authorization" },
-  { id: "SOC2",    icon: "✅", color: "#22c55e",  label: "SOC 2 Type II",     desc: "Trust service criteria for security, availability, and confidentiality" },
-  { id: "NISTCSF", icon: "🔄", color: "#f59e0b", label: "NIST CSF 2.0",      desc: "Cybersecurity Framework for critical infrastructure protection" },
-  { id: "ISO",     icon: "🌐", color: "#10b981", label: "ISO 27001",          desc: "International standard for information security management" },
-  { id: "STIG",    icon: "🔐", color: "#ec4899", label: "DISA STIGs / SCAP", desc: "DoD Security Technical Implementation Guides for hardening" },
-  { id: "ZT",      icon: "🔮", color: "#8b5cf6", label: "CISA Zero Trust",    desc: "Zero Trust Maturity Model for federal and commercial environments" },
+  { id: "CMMC",    icon: "🏛️", color: "#00e5c8", label: "CMMC L1–L3",       desc: "Cybersecurity Maturity Model Certification for DoD contractors" },
+  { id: "NIST",    icon: "📐", color: "#38bdf8", label: "NIST SP 800-53",    desc: "Security and privacy controls for federal information systems" },
+  { id: "FISMA",   icon: "🇺🇸", color: "#2dd4bf", label: "FISMA / ATO",      desc: "Federal Information Security Management Act authorization" },
+  { id: "SOC2",    icon: "✅", color: "#00e5c8",  label: "SOC 2 Type II",     desc: "Trust service criteria for security, availability, and confidentiality" },
+  { id: "NISTCSF", icon: "🔄", color: "#38bdf8", label: "NIST CSF 2.0",      desc: "Cybersecurity Framework for critical infrastructure protection" },
+  { id: "ISO",     icon: "🌐", color: "#2dd4bf", label: "ISO 27001",          desc: "International standard for information security management" },
+  { id: "STIG",    icon: "🔐", color: "#00e5c8", label: "DISA STIGs / SCAP", desc: "DoD Security Technical Implementation Guides for hardening" },
+  { id: "ZT",      icon: "🔮", color: "#38bdf8", label: "CISA Zero Trust",    desc: "Zero Trust Maturity Model for federal and commercial environments" },
 ];
 
 const CICD_CHECKS = [
@@ -44,21 +44,21 @@ const CICD_CHECKS = [
 ];
 
 const CIA_PILLARS = [
-  { key: "C", color: "#3b82f6", glow: "#3b82f620", icon: "🔒", title: "Confidentiality", sub: "Your data stays yours.", desc: "We implement role-based access control, end-to-end encryption, Zero Trust policies, and strict data classification to ensure that only authorized parties ever access sensitive information — whether at rest or in transit.", controls: ["AES-256 Encryption at Rest", "TLS 1.3 in Transit", "Zero Trust IAM", "Data Classification", "Need-to-Know Access"] },
-  { key: "I", color: "#f59e0b", glow: "#f59e0b20", icon: "✅", title: "Integrity",        sub: "Trust what you see.",    desc: "From cryptographic checksums to immutable audit trails, we ensure that your data, systems, and configurations haven't been tampered with. Every change is logged, versioned, and verifiable.", controls: ["Cryptographic Hashing", "Immutable Audit Logs", "Change Management (CAB)", "File Integrity Monitoring", "Digital Signatures"] },
-  { key: "A", color: "#22c55e", glow: "#22c55e20", icon: "⚡", title: "Availability",     sub: "Always on. Always ready.", desc: "Our SOCaaS infrastructure is designed for 99.9%+ uptime with business continuity plans, redundant monitoring, automated failover, and SLA-backed response times — so your operations never stop.", controls: ["99.9% SLA Uptime", "Business Continuity Mode", "Redundant Monitoring", "Automated Failover", "24/7 Incident Response"] },
+  { key: "C", color: "#00e5c8", glow: "#00e5c820", icon: "🔒", title: "Confidentiality", sub: "Your data stays yours.", desc: "We implement role-based access control, end-to-end encryption, Zero Trust policies, and strict data classification to ensure that only authorized parties ever access sensitive information — whether at rest or in transit.", controls: ["AES-256 Encryption at Rest", "TLS 1.3 in Transit", "Zero Trust IAM", "Data Classification", "Need-to-Know Access"] },
+  { key: "I", color: "#38bdf8", glow: "#38bdf820", icon: "✅", title: "Integrity",        sub: "Trust what you see.",    desc: "From cryptographic checksums to immutable audit trails, we ensure that your data, systems, and configurations haven't been tampered with. Every change is logged, versioned, and verifiable.", controls: ["Cryptographic Hashing", "Immutable Audit Logs", "Change Management (CAB)", "File Integrity Monitoring", "Digital Signatures"] },
+  { key: "A", color: "#2dd4bf", glow: "#2dd4bf20", icon: "⚡", title: "Availability",     sub: "Always on. Always ready.", desc: "Our SOCaaS infrastructure is designed for 99.9%+ uptime with business continuity plans, redundant monitoring, automated failover, and SLA-backed response times — so your operations never stop.", controls: ["99.9% SLA Uptime", "Business Continuity Mode", "Redundant Monitoring", "Automated Failover", "24/7 Incident Response"] },
 ];
 
 const STATS = [
-  { value: "24/7",   label: "SOC Coverage",          icon: "🛰️", color: "#ef4444" },
-  { value: "99.9%",  label: "Uptime SLA",            icon: "⚡",  color: "#22c55e" },
-  { value: "<1hr",   label: "Critical Response",     icon: "🚨",  color: "#f59e0b" },
-  { value: "CMMC",   label: "Certified Ready",        icon: "🏛️", color: "#3b82f6" },
-  { value: "8+",     label: "Compliance Frameworks",  icon: "📋", color: "#a78bfa" },
-  { value: "SDVOSB", label: "Veteran-Owned",          icon: "🎖️", color: "#f59e0b" },
+  { value: "24/7",   label: "SOC Coverage",          icon: "🛰️", color: "#00e5c8" },
+  { value: "99.9%",  label: "Uptime SLA",            icon: "⚡",  color: "#2dd4bf" },
+  { value: "<1hr",   label: "Critical Response",     icon: "🚨",  color: "#38bdf8" },
+  { value: "CMMC",   label: "Certified Ready",        icon: "🏛️", color: "#00e5c8" },
+  { value: "8+",     label: "Compliance Frameworks",  icon: "📋", color: "#2dd4bf" },
+  { value: "SDVOSB", label: "Veteran-Owned",          icon: "🎖️", color: "#38bdf8" },
 ];
 
-function SectionHeader({ icon, title, sub, accent = "#f59e0b" }) {
+function SectionHeader({ icon, title, sub, accent = "#00e5c8" }) {
   return (
     <div style={{ textAlign: "center", marginBottom: 40 }}>
       <div style={{ fontSize: 36, marginBottom: 8 }}>{icon}</div>
@@ -79,23 +79,23 @@ export default function EDSHome() {
   }, []);
 
   const css = {
-    page:  { background: "#04080f", minHeight: "100vh", fontFamily: "'Inter','SF Pro Display',system-ui,sans-serif", color: "#e2e8f0" },
+    page:  { background: "linear-gradient(160deg, #071520 0%, #0a2030 40%, #082828 100%)", minHeight: "100vh", fontFamily: "'Inter','SF Pro Display',system-ui,sans-serif", color: "#e2e8f0" },
     section: { padding: "80px 24px", maxWidth: 1200, margin: "0 auto" },
     badge: (color) => ({ background: `${color}15`, color, border: `1px solid ${color}30`, borderRadius: 20, padding: "3px 12px", fontSize: 12, fontWeight: 700, display: "inline-block" }),
-    btn:   (color = "#f59e0b", outline = false) => ({ padding: "12px 28px", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer", border: outline ? `2px solid ${color}` : "none", background: outline ? "transparent" : color, color: outline ? color : "#04080f" }),
-    input: { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, color: "#e2e8f0", fontSize: 15, padding: "11px 14px", outline: "none", width: "100%", boxSizing: "border-box" },
+    btn:   (color = "#00e5c8", outline = false) => ({ padding: "12px 28px", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer", border: outline ? `2px solid ${color}` : "none", background: outline ? "transparent" : color, color: outline ? color : "#071520" }),
+    input: { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(0,229,200,0.15)", borderRadius: 8, color: "#e2e8f0", fontSize: 15, padding: "11px 14px", outline: "none", width: "100%", boxSizing: "border-box" },
   };
 
   return (
     <div style={css.page}>
 
       {/* NAVBAR */}
-      <nav style={{ position: "sticky", top: 0, zIndex: 100, background: "rgba(4,8,15,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(255,255,255,0.06)", padding: "0 24px" }}>
+      <nav style={{ position: "sticky", top: 0, zIndex: 100, background: "rgba(7,21,32,0.96)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(0,229,200,0.12)", padding: "0 24px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", height: 64 }}>
           <a href="#" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
             <span style={{ fontSize: 24 }}>🛡️</span>
             <div>
-              <div style={{ fontWeight: 900, fontSize: 16, color: "#f59e0b", letterSpacing: 1 }}>EDS</div>
+              <div style={{ fontWeight: 900, fontSize: 16, color: "#00e5c8", letterSpacing: 1 }}>EDS</div>
               <div style={{ fontSize: 10, color: "#475569", letterSpacing: 2, marginTop: -2 }}>EMERGING DEFENSE SOLUTIONS</div>
             </div>
           </a>
@@ -111,26 +111,26 @@ export default function EDSHome() {
       {/* HERO */}
       <section style={{ position: "relative", minHeight: 580, display: "flex", alignItems: "center", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${HERO_BG})`, backgroundSize: "cover", backgroundPosition: "center", opacity: 0.2 }} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, #04080f 40%, rgba(4,8,15,0.7) 70%, #04080f 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, #071520 40%, rgba(7,21,32,0.7) 70%, #071520 100%)" }} />
         <div style={{ position: "relative", maxWidth: 1200, margin: "0 auto", padding: "80px 24px" }}>
           <div style={{ maxWidth: 700 }}>
             <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
-              <span style={css.badge("#f59e0b")}>🎖️ SDVOSB Veteran-Owned</span>
-              <span style={css.badge("#ef4444")}>🛡️ SOCaaS Provider</span>
-              <span style={css.badge("#3b82f6")}>🏛️ CMMC Ready</span>
+              <span style={css.badge("#00e5c8")}>🎖️ SDVOSB Veteran-Owned</span>
+              <span style={css.badge("#2dd4bf")}>🛡️ SOCaaS Provider</span>
+              <span style={css.badge("#38bdf8")}>🏛️ CMMC Ready</span>
             </div>
             <h1 style={{ margin: "0 0 16px", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 900, lineHeight: 1.1, letterSpacing: "-0.03em" }}>
-              Defending What<br /><span style={{ color: "#f59e0b" }}>Matters Most.</span>
+              Defending What<br /><span style={{ color: "#00e5c8" }}>Matters Most.</span>
             </h1>
             <p style={{ color: "#94a3b8", fontSize: 18, lineHeight: 1.7, marginBottom: 28, maxWidth: 580 }}>
               Emerging Defense Solutions delivers enterprise-grade Security Operations as a Service — built on the CIA triad of{" "}
-              <strong style={{ color: "#3b82f6" }}>Confidentiality</strong>,{" "}
-              <strong style={{ color: "#f59e0b" }}>Integrity</strong>, and{" "}
-              <strong style={{ color: "#22c55e" }}>Availability</strong>. Rigorous federal compliance. Continuous CI/CD security scanning. Zero-day protection.
+              <strong style={{ color: "#00e5c8" }}>Confidentiality</strong>,{" "}
+              <strong style={{ color: "#38bdf8" }}>Integrity</strong>, and{" "}
+              <strong style={{ color: "#2dd4bf" }}>Availability</strong>. Rigorous federal compliance. Continuous CI/CD security scanning. Zero-day protection.
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <a href="#services" style={{ ...css.btn(), textDecoration: "none", borderRadius: 10 }}>Explore Our Services →</a>
-              <a href="#contact" style={{ ...css.btn("#f59e0b", true), textDecoration: "none", borderRadius: 10 }}>Request a Consultation</a>
+              <a href="#contact" style={{ ...css.btn("#00e5c8", true), textDecoration: "none", borderRadius: 10 }}>Request a Consultation</a>
             </div>
           </div>
         </div>
@@ -222,26 +222,26 @@ export default function EDSHome() {
         </div>
         <div style={{ textAlign: "center", marginTop: 40 }}>
           <p style={{ color: "#475569", fontSize: 15, maxWidth: 600, margin: "0 auto 20px" }}>Not sure which frameworks apply to your organization? Our compliance team will assess your requirements and build a tailored roadmap — no cost for the initial consultation.</p>
-          <a href="#contact" style={{ ...css.btn("#3b82f6"), textDecoration: "none", borderRadius: 10 }}>Book a Compliance Assessment</a>
+          <a href="#contact" style={{ ...css.btn("#38bdf8"), textDecoration: "none", borderRadius: 10 }}>Book a Compliance Assessment</a>
         </div>
       </section>
 
       {/* CI/CD & RAFTER */}
-      <section id="cicd" style={{ background: "rgba(0,0,0,0.3)", padding: "80px 24px", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+      <section id="cicd" style={{ background: "rgba(0,229,200,0.02)", padding: "80px 24px", borderTop: "1px solid rgba(0,229,200,0.08)", borderBottom: "1px solid rgba(0,229,200,0.08)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <SectionHeader icon="🔄" title="CI/CD & Rafter Security Integration" sub="We practice what we preach. Every system we deploy is continuously scanned, tested, and hardened." accent="#22c55e" />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 14, marginBottom: 40 }}>
             {CICD_CHECKS.map(c => (
-              <div key={c.label} style={{ background: "rgba(34,197,94,0.04)", border: "1px solid rgba(34,197,94,0.12)", borderRadius: 10, padding: "16px" }}>
+              <div key={c.label} style={{ background: "rgba(0,229,200,0.04)", border: "1px solid rgba(0,229,200,0.12)", borderRadius: 10, padding: "16px" }}>
                 <div style={{ fontSize: 22, marginBottom: 8 }}>{c.icon}</div>
-                <div style={{ color: "#22c55e", fontWeight: 700, fontSize: 13, marginBottom: 4 }}>{c.label}</div>
+                <div style={{ color: "#00e5c8", fontWeight: 700, fontSize: 13, marginBottom: 4 }}>{c.label}</div>
                 <div style={{ color: "#475569", fontSize: 12, lineHeight: 1.5 }}>{c.desc}</div>
               </div>
             ))}
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
             {[
-              { icon: "🤖", color: "#22c55e", title: "Autonomous Daily Scanning", body: "ASME agents run a full Rafter-pattern security scan every day at 3am ET — automatically. All 10 security rules evaluated across every service layer. Critical findings trigger an immediate executive alert." },
+              { icon: "🤖", color: "#00e5c8", title: "Autonomous Daily Scanning", body: "ASME agents run a full Rafter-pattern security scan every day at 3am ET — automatically. All 10 security rules evaluated across every service layer. Critical findings trigger an immediate executive alert." },
               { icon: "📊", color: "#3b82f6", title: "Weekly Executive Reports",   body: "Every Monday at 7am ET, a full security posture report is emailed to executive leadership. Includes trend analysis, new vulnerabilities introduced, remediation status, and a prioritized action list." },
               { icon: "🚨", color: "#ef4444", title: "Zero-Day Response",          body: "VirusTotal + NVD CVE feed integration provides real-time zero-day and IOC detection. Suricata network alerts feed directly into the SOC dashboard. Response SLA: under 1 hour for critical findings." },
             ].map(b => (
@@ -261,24 +261,24 @@ export default function EDSHome() {
           <div>
             <SectionHeader icon="🎖️" title="About EDS" sub="" />
             <p style={{ color: "#94a3b8", fontSize: 16, lineHeight: 1.8, marginBottom: 16 }}>
-              Emerging Defense Solutions is a <strong style={{ color: "#f59e0b" }}>Service-Disabled Veteran-Owned Small Business (SDVOSB)</strong> headquartered in Fredericksburg, Virginia — at the intersection of DoD Country and the nation's capital.
+              Emerging Defense Solutions is a <strong style={{ color: "#00e5c8" }}>Service-Disabled Veteran-Owned Small Business (SDVOSB)</strong> headquartered in Fredericksburg, Virginia — at the intersection of DoD Country and the nation's capital.
             </p>
             <p style={{ color: "#64748b", fontSize: 15, lineHeight: 1.8, marginBottom: 16 }}>
               Founded by veterans with decades of combined experience in defense, cybersecurity, and enterprise operations, EDS was built to deliver the same mission-critical reliability that the military demands — applied to securing the businesses, agencies, and communities of the modern world.
             </p>
             <p style={{ color: "#64748b", fontSize: 15, lineHeight: 1.8, marginBottom: 24 }}>Two executives. AI-powered agents running 24/7. Zero compromise on quality.</p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <span style={css.badge("#f59e0b")}>🎖️ SDVOSB Certified</span>
-              <span style={css.badge("#3b82f6")}>🏢 Fredericksburg, VA</span>
-              <span style={css.badge("#22c55e")}>🤖 AI-Augmented Ops</span>
-              <span style={css.badge("#a78bfa")}>🛡️ CIA Triad Aligned</span>
+              <span style={css.badge("#00e5c8")}>🎖️ SDVOSB Certified</span>
+              <span style={css.badge("#38bdf8")}>🏢 Fredericksburg, VA</span>
+              <span style={css.badge("#2dd4bf")}>🤖 AI-Augmented Ops</span>
+              <span style={css.badge("#38bdf8")}>🛡️ CIA Triad Aligned</span>
             </div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {[
-              { icon: "🧭", color: "#f59e0b", title: "Mission", desc: "To deliver enterprise-grade security, compliance, and operational excellence to organizations that can't afford to fail." },
-              { icon: "👁️", color: "#3b82f6", title: "Vision",  desc: "A world where every organization — from a 2-person startup to a federal agency — has access to the same level of defense that protects the nation." },
-              { icon: "⚖️", color: "#22c55e", title: "Values",  desc: "Confidentiality. Integrity. Availability. No shortcuts, no excuses, no gaps." },
+              { icon: "🧭", color: "#00e5c8", title: "Mission", desc: "To deliver enterprise-grade security, compliance, and operational excellence to organizations that can't afford to fail." },
+              { icon: "👁️", color: "#38bdf8", title: "Vision",  desc: "A world where every organization — from a 2-person startup to a federal agency — has access to the same level of defense that protects the nation." },
+              { icon: "⚖️", color: "#2dd4bf", title: "Values",  desc: "Confidentiality. Integrity. Availability. No shortcuts, no excuses, no gaps." },
             ].map(v => (
               <div key={v.title} style={{ background: `${v.color}08`, border: `1px solid ${v.color}20`, borderRadius: 12, padding: "18px 20px", display: "flex", gap: 14 }}>
                 <div style={{ width: 36, height: 36, borderRadius: 8, background: `${v.color}20`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>{v.icon}</div>
@@ -293,7 +293,7 @@ export default function EDSHome() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" style={{ background: "rgba(245,158,11,0.03)", borderTop: "1px solid rgba(245,158,11,0.1)", padding: "80px 24px" }}>
+      <section id="contact" style={{ background: "rgba(0,229,200,0.02)", borderTop: "1px solid rgba(0,229,200,0.1)", padding: "80px 24px" }}>
         <div style={{ maxWidth: 700, margin: "0 auto" }}>
           <SectionHeader icon="📡" title="Start the Conversation" sub="Tell us about your organization. We'll respond within one business day." />
           {submitted ? (
@@ -339,16 +339,16 @@ export default function EDSHome() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ background: "#020509", borderTop: "1px solid rgba(255,255,255,0.05)", padding: "28px 24px", textAlign: "center" }}>
+      <footer style={{ background: "#040d14", borderTop: "1px solid rgba(0,229,200,0.1)", padding: "28px 24px", textAlign: "center" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 10, marginBottom: 10 }}>
             <span style={{ fontSize: 20 }}>🛡️</span>
-            <span style={{ fontWeight: 900, fontSize: 15, color: "#f59e0b" }}>EDS</span>
+            <span style={{ fontWeight: 900, fontSize: 15, color: "#00e5c8" }}>EDS</span>
             <span style={{ color: "#334155", fontSize: 15 }}>Emerging Defense Solutions</span>
           </div>
           <div style={{ display: "flex", justifyContent: "center", gap: 20, marginBottom: 14, flexWrap: "wrap" }}>
             {["Confidentiality", "Integrity", "Availability"].map((v, i) => (
-              <span key={v} style={{ color: ["#3b82f6", "#f59e0b", "#22c55e"][i], fontSize: 13, fontWeight: 700 }}>● {v}</span>
+            <span key={v} style={{ color: ["#00e5c8", "#38bdf8", "#2dd4bf"][i], fontSize: 13, fontWeight: 700 }}>● {v}</span>
             ))}
           </div>
           <div style={{ color: "#1e293b", fontSize: 12 }}>© 2026 Emerging Defense Solutions LLC · Fredericksburg, VA · SDVOSB Certified · All Rights Reserved</div>
