@@ -13,6 +13,7 @@ import Growth from './pages/Growth';
 import Social from './pages/Social';
 import Training from './pages/Training';
 import ExecHub from './pages/ExecHub';
+import ExecutiveReport from './pages/ExecutiveReport';
 import Platform from './pages/Platform';
 import QA from './pages/QA';
 import ATOTrackerPage from './pages/ATOTracker';
@@ -89,6 +90,7 @@ function App() {
                 <Route path="/social"          element={<RoleGuard path="/social"><Social /></RoleGuard>} />
                 <Route path="/training"        element={<Training />} />
                 <Route path="/exec"            element={<RoleGuard path="/exec"><ExecHub /></RoleGuard>} />
+                <Route path="/report"          element={<RoleGuard path="/report"><ExecutiveReport /></RoleGuard>} />
                 <Route path="/platform"        element={<RoleGuard path="/platform"><Platform /></RoleGuard>} />
                 <Route path="/qa"              element={<RoleGuard path="/qa"><QA /></RoleGuard>} />
                 <Route path="/onboarding"      element={<RoleGuard path="/onboarding"><OnboardingTracker /></RoleGuard>} />
