@@ -144,7 +144,7 @@ Deno.serve(async (req) => {
     // Top threat countries
     const threatByCountry = {};
     firewallGroups.forEach(g => {
-      const c = g.dimensions?.clientCountryName || 'Unknown';
+      const c = g.country || 'Unknown';
       threatByCountry[c] = (threatByCountry[c] || 0) + (g.count || 0);
     });
     const topThreatCountries = Object.entries(threatByCountry)
@@ -155,7 +155,7 @@ Deno.serve(async (req) => {
     // Action breakdown
     const actionBreakdown = {};
     firewallGroups.forEach(g => {
-      const a = g.dimensions?.action || 'block';
+      const a = g.action || 'block';
       actionBreakdown[a] = (actionBreakdown[a] || 0) + (g.count || 0);
     });
 
@@ -166,7 +166,7 @@ Deno.serve(async (req) => {
       top_threat_countries: topThreatCountries,
       action_breakdown: actionBreakdown,
       total_threats: firewallGroups.reduce((a, g) => a + (g.count || 0), 0),
-      total_traffic: Object.values(trafficByCountry).reduce((a, d) => a + d.count, 0),
+      total_traffic: httpGroups.reduce((a, g) => a + (g.count || 0), 0),
       generated_at: now.toISOString(),
     });
   } catch (error) {

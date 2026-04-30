@@ -15,11 +15,6 @@ Deno.serve(async (req) => {
       return Response.json({ configured: false }, { status: 200 });
     }
 
-    const headers = {
-      'Authorization': `Bearer ${apiToken}`,
-      'Content-Type': 'application/json',
-    };
-
     // Use Cloudflare GraphQL Analytics API for accurate data
     const now = new Date();
     const since = new Date(now - 24 * 60 * 60 * 1000);
