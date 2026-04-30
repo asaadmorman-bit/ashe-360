@@ -43,6 +43,7 @@ export const NAV_ACCESS = {
   '/growth':           ['admin', 'soc_manager', 'project_manager', 'issm'],
   '/social':           ['admin', 'soc_manager', 'project_manager'],
   '/training':         undefined,                          // everyone
+  '/exec-report': ['admin', 'soc_manager', 'issm', 'project_manager'],
   '/exec':             MANAGEMENT_ROLES,
   '/platform':         ['admin', 'soc_manager', 'issm', 'system_admin', 'system_engineer'],
   '/qa':               ['admin', 'soc_manager', 'issm', 'project_manager', 'system_admin', 'system_engineer'],
