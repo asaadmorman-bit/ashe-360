@@ -9,8 +9,27 @@ Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
     
-    // Parse webhook payload
-    const payload = await req.json();
+    // Verify HMAC signature
+    const signature = req.headers.get('X-Aikido-Signature') || req.headers.get('X-Signature');
+    const secret = Deno.env.get('AIKIDO_WEBHOOK_SECRET');
+    
+    if (signature && secret) {
+      const body = await req.text();
+      const encoder = new TextEncoder();
+      const key = await crypto.subtle.importKey('raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+      const hmac = await crypto.subtle.sign('HMAC', key, encoder.encode(body));
+      const computed = Array.from(new Uint8Array(hmac)).map(b => b.toString(16).padStart(2, '0')).join('');
+      const expected = signature.startsWith('sha256=') ? signature.slice(7) : signature;
+      
+      if (computed !== expected) {
+        return Response.json({ error: 'Invalid signature' }, { status: 401 });
+      }
+      
+      const payload = JSON.parse(body);
+    } else {
+      // Parse webhook payload if no secret configured
+      const payload = await req.json();
+    }
     
     // Aikido webhook structure: event type, vulnerability/risk data
     if (!payload.event_type) {
