@@ -31,6 +31,7 @@ import TrainingPublic from './pages/TrainingPublic';
 import ASHE from './pages/ASHE';
 import ThreatIntel from './pages/ThreatIntel';
 import SecurityHealth from './pages/SecurityHealth';
+import RoleGuard from './components/layout/RoleGuard';
 
 // Gate that enforces auth for all dashboard routes
 const RequireAuth = () => {
@@ -77,19 +78,19 @@ function App() {
             {/* All dashboard routes require authentication */}
             <Route element={<RequireAuth />}>
               <Route element={<AppLayout />}>
-                <Route path="/dashboard" element={<ClientDashboard />} />
-                <Route path="/conmon" element={<ConMon />} />
-                <Route path="/eye" element={<EyeOfEDS />} />
-                <Route path="/growth" element={<Growth />} />
-                <Route path="/social" element={<Social />} />
-                <Route path="/training" element={<Training />} />
-                <Route path="/exec" element={<ExecHub />} />
-                <Route path="/platform" element={<Platform />} />
-                <Route path="/qa" element={<QA />} />
-                <Route path="/ato" element={<ATOTrackerPage />} />
-                <Route path="/onboarding" element={<OnboardingTracker />} />
-                <Route path="/threat-intel" element={<ThreatIntel />} />
-                <Route path="/security-health" element={<SecurityHealth />} />
+                <Route path="/dashboard"       element={<ClientDashboard />} />
+                <Route path="/conmon"          element={<RoleGuard path="/conmon"><ConMon /></RoleGuard>} />
+                <Route path="/eye"             element={<RoleGuard path="/eye"><EyeOfEDS /></RoleGuard>} />
+                <Route path="/threat-intel"    element={<RoleGuard path="/threat-intel"><ThreatIntel /></RoleGuard>} />
+                <Route path="/security-health" element={<RoleGuard path="/security-health"><SecurityHealth /></RoleGuard>} />
+                <Route path="/ato"             element={<RoleGuard path="/ato"><ATOTrackerPage /></RoleGuard>} />
+                <Route path="/growth"          element={<RoleGuard path="/growth"><Growth /></RoleGuard>} />
+                <Route path="/social"          element={<RoleGuard path="/social"><Social /></RoleGuard>} />
+                <Route path="/training"        element={<Training />} />
+                <Route path="/exec"            element={<RoleGuard path="/exec"><ExecHub /></RoleGuard>} />
+                <Route path="/platform"        element={<RoleGuard path="/platform"><Platform /></RoleGuard>} />
+                <Route path="/qa"              element={<RoleGuard path="/qa"><QA /></RoleGuard>} />
+                <Route path="/onboarding"      element={<RoleGuard path="/onboarding"><OnboardingTracker /></RoleGuard>} />
               </Route>
             </Route>
 
