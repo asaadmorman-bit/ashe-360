@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Home, Shield, Eye, TrendingUp, Share2, GraduationCap, 
-  Briefcase, Server, ClipboardCheck, ShieldCheck, Users, Menu, X, LogOut, ChevronRight, Activity
+  Briefcase, Server, ClipboardCheck, ShieldCheck, Users, Menu, X, LogOut, ChevronRight, Activity, Globe
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
@@ -19,6 +19,7 @@ const NAV_ITEMS = [
   { path: '/qa', label: 'QA', icon: ClipboardCheck },
   { path: '/ato', label: 'ATO Tracker', icon: ShieldCheck },
   { path: '/onboarding', label: 'Onboarding', icon: Users },
+  { path: '/threat-intel', label: 'God\'s View', icon: Globe },
   { path: '/security-health', label: 'Sec Health', icon: Activity },
 ];
 
