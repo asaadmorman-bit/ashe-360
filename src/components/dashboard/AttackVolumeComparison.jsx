@@ -34,13 +34,19 @@ export default function AttackVolumeComparison() {
     </div>
   );
 
-  if (!data?.configured) return (
+  if (!data?.configured || !data?.comparison) return (
     <div className="rounded-2xl border border-orange-500/20 bg-orange-500/5 p-6">
       <p className="text-sm text-muted-foreground">Cloudflare not configured</p>
     </div>
   );
 
-  const zones = Object.keys(data.comparison);
+  const zones = Object.keys(data.comparison || {});
+  if (zones.length < 2) return (
+    <div className="rounded-2xl border border-orange-500/20 bg-orange-500/5 p-6">
+      <p className="text-sm text-muted-foreground">Both Cloudflare zones required</p>
+    </div>
+  );
+
   const [zone1, zone2] = zones;
   const comp1 = data.comparison[zone1];
   const comp2 = data.comparison[zone2];
