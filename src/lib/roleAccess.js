@@ -47,6 +47,7 @@ export const NAV_ACCESS = {
   '/platform':         ['admin', 'soc_manager', 'issm', 'system_admin', 'system_engineer'],
   '/qa':               ['admin', 'soc_manager', 'issm', 'project_manager', 'system_admin', 'system_engineer'],
   '/onboarding':       ['admin', 'soc_manager', 'issm', 'project_manager', 'it_support'],
+  '/directory':        undefined, // all authenticated users
 };
 
 /** Returns true if the given role can access the given path */

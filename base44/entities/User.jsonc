@@ -44,6 +44,22 @@
     "title": {
       "type": "string",
       "description": "Job title or position"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Contact phone number"
+    },
+    "availability_status": {
+      "type": "string",
+      "enum": [
+        "online",
+        "busy",
+        "on_call",
+        "away",
+        "offline"
+      ],
+      "default": "offline",
+      "description": "Current availability/on-call status"
     }
   },
   "required": []
