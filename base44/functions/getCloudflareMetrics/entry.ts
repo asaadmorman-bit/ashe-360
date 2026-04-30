@@ -6,10 +6,12 @@ Deno.serve(async (req) => {
     const user = await base44.auth.me();
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const apiToken = Deno.env.get('CLOUDFLARE_API_TOKEN');
-    const zoneId = Deno.env.get('CLOUDFLARE_ZONE_ID');
+    const zones = [
+      { name: 'eds-360.com', token: Deno.env.get('CLOUDFLARE_API_TOKEN_EDS360'), id: Deno.env.get('CLOUDFLARE_ZONE_ID_EDS360') },
+      { name: 'emergingdefensesolutions.com', token: Deno.env.get('CLOUDFLARE_API_TOKEN_EMERGING'), id: Deno.env.get('CLOUDFLARE_ZONE_ID_EMERGING') },
+    ].filter(z => z.token && z.id);
 
-    if (!apiToken || !zoneId) {
+    if (zones.length === 0) {
       return Response.json({ configured: false }, { status: 200 });
     }
 
@@ -24,90 +26,113 @@ Deno.serve(async (req) => {
     const sinceStr = since.toISOString().split('T')[0];
     const untilStr = now.toISOString().split('T')[0];
 
-    const graphqlQuery = {
-      query: `{
-        viewer {
-          zones(filter: { zoneTag: "${zoneId}" }) {
-            httpRequests1dGroups(
-              limit: 2
-              filter: { date_geq: "${sinceStr}", date_leq: "${untilStr}" }
-            ) {
-              sum {
-                requests
-                cachedRequests
-                bytes
-                cachedBytes
-                threats
-                pageViews
+    // Fetch data from both zones in parallel
+    const zoneDataPromises = zones.map(zone =>
+      Promise.all([
+        fetch('https://api.cloudflare.com/client/v4/graphql', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${zone.token}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: `{
+              viewer {
+                zones(filter: { zoneTag: "${zone.id}" }) {
+                  httpRequests1dGroups(
+                    limit: 2
+                    filter: { date_geq: "${sinceStr}", date_leq: "${untilStr}" }
+                  ) {
+                    sum {
+                      requests
+                      cachedRequests
+                      bytes
+                      cachedBytes
+                      threats
+                      pageViews
+                    }
+                    uniq {
+                      uniques
+                    }
+                  }
+                  firewallEventsAdaptiveGroups(
+                    limit: 10
+                    filter: { datetime_geq: "${since.toISOString()}", datetime_leq: "${now.toISOString()}" }
+                    orderBy: [count_DESC]
+                  ) {
+                    count
+                    dimensions {
+                      action
+                      clientCountryName
+                      ruleId
+                      source
+                    }
+                  }
+                }
               }
-              uniq {
-                uniques
-              }
-            }
-            firewallEventsAdaptiveGroups(
-              limit: 10
-              filter: { datetime_geq: "${since.toISOString()}", datetime_leq: "${now.toISOString()}" }
-              orderBy: [count_DESC]
-            ) {
-              count
-              dimensions {
-                action
-                clientCountryName
-                ruleId
-                source
-              }
-            }
-          }
-        }
-      }`
-    };
+            }`
+          }),
+        }),
+        fetch(`https://api.cloudflare.com/client/v4/zones/${zone.id}`, {
+          headers: { 'Authorization': `Bearer ${zone.token}` }
+        }),
+      ]).then(async ([graphqlRes, zoneRes]) => ({
+        graphql: await graphqlRes.json(),
+        zone: await zoneRes.json(),
+        name: zone.name,
+      }))
+    );
 
-    const [graphqlRes, zoneRes] = await Promise.all([
-      fetch('https://api.cloudflare.com/client/v4/graphql', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(graphqlQuery),
-      }),
-      fetch(`https://api.cloudflare.com/client/v4/zones/${zoneId}`, { headers }),
-    ]);
+    const allZoneData = await Promise.all(zoneDataPromises);
 
-    const [graphqlData, zoneData] = await Promise.all([
-      graphqlRes.json(),
-      zoneRes.json(),
-    ]);
+    // Aggregate data from both zones
+    let totalRequests = 0, totalCached = 0, totalBytes = 0, totalThreats = 0, totalPageViews = 0, totalUniques = 0;
+    const allFirewallEvents = [];
+    let primaryZoneStatus = 'unknown';
 
-    const zone = zoneData?.result || {};
-    const zoneGraphql = graphqlData?.data?.viewer?.zones?.[0] || {};
-    const httpGroups = zoneGraphql?.httpRequests1dGroups || [];
-    const firewallGroups = zoneGraphql?.firewallEventsAdaptiveGroups || [];
+    allZoneData.forEach(zoneResult => {
+      const zone = zoneResult.zone?.result || {};
+      const graphql = zoneResult.graphql?.data?.viewer?.zones?.[0] || {};
+      const httpGroups = graphql.httpRequests1dGroups || [];
+      const firewallGroups = graphql.firewallEventsAdaptiveGroups || [];
 
-    // Aggregate totals across returned days
-    const totals = httpGroups.reduce((acc, g) => ({
-      requests: acc.requests + (g.sum?.requests || 0),
-      cachedRequests: acc.cachedRequests + (g.sum?.cachedRequests || 0),
-      bytes: acc.bytes + (g.sum?.bytes || 0),
-      threats: acc.threats + (g.sum?.threats || 0),
-      pageViews: acc.pageViews + (g.sum?.pageViews || 0),
-      uniques: acc.uniques + (g.uniq?.uniques || 0),
-    }), { requests: 0, cachedRequests: 0, bytes: 0, threats: 0, pageViews: 0, uniques: 0 });
+      httpGroups.forEach(g => {
+        totalRequests += g.sum?.requests || 0;
+        totalCached += g.sum?.cachedRequests || 0;
+        totalBytes += g.sum?.bytes || 0;
+        totalThreats += g.sum?.threats || 0;
+        totalPageViews += g.sum?.pageViews || 0;
+        totalUniques += g.uniq?.uniques || 0;
+      });
 
-    return Response.json({
-      configured: true,
-      zone_name: zone.name || 'eds-360.com',
-      zone_status: zone.status || 'unknown',
-      analytics: {
-        requests_all: totals.requests,
-        requests_cached: totals.cachedRequests,
-        bandwidth_all: totals.bytes,
-        threats: totals.threats,
-        pageviews: totals.pageViews,
-        uniques: totals.uniques,
-      },
-      firewall_events: firewallGroups.map(g => ({
+      allFirewallEvents.push(...firewallGroups.map(g => ({
         action: g.dimensions?.action || 'block',
         country: g.dimensions?.clientCountryName || 'Unknown',
         rule_id: g.dimensions?.ruleId || g.dimensions?.source || '—',
         count: g.count || 0,
+        zone: zoneResult.name,
+      })));
+
+      if (zoneResult.name === 'eds-360.com') primaryZoneStatus = zone.status || 'unknown';
+    });
+
+    // Sort firewall events by count and limit to top 10
+    const topFirewallEvents = allFirewallEvents.sort((a, b) => b.count - a.count).slice(0, 10);
+
+    return Response.json({
+      configured: true,
+      zone_name: 'Multi-Zone (eds-360.com, emergingdefensesolutions.com)',
+      zone_status: primaryZoneStatus,
+      analytics: {
+        requests_all: totalRequests,
+        requests_cached: totalCached,
+        bandwidth_all: totalBytes,
+        threats: totalThreats,
+        pageviews: totalPageViews,
+        uniques: totalUniques,
+      },
+      firewall_events: topFirewallEvents.map(e => ({
+        action: e.action,
+        country: e.country,
+        rule_id: e.rule_id,
+        count: e.count,
       })),
     });
   } catch (error) {

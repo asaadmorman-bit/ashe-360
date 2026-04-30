@@ -27,90 +27,118 @@ Deno.serve(async (req) => {
     const user = await base44.auth.me();
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const apiToken = Deno.env.get('CLOUDFLARE_API_TOKEN');
-    const zoneId   = Deno.env.get('CLOUDFLARE_ZONE_ID');
-    if (!apiToken || !zoneId) return Response.json({ configured: false });
+    const zones = [
+      { name: 'eds-360.com', token: Deno.env.get('CLOUDFLARE_API_TOKEN_EDS360'), id: Deno.env.get('CLOUDFLARE_ZONE_ID_EDS360') },
+      { name: 'emergingdefensesolutions.com', token: Deno.env.get('CLOUDFLARE_API_TOKEN_EMERGING'), id: Deno.env.get('CLOUDFLARE_ZONE_ID_EMERGING') },
+    ].filter(z => z.token && z.id);
+    if (zones.length === 0) return Response.json({ configured: false });
 
     const now   = new Date();
     const since = new Date(now - 48 * 60 * 60 * 1000);
 
-    // Pull firewall events by country + action, and http traffic by country
-    const gqlQuery = {
-      query: `{
-        viewer {
-          zones(filter: { zoneTag: "${zoneId}" }) {
-            firewallEventsAdaptiveGroups(
-              limit: 50
-              filter: { datetime_geq: "${since.toISOString()}", datetime_leq: "${now.toISOString()}" }
-              orderBy: [count_DESC]
-            ) {
-              count
-              dimensions {
-                action
-                clientCountryName
-                clientIP
-                ruleId
-                source
-                userAgent
+    // Fetch from both zones in parallel
+    const allZoneResults = await Promise.all(zones.map(zone =>
+      fetch('https://api.cloudflare.com/client/v4/graphql', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${zone.token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: `{
+            viewer {
+              zones(filter: { zoneTag: "${zone.id}" }) {
+                firewallEventsAdaptiveGroups(
+                  limit: 50
+                  filter: { datetime_geq: "${since.toISOString()}", datetime_leq: "${now.toISOString()}" }
+                  orderBy: [count_DESC]
+                ) {
+                  count
+                  dimensions {
+                    action
+                    clientCountryName
+                    clientIP
+                    ruleId
+                    source
+                    userAgent
+                  }
+                }
+                httpRequestsAdaptiveGroups(
+                  limit: 50
+                  filter: { datetime_geq: "${since.toISOString()}", datetime_leq: "${now.toISOString()}" }
+                  orderBy: [count_DESC]
+                ) {
+                  count
+                  dimensions {
+                    clientCountryName
+                    clientIP
+                    edgeResponseStatus
+                    requestSource
+                  }
+                }
               }
             }
-            httpRequestsAdaptiveGroups(
-              limit: 50
-              filter: { datetime_geq: "${since.toISOString()}", datetime_leq: "${now.toISOString()}" }
-              orderBy: [count_DESC]
-            ) {
-              count
-              dimensions {
-                clientCountryName
-                clientIP
-                edgeResponseStatus
-                requestSource
-              }
-            }
-          }
-        }
-      }`
-    };
+          }`
+        }),
+      }).then(res => res.json())
+    ));
 
-    const res = await fetch('https://api.cloudflare.com/client/v4/graphql', {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${apiToken}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(gqlQuery),
+    // Aggregate firewall and HTTP data from all zones
+    let allFirewallGroups = [];
+    let allHttpGroups = [];
+    allZoneResults.forEach(json => {
+      const zone = json?.data?.viewer?.zones?.[0] || {};
+      allFirewallGroups.push(...(zone.firewallEventsAdaptiveGroups || []));
+      allHttpGroups.push(...(zone.httpRequestsAdaptiveGroups || []));
     });
 
-    const json = await res.json();
-    const zone = json?.data?.viewer?.zones?.[0] || {};
-    const firewallGroups = zone.firewallEventsAdaptiveGroups || [];
-    const httpGroups     = zone.httpRequestsAdaptiveGroups || [];
+    // Consolidate by country+action for firewall, aggregate counts
+    const firewallByCountryAction = {};
+    allFirewallGroups.forEach(g => {
+      const key = `${g.dimensions?.clientCountryName || 'Unknown'}|${g.dimensions?.action || 'block'}`;
+      if (!firewallByCountryAction[key]) {
+        firewallByCountryAction[key] = {
+          country: g.dimensions?.clientCountryName || 'Unknown',
+          action: g.dimensions?.action || 'block',
+          count: 0,
+        };
+      }
+      firewallByCountryAction[key].count += g.count || 0;
+    });
+    const firewallGroups = Object.values(firewallByCountryAction);
+
+    // Consolidate HTTP by country
+    const httpByCountry = {};
+    allHttpGroups.forEach(g => {
+      const country = g.dimensions?.clientCountryName || 'Unknown';
+      if (!httpByCountry[country]) httpByCountry[country] = { count: 0, errors: 0 };
+      httpByCountry[country].count += g.count || 0;
+      if ((g.dimensions?.edgeResponseStatus || 200) >= 400) {
+        httpByCountry[country].errors += g.count || 0;
+      }
+    });
+    const httpGroups = Object.entries(httpByCountry).map(([country, data]) => ({
+      dimensions: { clientCountryName: country, edgeResponseStatus: 200 },
+      count: data.count,
+    }));
 
     // Build geo threat points
     const threatPoints = firewallGroups.map(g => {
-      const country = g.dimensions?.clientCountryName || 'Unknown';
+      const country = g.country;
       const [lat, lng] = coordsForCountry(country);
-      const action = g.dimensions?.action || 'block';
+      const action = g.action;
       return {
         lat, lng, country,
         count: g.count || 0,
         action,
-        source: g.dimensions?.source || '—',
-        rule_id: g.dimensions?.ruleId || '—',
+        source: '—',
+        rule_id: '—',
         type: action === 'block' || action === 'challenge' ? 'threat' : 'suspicious',
       };
     }).filter(p => p.lat !== 0 || p.lng !== 0);
 
     // Build traffic points (legitimate traffic by country)
-    const trafficByCountry = {};
-    httpGroups.forEach(g => {
+    const trafficPoints = httpGroups.map(g => {
       const country = g.dimensions?.clientCountryName || 'Unknown';
-      const status  = g.dimensions?.edgeResponseStatus || 200;
-      if (!trafficByCountry[country]) trafficByCountry[country] = { count: 0, errors: 0 };
-      trafficByCountry[country].count += g.count || 0;
-      if (status >= 400) trafficByCountry[country].errors += g.count || 0;
-    });
-
-    const trafficPoints = Object.entries(trafficByCountry).map(([country, data]) => {
       const [lat, lng] = coordsForCountry(country);
-      return { lat, lng, country, count: data.count, errors: data.errors, type: 'traffic' };
+      return { lat, lng, country, count: g.count || 0, errors: 0, type: 'traffic' };
     }).filter(p => p.lat !== 0 || p.lng !== 0);
 
     // Top threat countries
