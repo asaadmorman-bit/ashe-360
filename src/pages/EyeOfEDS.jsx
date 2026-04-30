@@ -11,6 +11,7 @@ import DataTable, { SeverityBadge, StatusBadge } from '../components/shared/Data
 import SectionPanel from '../components/shared/SectionPanel';
 import IncidentTrendsChart from '../components/eye/IncidentTrendsChart';
 import IncidentSummaryModal from '../components/eye/IncidentSummaryModal';
+import CloudflareTrafficChart from '../components/eye/CloudflareTrafficChart';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
@@ -336,6 +337,11 @@ export default function EyeOfEDS() {
       {/* Cloudflare Live Threat Panel */}
       <SectionPanel title="Cloudflare Network Defense — Live Metrics" icon={Cloud}>
         <CloudflareEyePanel />
+      </SectionPanel>
+
+      {/* Live Traffic & Threat Map */}
+      <SectionPanel title="Live Traffic & Threat Intelligence" icon={Cloud}>
+        <CloudflareTrafficChart />
       </SectionPanel>
 
       <IncidentTrendsChart agentActions={agentActions} />
