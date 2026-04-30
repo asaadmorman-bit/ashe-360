@@ -9,6 +9,7 @@ import CloudflareAlertHistory from '../components/dashboard/CloudflareAlertHisto
 import SecurityPostureCard from '../components/dashboard/SecurityPostureCard';
 import ThreatIntelWidget from '../components/dashboard/ThreatIntelWidget';
 import PalantirOverview from '../components/dashboard/PalantirOverview';
+import GodsEye from '../components/dashboard/GodsEye';
 import { ShieldAlert } from 'lucide-react';
 
 
@@ -239,6 +240,9 @@ export default function ClientDashboard() {
           <CloudflarePanel />
         </div>
       </div>
+
+      {/* God's Eye — Network Intelligence */}
+      <GodsEye />
 
       {/* Palantir Overview */}
       <PalantirOverview />
