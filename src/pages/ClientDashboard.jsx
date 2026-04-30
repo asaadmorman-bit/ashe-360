@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Shield, AlertTriangle, CheckCircle2, Bug, Clock, Activity, ChevronRight } from 'lucide-react';
+import { Shield, AlertTriangle, CheckCircle2, Bug, Activity } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/lib/AuthContext';
 import CloudflarePanel from '../components/dashboard/CloudflarePanel';
+import CloudflareAlertHistory from '../components/dashboard/CloudflareAlertHistory';
+import { ShieldAlert } from 'lucide-react';
+
 
 function LiveClock() {
   const [time, setTime] = useState(new Date());
@@ -233,6 +236,12 @@ export default function ClientDashboard() {
           <CloudflarePanel />
         </div>
       </div>
+
+      {/* Cloudflare Alert History */}
+      <Panel title="Cloudflare Alert History" icon={ShieldAlert} accent="red">
+        <CloudflareAlertHistory />
+      </Panel>
+
     </div>
   );
 }
