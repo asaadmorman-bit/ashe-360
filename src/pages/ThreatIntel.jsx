@@ -14,6 +14,7 @@ import GeoThreatMap from '../components/threatintel/GeoThreatMap';
 import ThreatGeoStats from '../components/threatintel/ThreatGeoStats';
 import DNSZonesPanel from '../components/threatintel/DNSZonesPanel';
 import SOCAgentConsole from '../components/threatintel/SOCAgentConsole';
+import AbuseIPDBPanel from '../components/threatintel/AbuseIPDBPanel';
 import { formatDistanceToNow } from 'date-fns';
 
 // ── Styling maps ──────────────────────────────────────────────────────────────
@@ -211,6 +212,7 @@ export default function ThreatIntel() {
           <TabsTrigger value="dns" className="gap-1.5"><Globe className="w-3.5 h-3.5" />DNS Zones & SSL</TabsTrigger>
           <TabsTrigger value="feeds" className="gap-1.5"><Shield className="w-3.5 h-3.5" />Intel Feeds</TabsTrigger>
           <TabsTrigger value="console" className="gap-1.5"><Cpu className="w-3.5 h-3.5" />SOCaaS Console</TabsTrigger>
+          <TabsTrigger value="abuseipdb" className="gap-1.5"><Shield className="w-3.5 h-3.5" />AbuseIPDB</TabsTrigger>
         </TabsList>
 
         {/* ── TAB 1: Geo Map ── */}

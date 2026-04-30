@@ -8,6 +8,7 @@ import CloudflarePanel from '../components/dashboard/CloudflarePanel';
 import CloudflareAlertHistory from '../components/dashboard/CloudflareAlertHistory';
 import SecurityPostureCard from '../components/dashboard/SecurityPostureCard';
 import ThreatIntelWidget from '../components/dashboard/ThreatIntelWidget';
+import PalantirOverview from '../components/dashboard/PalantirOverview';
 import { ShieldAlert } from 'lucide-react';
 
 
@@ -238,6 +239,9 @@ export default function ClientDashboard() {
           <CloudflarePanel />
         </div>
       </div>
+
+      {/* Palantir Overview */}
+      <PalantirOverview />
 
       {/* Security Posture + Threat Intel + Cloudflare Alert History */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
