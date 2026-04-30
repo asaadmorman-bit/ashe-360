@@ -68,7 +68,6 @@
     "rules": [
       {
         "name": "admins_full_access",
-        "description": "Admins can read/write/delete all tickets",
         "allow": [
           "read",
           "write",
@@ -79,8 +78,30 @@
         }
       },
       {
+        "name": "it_team_full_access",
+        "description": "Full team can read/write tickets",
+        "allow": [
+          "read",
+          "write"
+        ],
+        "when": {
+          "user.role": [
+            "soc_manager",
+            "issm",
+            "project_manager",
+            "incident_response",
+            "threat_hunter",
+            "threat_intelligence",
+            "system_admin",
+            "system_engineer",
+            "firewall_engineer",
+            "firewall_admin",
+            "it_support"
+          ]
+        }
+      },
+      {
         "name": "users_own_client_tickets",
-        "description": "Users can only read tickets for their own client",
         "allow": [
           "read"
         ],

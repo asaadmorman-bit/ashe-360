@@ -58,7 +58,6 @@
     "rules": [
       {
         "name": "admins_full_access",
-        "description": "Admins can read/write/delete all assets",
         "allow": [
           "read",
           "write",
@@ -69,8 +68,41 @@
         }
       },
       {
+        "name": "engineers_full_access",
+        "description": "System/Firewall engineers and admins can read/write assets",
+        "allow": [
+          "read",
+          "write"
+        ],
+        "when": {
+          "user.role": [
+            "soc_manager",
+            "issm",
+            "system_admin",
+            "system_engineer",
+            "firewall_engineer",
+            "firewall_admin",
+            "threat_hunter"
+          ]
+        }
+      },
+      {
+        "name": "team_readonly",
+        "description": "IR, Threat Intel, IT, PM read-only",
+        "allow": [
+          "read"
+        ],
+        "when": {
+          "user.role": [
+            "incident_response",
+            "threat_intelligence",
+            "project_manager",
+            "it_support"
+          ]
+        }
+      },
+      {
         "name": "users_own_client_assets",
-        "description": "Users can only read assets for their own client",
         "allow": [
           "read"
         ],

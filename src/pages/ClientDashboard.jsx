@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/lib/AuthContext';
 import CloudflarePanel from '../components/dashboard/CloudflarePanel';
 import CloudflareAlertHistory from '../components/dashboard/CloudflareAlertHistory';
+import SecurityPostureCard from '../components/dashboard/SecurityPostureCard';
 import ThreatIntelWidget from '../components/dashboard/ThreatIntelWidget';
 import { ShieldAlert } from 'lucide-react';
 
@@ -238,8 +239,9 @@ export default function ClientDashboard() {
         </div>
       </div>
 
-      {/* Threat Intel + Cloudflare Alert History */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      {/* Security Posture + Threat Intel + Cloudflare Alert History */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <SecurityPostureCard />
         <ThreatIntelWidget />
         <Panel title="Cloudflare Alert History" icon={ShieldAlert} accent="red">
           <CloudflareAlertHistory />

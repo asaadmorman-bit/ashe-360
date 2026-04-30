@@ -55,7 +55,6 @@
     "rules": [
       {
         "name": "admins_full_access",
-        "description": "Admins can read/write/delete all STIG findings",
         "allow": [
           "read",
           "write",
@@ -66,8 +65,41 @@
         }
       },
       {
+        "name": "compliance_soc_full_access",
+        "description": "ISSM, SOC Manager, System Admin/Engineer, Threat Hunter full read/write",
+        "allow": [
+          "read",
+          "write"
+        ],
+        "when": {
+          "user.role": [
+            "soc_manager",
+            "issm",
+            "system_admin",
+            "system_engineer",
+            "threat_hunter"
+          ]
+        }
+      },
+      {
+        "name": "team_readonly",
+        "description": "IR, Threat Intel, Firewall, IT, PM read-only",
+        "allow": [
+          "read"
+        ],
+        "when": {
+          "user.role": [
+            "incident_response",
+            "threat_intelligence",
+            "firewall_engineer",
+            "firewall_admin",
+            "project_manager",
+            "it_support"
+          ]
+        }
+      },
+      {
         "name": "users_own_client_findings",
-        "description": "Users can only read STIG findings for their own client",
         "allow": [
           "read"
         ],

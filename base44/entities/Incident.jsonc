@@ -81,7 +81,7 @@
     "rules": [
       {
         "name": "admins_full_access",
-        "description": "Admins can read/write/delete all incidents",
+        "description": "Admins have full access",
         "allow": [
           "read",
           "write",
@@ -92,8 +92,42 @@
         }
       },
       {
+        "name": "soc_team_full_access",
+        "description": "SOC Manager, IR, Threat Hunter full read/write",
+        "allow": [
+          "read",
+          "write"
+        ],
+        "when": {
+          "user.role": [
+            "soc_manager",
+            "incident_response",
+            "threat_hunter",
+            "issm"
+          ]
+        }
+      },
+      {
+        "name": "intel_readonly",
+        "description": "Threat Intelligence, System Admin, Engineers can read all incidents",
+        "allow": [
+          "read"
+        ],
+        "when": {
+          "user.role": [
+            "threat_intelligence",
+            "system_admin",
+            "system_engineer",
+            "firewall_engineer",
+            "firewall_admin",
+            "project_manager",
+            "it_support"
+          ]
+        }
+      },
+      {
         "name": "users_own_client_data",
-        "description": "Users can only read incidents for their own managed client",
+        "description": "Client users can only read their own incidents",
         "allow": [
           "read"
         ],

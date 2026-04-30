@@ -73,7 +73,6 @@
     "rules": [
       {
         "name": "admins_full_access",
-        "description": "Admins can read/write/delete all managed clients",
         "allow": [
           "read",
           "write",
@@ -84,8 +83,41 @@
         }
       },
       {
+        "name": "management_full_access",
+        "description": "SOC Manager, ISSM, PM can read/write client records",
+        "allow": [
+          "read",
+          "write"
+        ],
+        "when": {
+          "user.role": [
+            "soc_manager",
+            "issm",
+            "project_manager"
+          ]
+        }
+      },
+      {
+        "name": "team_readonly",
+        "description": "All other staff roles can read client records",
+        "allow": [
+          "read"
+        ],
+        "when": {
+          "user.role": [
+            "incident_response",
+            "threat_hunter",
+            "threat_intelligence",
+            "system_admin",
+            "system_engineer",
+            "firewall_engineer",
+            "firewall_admin",
+            "it_support"
+          ]
+        }
+      },
+      {
         "name": "users_own_client",
-        "description": "Users can only read their own managed client record",
         "allow": [
           "read"
         ],
