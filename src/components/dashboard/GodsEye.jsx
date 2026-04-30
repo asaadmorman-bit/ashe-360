@@ -147,34 +147,39 @@ function ThreatDetailPanel({ threat, onClose }) {
   );
 }
 
+const SEV_STYLE = {
+  critical: 'text-red-400 bg-red-500/10 border-red-500/30',
+  high:     'text-orange-400 bg-orange-500/10 border-orange-500/30',
+  medium:   'text-yellow-400 bg-yellow-500/10 border-yellow-500/30',
+  low:      'text-blue-400 bg-blue-500/10 border-blue-500/30',
+};
+
 // ── Mandiant Kill Chain Flow ───────────────────────────────────────────────────
-function MandiantFlow({ incidents, feeds }) {
+function MandiantFlow({ incidents, feeds, stageActors = {} }) {
   const [selectedStage, setSelectedStage] = useState(null);
 
-  // Determine which stages have active signals
-  const activeStages = new Set();
+  // Merge OTX live stage signals + local incident/feed signals
+  const activeStages = new Set(Object.keys(stageActors).filter(s => stageActors[s]?.length > 0));
   if (incidents.some(i => ['open', 'investigating', 'mitigating'].includes(i.status))) {
-    activeStages.add('initial');
-    activeStages.add('exec');
+    activeStages.add('initial'); activeStages.add('exec');
   }
   if (feeds.some(f => f.category === 'apt')) activeStages.add('recon');
-  if (feeds.some(f => f.category === 'malware')) {
-    activeStages.add('exec');
-    activeStages.add('persist');
-  }
-  if (feeds.some(f => f.category === 'ransomware')) {
-    activeStages.add('lateral');
-    activeStages.add('exfil');
-  }
+  if (feeds.some(f => f.category === 'malware')) { activeStages.add('exec'); activeStages.add('persist'); }
+  if (feeds.some(f => f.category === 'ransomware')) { activeStages.add('lateral'); activeStages.add('exfil'); }
 
   const selected = KILL_CHAIN.find(s => s.id === selectedStage);
+  const stageActorList = selectedStage ? (stageActors[selectedStage] || []) : [];
 
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2 mb-1">
         <Target className="w-4 h-4 text-orange-400" />
-        <span className="text-sm font-bold text-foreground">Mandiant ATT&CK Kill Chain</span>
-        <span className="ml-auto text-xs text-muted-foreground">Click a stage for details</span>
+        <span className="text-sm font-bold text-foreground">ATT&CK Kill Chain — Live OTX Intel</span>
+        {Object.keys(stageActors).length > 0 && (
+          <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400 font-mono font-semibold">
+            {Object.values(stageActors).flat().length} actors tracked
+          </span>
+        )}
       </div>
 
       {/* Kill chain flow */}
@@ -182,24 +187,32 @@ function MandiantFlow({ incidents, feeds }) {
         {KILL_CHAIN.map((stage, idx) => {
           const isActive = activeStages.has(stage.id);
           const isSelected = selectedStage === stage.id;
+          const actorsHere = stageActors[stage.id] || [];
+          const hasCritical = actorsHere.some(a => a.severity === 'critical');
           return (
             <React.Fragment key={stage.id}>
               <button
                 onClick={() => setSelectedStage(isSelected ? null : stage.id)}
-                className={`flex-1 min-w-[90px] flex flex-col items-center gap-2 p-3 rounded-xl border transition-all text-center group
+                className={`flex-1 min-w-[90px] flex flex-col items-center gap-2 p-3 rounded-xl border transition-all text-center group relative
                   ${isSelected ? 'border-primary bg-primary/10 shadow-lg shadow-primary/10' :
-                    isActive ? 'border-red-500/40 bg-red-500/8 hover:border-red-500/60' :
+                    hasCritical ? 'border-red-500/50 bg-red-500/8 hover:border-red-500/70' :
+                    isActive ? 'border-orange-500/40 bg-orange-500/5 hover:border-orange-500/60' :
                     'border-border/40 bg-card/40 hover:border-primary/40 hover:bg-primary/5'}`}
               >
-                <stage.icon className={`w-4 h-4 ${isSelected ? 'text-primary' : isActive ? 'text-red-400' : 'text-muted-foreground group-hover:text-primary'}`} />
+                {actorsHere.length > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center z-10">
+                    {actorsHere.length}
+                  </span>
+                )}
+                <stage.icon className={`w-4 h-4 ${isSelected ? 'text-primary' : hasCritical ? 'text-red-400' : isActive ? 'text-orange-400' : 'text-muted-foreground group-hover:text-primary'}`} />
                 <div>
-                  <p className={`text-[10px] font-bold uppercase tracking-wide leading-tight ${isSelected ? 'text-primary' : isActive ? 'text-red-400' : 'text-muted-foreground'}`}>
+                  <p className={`text-[10px] font-bold uppercase tracking-wide leading-tight ${isSelected ? 'text-primary' : hasCritical ? 'text-red-400' : isActive ? 'text-orange-400' : 'text-muted-foreground'}`}>
                     {stage.label}
                   </p>
                   <p className="text-[9px] text-muted-foreground/60 font-mono mt-0.5">{stage.tactic}</p>
                 </div>
                 {isActive && !isSelected && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                  <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${hasCritical ? 'bg-red-400' : 'bg-orange-400'}`} />
                 )}
               </button>
               {idx < KILL_CHAIN.length - 1 && (
@@ -215,7 +228,7 @@ function MandiantFlow({ incidents, feeds }) {
       {/* Stage detail */}
       {selected && (
         <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 space-y-3">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <selected.icon className="w-4 h-4 text-primary" />
             <span className="font-bold text-sm text-foreground">{selected.label}</span>
             <span className="font-mono text-xs text-muted-foreground">{selected.tactic}</span>
@@ -223,6 +236,22 @@ function MandiantFlow({ incidents, feeds }) {
               <span className="ml-auto text-xs px-2 py-0.5 rounded-full bg-red-500/15 text-red-400 border border-red-500/30 font-semibold animate-pulse">ACTIVE SIGNAL</span>
             )}
           </div>
+
+          {/* Live OTX threat actors in this stage */}
+          {stageActorList.length > 0 && (
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide">Active Threat Actors (OTX Live)</p>
+              {stageActorList.map((a, i) => (
+                <div key={i} className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-semibold ${SEV_STYLE[a.severity] || SEV_STYLE.medium}`}>
+                  <Crosshair className="w-3 h-3 flex-shrink-0" />
+                  <span className="flex-1 truncate">{a.name}</span>
+                  <span className="text-[10px] opacity-70">{a.country}</span>
+                  <span className="uppercase text-[10px] font-bold">{a.severity}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
           <div className="grid grid-cols-3 gap-2">
             {selected.techniques.map(t => (
               <div key={t} className="rounded-lg bg-card/60 border border-border/30 px-2.5 py-2 text-center">
@@ -231,11 +260,6 @@ function MandiantFlow({ incidents, feeds }) {
               </div>
             ))}
           </div>
-          {activeStages.has(selected.id) && (
-            <div className="rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-2">
-              <p className="text-xs text-red-400 font-semibold">⚠ Active threat signals detected in this phase. Review incidents and intel feeds.</p>
-            </div>
-          )}
         </div>
       )}
     </div>
@@ -322,13 +346,18 @@ export default function GodsEye() {
   const [loading, setLoading] = useState(true);
   const [selectedThreat, setSelectedThreat] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [threatActors, setThreatActors] = useState(null);
 
   const loadMetrics = async (quiet = false) => {
     if (!quiet) setLoading(true);
     else setRefreshing(true);
     try {
-      const res = await base44.functions.invoke('getCloudflareMetrics', {});
-      setMetrics(res.data);
+      const [metricsRes, actorsRes] = await Promise.all([
+        base44.functions.invoke('getCloudflareMetrics', {}),
+        base44.functions.invoke('getMandiantThreatActors', {}),
+      ]);
+      setMetrics(metricsRes.data);
+      setThreatActors(actorsRes.data);
     } catch (_) {}
     setLoading(false);
     setRefreshing(false);
@@ -354,6 +383,8 @@ export default function GodsEye() {
     firewall_events: (metrics.firewall_events || []).map(e => ({ ...e })),
     _selectThreat: setSelectedThreat,
   } : null;
+
+  const stageActors = threatActors?.stage_actors || {};
 
   const threatLevel = !metrics ? 'LOADING' :
     (metrics.analytics?.threats || 0) > 100 ? 'CRITICAL' :
@@ -419,9 +450,48 @@ export default function GodsEye() {
                 <TrafficPulse metrics={enrichedMetrics} />
               </div>
               <div className="rounded-xl border border-border/40 bg-card/30 p-4">
-                <MandiantFlow incidents={incidents} feeds={feeds} />
+                <MandiantFlow incidents={incidents} feeds={feeds} stageActors={stageActors} />
               </div>
             </div>
+
+            {/* Live OTX Threat Actor Feed */}
+            {threatActors?.actors?.length > 0 && (
+              <div className="rounded-xl border border-orange-500/20 bg-orange-500/5 p-4 space-y-3">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Crosshair className="w-4 h-4 text-orange-400" />
+                  <span className="text-sm font-bold text-foreground">Live Threat Actor Intelligence</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-400 font-mono">OTX AlienVault · Live</span>
+                  <span className="ml-auto text-xs text-muted-foreground">{threatActors.total_pulses} pulses · {(threatActors.total_iocs || 0).toLocaleString()} IOCs</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {threatActors.actors.slice(0, 8).map((actor, i) => (
+                    <div key={i} className={`flex items-start gap-2.5 px-3 py-2.5 rounded-lg border text-xs ${SEV_STYLE[actor.severity] || SEV_STYLE.medium}`}>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-0.5">
+                          <span className="font-bold truncate">{actor.name}</span>
+                          <span className={`text-[9px] uppercase font-bold px-1.5 py-0.5 rounded border ${SEV_STYLE[actor.severity]}`}>{actor.severity}</span>
+                        </div>
+                        <div className="text-[10px] opacity-70 flex items-center gap-2 flex-wrap">
+                          <span>{actor.country}</span>
+                          {actor.ioc_count > 0 && <span>{actor.ioc_count} IOCs</span>}
+                          {actor.stages.slice(0, 2).map(s => {
+                            const stage = KILL_CHAIN.find(k => k.id === s);
+                            return stage ? <span key={s} className="font-mono">{stage.tactic}</span> : null;
+                          })}
+                        </div>
+                        {actor.techniques.length > 0 && (
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {actor.techniques.slice(0, 4).map(t => (
+                              <span key={t} className="font-mono text-[9px] px-1.5 py-0.5 rounded bg-black/20 border border-current/20">{t}</span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Action breakdown bar */}
             {metrics?.firewall_events?.length > 0 && (
