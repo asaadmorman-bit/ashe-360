@@ -105,6 +105,12 @@ class ClickHouseClient {
       )
       .join('\n');
 
+    if (!/^[a-zA-Z0-9_]+$/.test(this.database)) {
+      throw new Error('Invalid input');
+    }
+    if (!/^[a-zA-Z0-9_]+$/.test(table_name)) {
+      throw new Error('Invalid input');
+    }
     const insert_sql = `INSERT INTO ${this.database}.${table_name} FORMAT TabSeparated`;
 
     const response = await fetch(`${this.base_url}/?user=${this.user}${this.password ? `&password=${this.password}` : ''}&database=${this.database}`, {
@@ -125,6 +131,9 @@ class ClickHouseClient {
   }
 
   async queryEvents(filter_sql = '') {
+    if (!/^[a-zA-Z0-9_]+$/.test(this.database)) {
+      throw new Error('Invalid input');
+    }
     const query = `
       SELECT 
         timestamp, event_id, principal_userid, target_hostname, 
