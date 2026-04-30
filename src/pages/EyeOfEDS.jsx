@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Eye, ShieldCheck, Bug, MonitorSmartphone, AlertOctagon, Award, Sparkles, Cloud } from 'lucide-react';
 import CloudflareEyePanel from '../components/eye/CloudflareEyePanel';
+import CloudflareThreatStatusCard from '../components/eye/CloudflareThreatStatusCard';
 import PageHeader from '../components/shared/PageHeader';
 import KPICard from '../components/shared/KPICard';
 import DataTable, { SeverityBadge, StatusBadge } from '../components/shared/DataTable';
@@ -121,6 +122,8 @@ export default function EyeOfEDS() {
   return (
     <div className="p-6 lg:p-8 max-w-[1600px] mx-auto space-y-8">
       <PageHeader title="Eye of EDS" subtitle="Threat Intelligence & Compliance Operations" icon={Eye} />
+
+      <CloudflareThreatStatusCard />
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         <KPICard label="Open STIGs" value={openStigs.length} icon={ShieldCheck} />
