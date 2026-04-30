@@ -30,6 +30,7 @@ import OnboardingTracker from './pages/OnboardingTracker';
 import TrainingPublic from './pages/TrainingPublic';
 import ASHE from './pages/ASHE';
 import ThreatIntel from './pages/ThreatIntel';
+import SecurityHealth from './pages/SecurityHealth';
 
 // Gate that enforces auth for all dashboard routes
 const RequireAuth = () => {
@@ -88,6 +89,7 @@ function App() {
                 <Route path="/ato" element={<ATOTrackerPage />} />
                 <Route path="/onboarding" element={<OnboardingTracker />} />
                 <Route path="/threat-intel" element={<ThreatIntel />} />
+                <Route path="/security-health" element={<SecurityHealth />} />
               </Route>
             </Route>
 
