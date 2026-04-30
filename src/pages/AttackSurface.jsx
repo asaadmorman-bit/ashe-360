@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Shield, AlertTriangle, Zap, TrendingUp, Globe, Lock, Bug, Activity } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import ThreatDataMap from '@/components/attack-surface/ThreatDataMap';
 
 function StatCard({ label, value, icon: Icon, color = 'primary', trend }) {
   const colorMap = {
@@ -208,6 +209,9 @@ export default function AttackSurface() {
           </Panel>
         ))}
       </div>
+
+      {/* Global Threat Map */}
+      <ThreatDataMap threatData={vulns.map(v => ({ country: v.client_name || 'Unknown', count: 1, severity: v.severity }))} title="Global Vulnerability Distribution" />
 
       {/* Recent Attack Surface Changes */}
       {agents.length > 0 && (
