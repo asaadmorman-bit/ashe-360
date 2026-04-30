@@ -6,14 +6,45 @@
       "type": "string",
       "enum": [
         "admin",
+        "soc_manager",
+        "issm",
+        "project_manager",
+        "threat_hunter",
+        "threat_intelligence",
+        "incident_response",
+        "system_admin",
+        "system_engineer",
+        "firewall_engineer",
+        "firewall_admin",
+        "it_support",
         "user"
       ],
       "default": "user",
-      "description": "User role - admin (EDS staff) or user (client/customer)"
+      "description": "User role within the EDS-360 SOCaaS platform"
     },
     "managed_client": {
       "type": "string",
       "description": "Company name of the client this user manages/belongs to (for RLS filtering)"
+    },
+    "department": {
+      "type": "string",
+      "enum": [
+        "soc",
+        "noc",
+        "compliance",
+        "engineering",
+        "it",
+        "management",
+        "threat_intel",
+        "incident_response",
+        "client"
+      ],
+      "description": "Team/department the user belongs to"
+    },
+    "title": {
+      "type": "string",
+      "description": "Job title or position"
     }
-  }
+  },
+  "required": []
 }
