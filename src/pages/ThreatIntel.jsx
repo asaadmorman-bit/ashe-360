@@ -333,6 +333,20 @@ export default function ThreatIntel() {
           )}
         </TabsContent>
 
+        {/* ── TAB 5: AbuseIPDB ── */}
+        <TabsContent value="abuseipdb">
+          <div className="glass-panel rounded-xl p-6 space-y-2">
+            <div className="flex items-center gap-2 mb-4">
+              <Shield className="w-5 h-5 text-primary" />
+              <div>
+                <h3 className="font-bold text-foreground">AbuseIPDB IP Reputation Lookup</h3>
+                <p className="text-xs text-muted-foreground">Check any IP against 90 days of community abuse reports — Premium tier</p>
+              </div>
+            </div>
+            <AbuseIPDBPanel />
+          </div>
+        </TabsContent>
+
         {/* ── TAB 4: SOCaaS Agent Console ── */}
         <TabsContent value="console">
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
