@@ -12,6 +12,7 @@ import SectionPanel from '../components/shared/SectionPanel';
 import IncidentTrendsChart from '../components/eye/IncidentTrendsChart';
 import IncidentSummaryModal from '../components/eye/IncidentSummaryModal';
 import CloudflareTrafficChart from '../components/eye/CloudflareTrafficChart';
+import ThreatHistoryChart from '../components/eye/ThreatHistoryChart';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
@@ -342,6 +343,11 @@ export default function EyeOfEDS() {
       {/* Live Traffic & Threat Map */}
       <SectionPanel title="Live Traffic & Threat Intelligence" icon={Cloud}>
         <CloudflareTrafficChart />
+      </SectionPanel>
+
+      {/* 30-Day Threat History */}
+      <SectionPanel title="30-Day Blocked Threat History" icon={Cloud}>
+        <ThreatHistoryChart />
       </SectionPanel>
 
       <IncidentTrendsChart agentActions={agentActions} />
