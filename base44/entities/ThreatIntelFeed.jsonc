@@ -1,0 +1,83 @@
+{
+  "name": "ThreatIntelFeed",
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": "string",
+      "description": "Feed source name (CISA, NSA, FBI, OTX, Abuse.ch, etc.)"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "government",
+        "commercial",
+        "open_source"
+      ],
+      "default": "open_source"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "malware",
+        "vulnerability",
+        "advisory",
+        "ioc",
+        "ransomware",
+        "phishing",
+        "apt",
+        "botnet",
+        "other"
+      ],
+      "default": "advisory"
+    },
+    "url": {
+      "type": "string"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "external_id": {
+      "type": "string",
+      "description": "ID from the source feed (CVE, advisory ID, pulse ID, etc.)"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "iocs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Indicators of Compromise from this alert"
+    },
+    "is_read": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "source",
+    "title"
+  ]
+}
