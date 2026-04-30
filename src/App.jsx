@@ -34,6 +34,7 @@ import SecurityHealth from './pages/SecurityHealth';
 import RoleGuard from './components/layout/RoleGuard';
 import TeamDirectory from './pages/TeamDirectory';
 import ExecReport from './pages/ExecReport';
+import AttackSurface from './pages/AttackSurface';
 
 // Gate that enforces auth for all dashboard routes
 const RequireAuth = () => {
@@ -95,6 +96,7 @@ function App() {
                 <Route path="/onboarding"      element={<RoleGuard path="/onboarding"><OnboardingTracker /></RoleGuard>} />
                 <Route path="/directory"       element={<TeamDirectory />} />
                 <Route path="/exec-report"     element={<RoleGuard path="/exec-report"><ExecReport /></RoleGuard>} />
+                <Route path="/attack-surface"  element={<RoleGuard path="/attack-surface"><AttackSurface /></RoleGuard>} />
               </Route>
             </Route>
 
