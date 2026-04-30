@@ -10,6 +10,7 @@ import SecurityPostureCard from '../components/dashboard/SecurityPostureCard';
 import ThreatIntelWidget from '../components/dashboard/ThreatIntelWidget';
 import PalantirOverview from '../components/dashboard/PalantirOverview';
 import GodsEye from '../components/dashboard/GodsEye';
+import AttackVolumeComparison from '../components/dashboard/AttackVolumeComparison';
 import { ShieldAlert } from 'lucide-react';
 
 
@@ -243,6 +244,9 @@ export default function ClientDashboard() {
 
       {/* God's Eye — Network Intelligence */}
       <GodsEye />
+
+      {/* Attack Volume Comparison */}
+      <AttackVolumeComparison />
 
       {/* Palantir Overview */}
       <PalantirOverview />
