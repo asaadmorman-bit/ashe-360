@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Eye, ShieldCheck, Bug, MonitorSmartphone, AlertOctagon, Award, Sparkles } from 'lucide-react';
+import { Eye, ShieldCheck, Bug, MonitorSmartphone, AlertOctagon, Award, Sparkles, Cloud } from 'lucide-react';
+import CloudflareEyePanel from '../components/eye/CloudflareEyePanel';
 import PageHeader from '../components/shared/PageHeader';
 import KPICard from '../components/shared/KPICard';
 import DataTable, { SeverityBadge, StatusBadge } from '../components/shared/DataTable';
@@ -134,6 +135,11 @@ export default function EyeOfEDS() {
         <ComplianceGauge label="NIST 800-171 (Est.)" score={avgCompliance > 0 ? Math.min(avgCompliance + 5, 100) : 0} />
         <ComplianceGauge label="CMMC L2 (Est.)" score={avgCompliance > 0 ? Math.max(avgCompliance - 8, 0) : 0} />
       </div>
+
+      {/* Cloudflare Live Threat Panel */}
+      <SectionPanel title="Cloudflare Network Defense — Live Metrics" icon={Cloud}>
+        <CloudflareEyePanel />
+      </SectionPanel>
 
       <IncidentTrendsChart agentActions={agentActions} />
 
