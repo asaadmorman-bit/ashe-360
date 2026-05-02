@@ -1,39 +1,13 @@
-**Welcome to your Base44 project** 
+# AMANI VISION: STANDALONE SENTINEL MESH
+## Project Overview
+Amani Vision is a high-availability (99.9% SLA) SOC orchestration framework engineered for multi-cloud and air-gapped environments.
 
-**About**
+### Core Truths
+- **Geographic Truth:** Uses Gall-Peters projection to represent global landmasses accurately.
+- **Agentic Security:** 24/7 Sentinel scanning (Gitleaks + Syntax Integrity).
+- **Compliance:** Built for CMMC 2.0 and NIST RMF standards.
 
-View and Edit  your app on [Base44.com](http://Base44.com) 
-
-This project contains everything you need to run your app locally.
-
-**Edit the code in your local development environment**
-
-Any change pushed to the repo will also be reflected in the Base44 Builder.
-
-**Prerequisites:** 
-
-1. Clone the repository using the project's Git URL 
-2. Navigate to the project directory
-3. Install dependencies: `npm install`
-4. Create an `.env.local` file and set the right environment variables
-
-```
-VITE_BASE44_APP_ID=your_app_id
-VITE_BASE44_APP_BASE_URL=your_backend_url
-
-e.g.
-VITE_BASE44_APP_ID=cbef744a8545c389ef439ea6
-VITE_BASE44_APP_BASE_URL=https://my-to-do-list-81bfaad7.base44.app
-```
-
-Run the app: `npm run dev`
-
-**Publish your changes**
-
-Open [Base44.com](http://Base44.com) and click on Publish.
-
-**Docs & Support**
-
-Documentation: [https://docs.base44.com/Integrations/Using-GitHub](https://docs.base44.com/Integrations/Using-GitHub)
-
-Support: [https://app.base44.com/support](https://app.base44.com/support)
+### How-To Guide
+1. **Local Deployment:** Run `docker-compose up -d` for self-hosting.
+2. **Cloud Deployment:** Use the GCP Nexus Logic in `nexus.js`.
+3. **Battle Cards:** Urgent alerts route to the Wife Hub (ClickUp) via the Nexus bridge.
