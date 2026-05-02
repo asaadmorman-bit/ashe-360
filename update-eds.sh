@@ -1,3 +1,17 @@
+#!/bin/bash
+
+echo "🛠️  [EDS-AUTOMATION] STARTING SYSTEM UPDATE..."
+echo "------------------------------------------------"
+
+# 1. PRE-FLIGHT CHECK: Verify Directory Structure
+if [ ! -d "src/adapters/osint" ] || [ ! -d "src/adapters/outpost" ]; then
+    echo "❌ ERROR: EDS Directory structure is invalid. Creating missing paths..."
+    mkdir -p src/adapters/osint src/adapters/outpost
+fi
+
+# 2. UPDATE ORCHESTRATOR (The Brain)
+echo "🧠 Updating Orchestrator Logic..."
+cat << 'INNER_EOF' > src/EDS_Orchestrator.js
 const fs = require('fs');
 const ashe = require('./adapters/asheAdapter');
 const izulu = require('./adapters/izuluAdapter');
@@ -41,3 +55,11 @@ const evaluateGlobalSecurity = async (assetId, sensorPayload) => {
 };
 
 module.exports = { evaluateGlobalSecurity };
+INNER_EOF
+
+# 3. PERMISSION SYNC
+chmod +x update-eds.sh test-lockdown.sh
+
+echo "------------------------------------------------"
+echo "✅ [EDS-AUTOMATION] UPDATE COMPLETE."
+echo "🚀 Run 'node server.js' to launch the updated Flagship."
