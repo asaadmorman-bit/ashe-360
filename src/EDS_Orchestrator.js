@@ -6,8 +6,8 @@ const conflict = require('./adapters/osint/global/conflictAdapter');
 const outpost = require('./adapters/outpost/outpostAdapter');
 
 const logDecision = (data) => {
-    const logEntry = `[${new Date().toISOString()}] 460_VERDICT: ${data.verdict} | ACTIVE_DEFENSE: ${!!data.remediationStatus}\n`;
-    fs.appendFileSync('eds_460.log', logEntry);
+    const logEntry = `[${new Date().toISOString()}] 360_VERDICT: ${data.verdict} | ACTIVE_DEFENSE: ${!!data.remediationStatus}\n`;
+    fs.appendFileSync('eds_360.log', logEntry);
 };
 
 const evaluateGlobalSecurity = async (assetId, sensorPayload, clientIp = "10.0.0.99") => {
@@ -39,14 +39,14 @@ const evaluateGlobalSecurity = async (assetId, sensorPayload, clientIp = "10.0.0
             verdict,
             remediationStatus,
             globalContext: globalRisks,
-            summary: `EDS_460_SCORE: ${riskScore}`,
+            summary: `EDS_360_SCORE: ${riskScore}`,
             telemetry: { predictive, perimeter, virtual, intel }
         };
 
         logDecision(response);
         return response;
     } catch (err) {
-        console.error(`[460_ORCHESTRATOR_FAIL]: ${err.message}`);
+        console.error(`[360_ORCHESTRATOR_FAIL]: ${err.message}`);
         throw err;
     }
 };

@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "🛡️  [EDS-460] INITIATING GLOBAL COMMAND UPDATE..."
+echo "🛡️  [EDS-360] INITIATING GLOBAL COMMAND UPDATE..."
 echo "------------------------------------------------------------"
 
 # 1. CREATE NEW OSINT DOMAINS
@@ -35,7 +35,7 @@ const isolateThreat = async (ipAddress) => {
 module.exports = { fetch, isolateThreat };
 INNER_EOF
 
-# 4. THE 460° ORCHESTRATOR
+# 4. THE 360° ORCHESTRATOR
 cat << 'INNER_EOF' > src/EDS_Orchestrator.js
 const fs = require('fs');
 const ashe = require('./adapters/asheAdapter');
@@ -45,7 +45,7 @@ const conflict = require('./adapters/osint/global/conflictAdapter');
 const outpost = require('./adapters/outpost/outpostAdapter');
 
 const logDecision = (data) => {
-    const logEntry = `[${new Date().toISOString()}] 460_VERDICT: ${data.verdict} | SCORE: ${data.summary}\n`;
+    const logEntry = `[${new Date().toISOString()}] 360_VERDICT: ${data.verdict} | SCORE: ${data.summary}\n`;
     fs.appendFileSync('eds_audit.log', logEntry);
 };
 
@@ -86,7 +86,7 @@ const evaluateGlobalSecurity = async (assetId, sensorPayload) => {
         logDecision(response);
         return response;
     } catch (err) {
-        console.error(`[460_CORE_FAIL]: ${err.message}`);
+        console.error(`[360_CORE_FAIL]: ${err.message}`);
         throw err;
     }
 };
@@ -94,4 +94,4 @@ const evaluateGlobalSecurity = async (assetId, sensorPayload) => {
 module.exports = { evaluateGlobalSecurity };
 INNER_EOF
 
-echo "✅ [EDS-460] COMMAND UPDATE COMPLETE."
+echo "✅ [EDS-360] COMMAND UPDATE COMPLETE."
