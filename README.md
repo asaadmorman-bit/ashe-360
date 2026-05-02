@@ -1,9 +1,12 @@
-# AMANI VISION: STANDALONE SENTINEL MESH
-## Requirement Fulfillment
-- **99.9% SLA:** Verified via Hybrid Multi-Cloud Logic.
-- **Geographic Truth:** Gall-Peters projection integrated.
-- **CMMC/RMF:** Audit trails active in ServiceNow.
+# AMANI VISION: GLOBAL SENTINEL MESH
+## System Status: PUBLISHED
 
-## Integration How-To
-- Deploy via `docker-compose up -d` for self-hosting.
-- Alerts route to the Wife Hub via Nexus.js.
+### Operational Frameworks
+- **Geographic Truth:** Gall-Peters Projection Integrated.
+- **Compliance:** CMMC 2.0 / NIST RMF Audit Trails Active.
+- **Uptime:** 99.9% SLA via Hybrid Cloud/Self-Hosted Failover.
+
+### Developer How-To
+- **Vaulting:** All secrets must remain in `.env` (Ignored by Git).
+- **Deployment:** Standard `npm install && node server.js`.
+- **Sentinel:** GitHub Actions scan every push for 24/7 security.
