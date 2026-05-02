@@ -1,0 +1,7 @@
+{
+  "projection": "Gall-Peters",
+  "center": [0, 20],
+  "scale_factor": "Equal-Area",
+  "focus_continent": "Africa",
+  "integrity_check": "Verified_Scale_True"
+}

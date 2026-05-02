@@ -1,0 +1,27 @@
+name: Amani Vision Sentinel Scan
+on: [push, pull_request]
+
+jobs:
+  security_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Secret Detection (Gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Dependency Scan (Snyk)
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Static Analysis (CodeQL)
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - name: Perform Analysis
+        uses: github/codeql-action/analyze@v3
