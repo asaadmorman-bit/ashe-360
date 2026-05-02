@@ -1,0 +1,7 @@
+# Amani Vision: Safe-list for non-sensitive patterns
+[allowlist]
+  description = "Allow common local dev patterns"
+  filenames = [
+    "package-lock.json",
+    "README.md"
+  ]
