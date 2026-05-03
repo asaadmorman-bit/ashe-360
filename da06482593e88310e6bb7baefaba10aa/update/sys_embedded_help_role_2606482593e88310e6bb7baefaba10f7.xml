@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_embedded_help_role">
+    <sys_embedded_help_role action="INSERT_OR_UPDATE">
+        <order>10</order>
+        <role display_value="x_2035753_eds_ec_0.admin" name="x_2035753_eds_ec_0.admin">ee06482593e88310e6bb7baefaba10db</role>
+        <sys_class_name>sys_embedded_help_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-04-29 02:00:58</sys_created_on>
+        <sys_id>2606482593e88310e6bb7baefaba10f7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>ee06482593e88310e6bb7baefaba10db</sys_name>
+        <sys_package display_value="EDS Ecosystem" source="x_2035753_eds_ec_0">da06482593e88310e6bb7baefaba10aa</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="EDS Ecosystem">da06482593e88310e6bb7baefaba10aa</sys_scope>
+        <sys_update_name>sys_embedded_help_role_2606482593e88310e6bb7baefaba10f7</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-04-29 02:00:58</sys_updated_on>
+    </sys_embedded_help_role>
+</record_update>
