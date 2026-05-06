@@ -10,17 +10,6 @@ exports.nexusOrchestrator = async (req, res) => {
     return res.status(200).send('Amani Vision Nexus: 100% Operational (GCP Native)');
   }
 
-<<<<<<< HEAD
-  // Handle Logic (Replacing app.post('/api/task'))
-  try {
-    // We pass the raw data from Application Integration directly to nexus
-    await nexus.handleAikidoAlert(req, res);
-  } catch (error) {
-    console.error('Nexus Citadel Breach:', error);
-    res.status(500).send('Internal Nexus Failure');
-  }
-};
-=======
   // 2. Process Battle Card (Triggered via POST from Task 7)
   try {
     // Pass the payload directly to the nexus.handleAikidoAlert logic
@@ -31,4 +20,3 @@ exports.nexusOrchestrator = async (req, res) => {
     res.status(500).send({ status: "Error", message: "Internal Nexus Failure" });
   }
 };
->>>>>>> 09400fc (ASME SOC: Updated side-menu and nexus logic)
