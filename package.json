@@ -2,7 +2,7 @@
   "name": "b44-soc-sentinel",
   "version": "1.0.0",
   "description": "Scalable SOC Integration Framework - Amani Vision Edition",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "build": "vite build",
     "start": "node server.js"

@@ -1,39 +1,29 @@
 const { BigQuery } = require('@google-cloud/bigquery');
 const bigquery = new BigQuery();
 
-// Configuration for the GCP Citadel Vault
-const datasetId = 'amani_vision_logs';
-const tableId = 'agent_actions';
+exports.getDashboardData = async (req, res) => {
+    // Enable CORS so your website can talk to this API
+    res.set('Access-Control-Allow-Origin', '*');
+    
+    if (req.method === 'OPTIONS') {
+        res.set('Access-Control-Allow-Methods', 'GET');
+        res.set('Access-Control-Allow-Headers', 'Content-Type');
+        res.set('Access-Control-Max-Age', '3600');
+        return res.status(204).send('');
+    }
 
-const handleAikidoAlert = async (req, res) => {
-    const payload = req.body;
-    console.log("🚀 BATTLE CARD INBOUND:", payload.issue_title || "Manual Test");
-
-    // Construct the row for the GCP Vault
-    const rows = [{
-        agent_name: "GCP-Sentinel",
-        action_type: "sync_completed",
-        summary: payload.issue_title || "Manual Sync",
-        severity: (payload.severity || "critical").toLowerCase(),
-        status: "completed",
-        metadata: JSON.stringify(payload),
-        timestamp: bigquery.timestamp(new Date())
-    }];
+    const query = `
+        SELECT timestamp, summary, severity, status 
+        FROM \`b44-soc-automation.amani_vision_logs.agent_actions\` 
+        ORDER BY timestamp DESC 
+        LIMIT 10`;
 
     try {
-        // Insert directly into the Citadel Vault (BigQuery)
-        await bigquery.dataset(datasetId).table(tableId).insert(rows);
-        console.log("✅ Nexus Data Vaulted in BigQuery");
-        res.status(200).send({ status: "Success", message: "Battle Card Vaulted" });
+        const [rows] = await bigquery.query(query);
+        console.log(`Successfully retrieved ${rows.length} records from the Vault.`);
+        res.status(200).send(rows);
     } catch (error) {
-        console.error("❌ Vault Failure:", error);
-        res.status(500).send({ status: "Error", message: "Vault Breach" });
+        console.error("❌ Vault Read Error:", error);
+        res.status(500).send({ error: "Failed to retrieve intelligence data." });
     }
 };
-
-const checkServiceNow = async () => {
-    console.log("Amani Nexus: Heartbeat Pulse Sent...");
-    // Future: Add logic here to query ServiceNow API natively
-};
-
-module.exports = { checkServiceNow, handleAikidoAlert };
