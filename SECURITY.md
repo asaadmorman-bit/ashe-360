@@ -36,7 +36,7 @@ If you believe you have found a security vulnerability, please report it to us i
 **Do not open a public GitHub issue.** Instead, please report the vulnerability using one of the following methods:
 
 1. **GitHub Private Vulnerability Reporting:** Go to the "Security" tab of this repository, click "Advisories," and select "Report a vulnerability."
-2. **Email:** Send a detailed report to [Insert Your Security Email Address here, e.g., security@eds-360.com].
+2. **Email:** Send a detailed report to audit@emergingdefensesolutions.com.
 
 **Please include the following in your report:**
 * A clear description of the vulnerability.
